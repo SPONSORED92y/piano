@@ -5,6 +5,7 @@ import Logout from './Logout';
 import Signup from './Signup';
 import About from './About';
 import List from './List';
+import Reserve from './Reserve';
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Create from './Create';
 import EditBook from './EditBook';
