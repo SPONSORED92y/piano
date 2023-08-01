@@ -1,5 +1,6 @@
 const User = require('../models/User')
 const Book = require('../models/Book')
+const Box = require('../models/Box')
 const jwt = require('jsonwebtoken')
 const { signupErrors, loginErrors, createErrors } = require('./handleErrors')
 const createToken = (id) => {
@@ -89,4 +90,57 @@ exports.logoutPost = async (req, res) => {
     res.cookie('jwt', '', { maxAge: 1 })
     res.cookie('currentUser', false, { maxAge: 1 })
     res.status(200).json({})
+}
+
+exports.boxGet=async(req,res)=>{
+    let boxes = []
+    try {
+        boxes = await Box.find().sort({ "period": 1 })
+        res.status(200).json(boxes)
+    } catch (err) {
+        console.log(err)
+    }
+}
+exports.boxPost=async(req,res)=>{
+    try {
+        const box=await Box.findOne({ _id: req.body.id })
+        if(box.status!=='Available'){
+            throw Error('unavailable period')
+        }
+        const updateResult = await Box.updateOne({ _id: req.body.id }, { $set: { "user": res.locals.user.username,"status":"Occupied" } })
+        res.status(200).json(updateResult)
+    } catch (err) {
+        console.log(err)
+        res.status(400).json(err)
+    }
+}
+exports.boxDelete=async(req,res)=>{
+    try {
+        const box=await Box.findOne({ _id: req.body.id })
+        if(box.status!=='Not Available'){
+            throw Error('unavailable period')
+        }
+        if(box.user!==Reserve.locals.user.username){
+            throw Error('can not delete others reserve')
+        }
+        const updateResult = await Box.updateOne({ _id: req.body.id }, { $set: { "user": "","status":"Available" } })
+        res.status(200).json(updateResult)
+    } catch (err) {
+        console.log(err)
+        res.status(400).json(err)
+    }
+}
+exports.boxPatch=async(req,res)=>{
+    const {id,status,user}=req.body
+    try {
+        if(res.locals.user!=='Admin'){
+            throw Error('Only Admin can do this action')
+        }
+        const box=await Box.findOne({ _id: id })
+        const updateResult = await Box.updateOne({ _id: id }, { $set: { "user": user,"status":status } })
+        res.status(200).json(updateResult)
+    } catch (err) {
+        console.log(err)
+        res.status(400).json(err)
+    }
 }
