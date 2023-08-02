@@ -11,3 +11,21 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.daysOfWeek {
+  /* margin-left: 60px; */
+  margin-right: 80px;
+}
+
+.column {
+  width: 130px;
+}
+
+.box {
+  max-height: 21.6px;
+  width: 80px;
+}
+
+.columnContainer {
+  display: flex
+}

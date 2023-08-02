@@ -92,55 +92,85 @@ exports.logoutPost = async (req, res) => {
     res.status(200).json({})
 }
 
-exports.boxGet=async(req,res)=>{
+exports.boxGet = async (req, res) => {
     let boxes = []
     try {
-        boxes = await Box.find().sort({ "period": 1 })
+        boxes = await Box.find({ "week": req.body.week, "room": req.body.room }).sort({ "period": 1 })
         res.status(200).json(boxes)
     } catch (err) {
         console.log(err)
     }
 }
-exports.boxPost=async(req,res)=>{
+exports.boxPost = async (req, res) => {
     try {
-        const box=await Box.findOne({ _id: req.body.id })
-        if(box.status!=='Available'){
+        const box = await Box.findOne({ _id: req.body.id })
+        if (box.status !== 'Available') {
             throw Error('unavailable period')
         }
-        const updateResult = await Box.updateOne({ _id: req.body.id }, { $set: { "user": res.locals.user.username,"status":"Occupied" } })
+        const updateResult = await Box.updateOne({ _id: req.body.id }, { $set: { "user": res.locals.user.username, "status": "Occupied" } })
         res.status(200).json(updateResult)
     } catch (err) {
         console.log(err)
         res.status(400).json(err)
     }
 }
-exports.boxDelete=async(req,res)=>{
+exports.boxDelete = async (req, res) => {
     try {
-        const box=await Box.findOne({ _id: req.body.id })
-        if(box.status!=='Not Available'){
+        const box = await Box.findOne({ _id: req.body.id })
+        if (box.status !== 'Not Available') {
             throw Error('unavailable period')
         }
-        if(box.user!==Reserve.locals.user.username){
+        if (box.user !== Reserve.locals.user.username) {
             throw Error('can not delete others reserve')
         }
-        const updateResult = await Box.updateOne({ _id: req.body.id }, { $set: { "user": "","status":"Available" } })
+        const updateResult = await Box.updateOne({ _id: req.body.id }, { $set: { "user": "", "status": "Available" } })
         res.status(200).json(updateResult)
     } catch (err) {
         console.log(err)
         res.status(400).json(err)
     }
 }
-exports.boxPatch=async(req,res)=>{
-    const {id,status,user}=req.body
+exports.boxPatch = async (req, res) => {
+    const { id, status, user } = req.body
     try {
-        if(res.locals.user!=='Admin'){
+        if (res.locals.user !== 'Admin') {
             throw Error('Only Admin can do this action')
         }
-        const box=await Box.findOne({ _id: id })
-        const updateResult = await Box.updateOne({ _id: id }, { $set: { "user": user,"status":status } })
+        const box = await Box.findOne({ _id: id })
+        const updateResult = await Box.updateOne({ _id: id }, { $set: { "user": user, "status": status } })
         res.status(200).json(updateResult)
     } catch (err) {
         console.log(err)
+        res.status(400).json(err)
+    }
+}
+
+exports.populatePost = async (req, res) => {
+    const statusList = ["Available", "Not Available", "Occupied"]
+    const userList = ["Jason", "Jenny", "Frost", "Vivi", "TT", ""]
+    let count = 0;
+    try {
+        for (let week = 1; week <= 3; week++) {
+            for (let room = 1; room <= 3; room++) {
+                for (let period = 1; period <= 112; period++) {
+                    count++;
+                    const status = statusList[Math.floor(Math.random() * 3)]
+                    const user = userList[Math.floor(Math.random() * 6)]
+                    const box = await Box.create({ period, week, room, status, user })
+                }
+            }
+        }
+        res.status(200).send(`populated: ${count} boxes`)
+    } catch (err) {
+        res.status(400).json(err)
+    }
+}
+
+exports.populateDelete = (req, res) => {
+    try {
+        Box.deleteMany({})
+        res.status(200).send("deleted")
+    } catch (err) {
         res.status(400).json(err)
     }
 }
