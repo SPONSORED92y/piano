@@ -7,7 +7,7 @@ const BoxSchema = new mongoose.Schema({
     week: {
         type: Number,
         required: [true, 'week is empty'],
-        enum: [1, 2, 3],
+        enum: [1, 2],
     },
     room: {
         type: Number,

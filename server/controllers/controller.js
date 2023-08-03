@@ -2,6 +2,8 @@ const User = require('../models/User')
 const Book = require('../models/Book')
 const Box = require('../models/Box')
 const jwt = require('jsonwebtoken')
+const schedule = require("../schedule");
+
 const { signupErrors, loginErrors, createErrors } = require('./handleErrors')
 const createToken = (id) => {
     return jwt.sign({ id }, 'rrharil', {
@@ -105,10 +107,17 @@ exports.boxPost = async (req, res) => {
     try {
         const box = await Box.findOne({ _id: req.body.id })
         if (box.status !== 'Available') {
-            throw Error('unavailable period')
+            throw Error('cant reserve if its not Available')
         }
-        const updateResult = await Box.updateOne({ _id: req.body.id }, { $set: { "user": res.locals.user.username, "status": "Occupied" } })
-        res.status(200).json(updateResult)
+        if (box.week === 1) {
+            throw Error('you can only reserve next week')
+        }
+        if (res.locals.user.times <= 0) {
+            throw Error('exceed reserve number limit')
+        }
+        const updateResultBox = await Box.updateOne({ _id: req.body.id }, { $set: { "user": res.locals.user.username, "status": "Occupied" } })
+        const updateResultUser = await User.updateOne({ _id: res.locals.user._id }, { $set: { "times": res.locals.user.times - 1 } })
+        res.status(200).json({ updateResultBox, updateResultUser })
     } catch (err) {
         console.log(err)
         res.status(400).json(err)
@@ -123,14 +132,19 @@ exports.boxDelete = async (req, res) => {
         if (box.user !== res.locals.user.username) {
             throw Error('can not delete others reserve')
         }
-        const updateResult = await Box.updateOne({ _id: req.body.id }, { $set: { "user": "", "status": "Available" } })
-        res.status(200).json(updateResult)
+        const updateResultBox = await Box.updateOne({ _id: req.body.id }, { $set: { "user": "", "status": "Available" } })
+        let updateResultUser
+        if (box.week === 2 && res.locals.user.times <= 6) {
+            updateResultUser = await User.updateOne({ _id: res.locals.user._id }, { $set: { "times": res.locals.user.times + 1 } })
+        }
+        res.status(200).json({ updateResultBox, updateResultUser })
     } catch (err) {
         console.log(err)
         res.status(400).json(err)
     }
 }
 exports.boxPatch = async (req, res) => {
+    //warning: Admin can modify status and user at will. This means that Admin can reserve unlimited times using the update method
     const { id, newStatus, newUser } = req.body
     try {
         if (res.locals.user.role !== 'Admin') {
@@ -160,7 +174,7 @@ exports.populatePost = async (req, res) => {
     const userList = ["Jason", "Jenny", "Frost", "Vivi", "TT"]
     let count = 0;
     try {
-        for (let week = 1; week <= 3; week++) {
+        for (let week = 1; week <= 2; week++) {
             for (let room = 1; room <= 3; room++) {
                 for (let period = 1; period <= 112; period++) {
                     count++;
@@ -191,4 +205,8 @@ exports.userGet = (req, res) => {
     } catch (err) {
         res.status(400).json(err)
     }
+}
+
+exports.hi = (req, res) => {
+    res.json(schedule.getDisableReserve())
 }

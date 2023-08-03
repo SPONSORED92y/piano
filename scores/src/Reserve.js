@@ -21,18 +21,7 @@ const Reserve = () => {
             vis112.push(false)
         }
         setPopupVisibility(vis112)
-        //fetch user data
-        fetch('http://localhost:9000/user', {
-            mode: "cors",
-            method: "GET",
-            credentials: "include",
-            headers: { "Content-Type": "application/json" },
-        })
-            .then(res => res.json())
-            .then(data => {
-                setUser(data)
-            })
-            .catch(err => { console.log(err) })
+
 
     }, [])
     const flipPopupVisibility = (period) => {
@@ -46,6 +35,21 @@ const Reserve = () => {
     }
     useEffect(() => {
         console.log('render')
+        //fetch user data
+        fetch('http://localhost:9000/user', {
+            mode: "cors",
+            method: "GET",
+            credentials: "include",
+            headers: { "Content-Type": "application/json" },
+        })
+            .then(res => res.json())
+            .then(data => {
+                setUser(data)
+            })
+            .catch(err => {
+                console.log(err)
+                navigate('/login')
+            })
         setCurrentUser(getCookie('currentUser'))
         if (currentUser) {
             fetch('http://localhost:9000/reservePage', {
@@ -70,6 +74,7 @@ const Reserve = () => {
                 })
                 .catch(err => { console.log(err) })
             // console.log(popupVisibility)
+
         } else {
             navigate('/login')
         }
@@ -78,15 +83,19 @@ const Reserve = () => {
     const periodList = ['08:00 ~ 09:00', '09:00 ~ 10:00', '10:00 ~ 11:00', '11:00 ~ 12:00', '12:00 ~ 13:00', '13:00 ~ 14:00', '14:00 ~ 15:00', '15:00 ~ 16:00', '16:00 ~ 17:00', '17:00 ~ 18:00', '18:00 ~ 19:00', '19:00 ~ 20:00', '20:00 ~ 21:00', '21:00 ~ 22:00', '22:00 ~ 23:00', '23:00 ~ 24:00']
 
 
-    const handleClick = (period, boxUser) => {
+    const handleClick = (box) => {
         if (currentUser) {
-            if (currentUser === 'Admin' || user.username === boxUser) {
-                flipPopupVisibility(period)
+            if (currentUser === 'Admin') {
+                flipPopupVisibility(box.period)
+            } else {
+                if (user.username === box.user) {
+                    flipPopupVisibility(box.period)
+                } else if (box.user === '' && user.times > 0 && box.status === 'Available' && box.week === 2) {
+                    flipPopupVisibility(box.period)
+                }
             }
         }
     }
-
-
 
     return (
         <div className='reserve'>
@@ -98,7 +107,6 @@ const Reserve = () => {
             <div>
                 <span onClick={() => { setWeek(1) }}>本周</span>
                 <span onClick={() => { setWeek(2) }}>下周</span>
-                <span onClick={() => { setWeek(3) }}>下下周</span>
                 <div>week: {week}</div>
             </div>
             <div>
@@ -116,7 +124,7 @@ const Reserve = () => {
                     <div className="column" key={box16[0]._id}>
                         <div className="box">{box16.map(box => (
                             <div key={box._id}>
-                                <div onClick={() => handleClick(box.period, box.user)} style={{ backgroundColor: (box.status === 'Available') ? 'white' : ((box.status === 'Not Available') ? 'gray' : ((box.user === user.username) ? 'rgb(84, 219, 136)' : 'rgb(60, 138, 216)')) }}>{box.user ? box.user : "____"}</div>
+                                <div onClick={() => handleClick(box)} style={{ backgroundColor: (box.status === 'Available') ? 'white' : ((box.status === 'Not Available') ? 'gray' : ((box.user === user.username) ? 'rgb(84, 219, 136)' : 'rgb(60, 138, 216)')) }}>{box.user ? box.user : "____"}</div>
                                 <Popup
                                     visibility={popupVisibility[box.period - 1]}
                                     id={box._id}
@@ -127,8 +135,8 @@ const Reserve = () => {
                                     periodList={periodList}
                                     flipPopupVisibility={flipPopupVisibility}
                                     flipSignal={flipSignal}
+                                    week={week}
                                 />
-
                             </div>))}
                         </div>
                     </div>))}

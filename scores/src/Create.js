@@ -1,13 +1,17 @@
-import { useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import CurrentUserContext from './CurrentUserContext';
+import useCookie from "./useCookie";
 
 const Create = () => {
+  const navigate = useNavigate()
+  const getCookie = useCookie()
   const [title, setTitle] = useState('');
   const [status, setStatus] = useState('Available');
   const [borrower, setBorrower] = useState();
   const [titleError, setTitleError] = useState('');
   const [statusError, setStatusError] = useState('');
-  const navigate = useNavigate()
+  const { currentUser, setCurrentUser } = useContext(CurrentUserContext);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -35,6 +39,15 @@ const Create = () => {
       console.log(err)
     }
   }
+
+  useEffect(() => {
+    setCurrentUser(getCookie('currentUser'))
+    if (!currentUser) {
+      navigate('/')
+    } else if (currentUser != 'Admin') {
+      navigate('/')
+    }
+  }, [])
 
   return (
     <div className="login">

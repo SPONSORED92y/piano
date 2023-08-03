@@ -5,6 +5,7 @@ const cookieParser = require('cookie-parser')
 const { requireAuth, checkUser } = require('./authMiddleware')
 
 const controller = require("./controllers/controller");
+const schedule = require("./schedule");
 
 var cors = require('cors')
 
@@ -42,3 +43,7 @@ router.patch('/reserve', requireAuth, checkUser, controller.boxPatch);
 router.post('/populate', controller.populatePost)
 router.delete('/populate', controller.populateDelete)
 router.get('/user', checkUser, controller.userGet)
+router.get('/hi', controller.hi)
+
+schedule.weeklyReserveUpdate()
+// schedule.test()

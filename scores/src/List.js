@@ -46,7 +46,7 @@ const List = () => {
                                 }}>編輯</span>}
                     </div>
                 ))}
-                <Link to={"/create"}>增加</Link>
+                {currentUser === 'Admin' && <Link to={"/create"}>增加</Link>}
             </div>
         </div >
     );

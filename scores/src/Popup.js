@@ -2,7 +2,7 @@ import { useState, useContext, useEffect } from "react";
 import CurrentUserContext from './CurrentUserContext';
 // import { useNavigate } from "react-router-dom";
 const Popup = (props) => {
-    const { visibility, id, status, user, boxUser, period, periodList, flipPopupVisibility, flipSignal } = props
+    const { visibility, id, status, user, boxUser, period, periodList, flipPopupVisibility, flipSignal, week } = props
     const [newStatus, setNewStatus] = useState(status)
     const [newUser, setNewUser] = useState(boxUser)
     const [enabled, setEnabled] = useState(true)
@@ -12,30 +12,43 @@ const Popup = (props) => {
     const { currentUser } = useContext(CurrentUserContext);
     // const navigate = useNavigate()
 
-    const handleClick = async () => {
-        const action = status === 'Available' ? 'POST' : 'DELETE'
-        try {
-            const res = await fetch('http://localhost:9000/reserve', {
-                mode: "cors",
-                method: action,
-                credentials: "include",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ id })
-            })
-            if (res.ok) {
-                // navigate('/reserve')
-                flipPopupVisibility(period)
-                if (status === 'Available') {
-                    console.log('reserve successful')
+    const handleClick = () => {
+        const go = async (action) => {
+            try {
+                const res = await fetch('http://localhost:9000/reserve', {
+                    mode: "cors",
+                    method: action,
+                    credentials: "include",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ id })
+                })
+                if (res.ok) {
+                    // navigate('/reserve')
+                    flipPopupVisibility(period)
+                    if (status === 'Available') {
+                        console.log('reserve successful')
+                    } else {
+                        console.log('cancel successful')
+                    }
                 } else {
-                    console.log('cancel successful')
+                    const data = await res.json();
+                    console.log(data);
                 }
-            } else {
-                const data = await res.json();
-                console.log(data);
+            } catch (err) {
+                console.log(err);
             }
-        } catch (err) {
-            console.log(err);
+        }
+
+        if (status === 'Available') {
+            if (week === 2 && user.times > 0) {
+                go('POST')
+            }
+        } else if (status === 'Occupied') {
+            if (boxUser === user.username) {
+                go('DELETE')
+            }
+        } else if (status === 'Not Available') {
+            //can't click
         }
     }
 
@@ -98,8 +111,14 @@ const Popup = (props) => {
             if (boxUser === user.username) {
                 return '取消預約'
             }
-        } else if (status === 'Available') {
-            return '預約'
+        } else if (status === 'Available' && week === 2) {
+            if (user.times > 0) {
+                return '預約'
+            } else {
+                return '已沒有預約次數'
+            }
+        } else {
+            return ''
         }
     }
 
@@ -110,9 +129,7 @@ const Popup = (props) => {
                 <div>預約</div>
                 <div>period:{period % 16}</div>
                 <div>時段:{periodList[(period % 16) - 1]}</div>
-                <span onClick={() => {
-                    flipPopupVisibility(period)
-                }}>關閉</span>
+                <span onClick={() => { flipPopupVisibility(period) }}>關閉</span>
                 <span onClick={handleClick}>{buttonOption()}</span>
                 {currentUser === 'Admin' && <form onSubmit={handleSubmit}>
                     <label>狀態:</label>
