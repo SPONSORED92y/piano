@@ -6,8 +6,9 @@ const Logout = () => {
   const {
     setCurrentUser
   } = useContext(CurrentUserContext);
+
   useEffect(() => {
-    fetch('http://localhost:8000/logout', {
+    fetch('http://localhost:9000/logout', {
       mode: "cors",
       method: "POST",
       credentials: "include",

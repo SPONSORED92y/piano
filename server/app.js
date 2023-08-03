@@ -22,7 +22,7 @@ app.use(cors(corsOptions));
 
 const dbURI = 'mongodb+srv://jasonsu92y:jason789523@cluster0.yb5h0bu.mongodb.net/jwt-auth?retryWrites=true&w=majority';
 mongoose.connect(dbURI)
-    .then((result) => app.listen(8000, () => console.log("server start on 8000")))
+    .then((result) => app.listen(9000, () => console.log("server start on 9000")))
     .catch((err) => console.log(err))
 
 
@@ -41,3 +41,4 @@ router.delete('/reserve', requireAuth, checkUser, controller.boxDelete);
 router.patch('/reserve', requireAuth, checkUser, controller.boxPatch);
 router.post('/populate', controller.populatePost)
 router.delete('/populate', controller.populateDelete)
+router.get('/user', checkUser, controller.userGet)

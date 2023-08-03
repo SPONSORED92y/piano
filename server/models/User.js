@@ -30,6 +30,11 @@ const UserSchema = new mongoose.Schema({
         required: [true, 'role is empty'],
         enum: ["Admin", "Member"],
         default: "Member",
+    },
+    times: {//times left to reserve piano room
+        type: Number,
+        required: [true, 'times is empty'],
+        default: 7,
     }
 })
 

@@ -4,19 +4,15 @@ import { useEffect, useContext } from 'react';
 import useCookie from './useCookie';
 import CurrentUserContext from './CurrentUserContext';
 const List = () => {
-    const {
-        currentUser,
-        setCurrentUser
-    } = useContext(CurrentUserContext);
     const getCookie = useCookie()
     const navigate = useNavigate()
-
+    const { currentUser, setCurrentUser } = useContext(CurrentUserContext)
     useEffect(() => {
         setCurrentUser(getCookie('currentUser'))
-    }, [getCookie, setCurrentUser])
+    }, [])
 
 
-    const { error, isPending, data: books } = useFetch('http://localhost:8000/list');
+    const { error, isPending, data: books } = useFetch('http://localhost:9000/list');
 
     return (
         <div className="list">

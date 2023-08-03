@@ -117,10 +117,10 @@ exports.boxPost = async (req, res) => {
 exports.boxDelete = async (req, res) => {
     try {
         const box = await Box.findOne({ _id: req.body.id })
-        if (box.status !== 'Not Available') {
-            throw Error('unavailable period')
+        if (box.status !== 'Occupied') {
+            throw Error('its not Occupied')
         }
-        if (box.user !== Reserve.locals.user.username) {
+        if (box.user !== res.locals.user.username) {
             throw Error('can not delete others reserve')
         }
         const updateResult = await Box.updateOne({ _id: req.body.id }, { $set: { "user": "", "status": "Available" } })
@@ -131,13 +131,23 @@ exports.boxDelete = async (req, res) => {
     }
 }
 exports.boxPatch = async (req, res) => {
-    const { id, status, user } = req.body
+    const { id, newStatus, newUser } = req.body
     try {
-        if (res.locals.user !== 'Admin') {
+        if (res.locals.user.role !== 'Admin') {
             throw Error('Only Admin can do this action')
         }
+        if (newStatus !== 'Occupied') {
+            if (newUser !== '') {
+                throw Error(`there cant be a user wihile status is${newStatus}`)
+            }
+        } else {
+            if (newUser === '') {
+                throw Error('there must be a user wihile status is Occupied')
+            }
+        }
+
         const box = await Box.findOne({ _id: id })
-        const updateResult = await Box.updateOne({ _id: id }, { $set: { "user": user, "status": status } })
+        const updateResult = await Box.updateOne({ _id: id }, { $set: { "user": newUser, "status": newStatus } })
         res.status(200).json(updateResult)
     } catch (err) {
         console.log(err)
@@ -147,7 +157,7 @@ exports.boxPatch = async (req, res) => {
 
 exports.populatePost = async (req, res) => {
     const statusList = ["Available", "Not Available", "Occupied"]
-    const userList = ["Jason", "Jenny", "Frost", "Vivi", "TT", ""]
+    const userList = ["Jason", "Jenny", "Frost", "Vivi", "TT"]
     let count = 0;
     try {
         for (let week = 1; week <= 3; week++) {
@@ -155,7 +165,10 @@ exports.populatePost = async (req, res) => {
                 for (let period = 1; period <= 112; period++) {
                     count++;
                     const status = statusList[Math.floor(Math.random() * 3)]
-                    const user = userList[Math.floor(Math.random() * 6)]
+                    let user = ""
+                    if (status === "Occupied") {
+                        user = userList[Math.floor(Math.random() * 5)]
+                    }
                     const box = await Box.create({ period, week, room, status, user })
                 }
             }
@@ -167,9 +180,14 @@ exports.populatePost = async (req, res) => {
 }
 
 exports.populateDelete = (req, res) => {
+    Box.deleteMany({})
+        .then(result => res.status(200).send("deleted"))
+        .catch(err => { res.status(400).json(err) })
+}
+
+exports.userGet = (req, res) => {
     try {
-        Box.deleteMany({})
-        res.status(200).send("deleted")
+        res.status(200).json(res.locals.user)
     } catch (err) {
         res.status(400).json(err)
     }

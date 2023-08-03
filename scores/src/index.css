@@ -29,3 +29,28 @@ code {
 .columnContainer {
   display: flex
 }
+
+.popupContainer {
+  width: 160px;
+  /* background-color: rgb(84, 219, 136); */
+  background-color: #9a9a9a;
+  text-align: center;
+  border-radius: 6px;
+  padding: 8px 0;
+  position: absolute;
+  bottom: 5px;
+  z-index: 2;
+}
+
+.backCover {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: #000;
+  opacity: .75;
+  z-index: 1;
+}

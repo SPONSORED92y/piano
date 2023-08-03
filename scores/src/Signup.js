@@ -46,7 +46,7 @@ const Signup = () => {
     setRoleError('')
     setAdminKeyError('')
     try {
-      const res = await fetch('http://localhost:8000/signup', {
+      const res = await fetch('http://localhost:9000/signup', {
         mode: 'cors',
         method: "POST",
         credentials: "include",
