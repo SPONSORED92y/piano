@@ -6,10 +6,11 @@ import Signup from './Signup';
 import About from './About';
 import List from './List';
 import Reserve from './Reserve';
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import Profile from './Profile';
 import Create from './Create';
 import EditBook from './EditBook';
 
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { useState } from 'react';
 
 import CurrentUserContext from './CurrentUserContext';
@@ -21,10 +22,7 @@ function App() {
     <BrowserRouter>
       <div className="App">
         <CurrentUserContext.Provider
-          value={{
-            currentUser,
-            setCurrentUser
-          }}
+          value={{ currentUser, setCurrentUser }}
         >
           <Navbar />
           <div className="content">
@@ -38,6 +36,7 @@ function App() {
               <Route path="/reserve" element={<Reserve />} />
               <Route path="/create" element={<Create />} />
               <Route path="/editBook" element={<EditBook />} />
+              <Route path="/profile" element={<Profile />} />
             </Routes>
           </div>
         </CurrentUserContext.Provider>

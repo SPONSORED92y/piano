@@ -14,7 +14,7 @@ const EditBook = () => {
 
   const handleClickDelete = async () => {
     try {
-      const res = await fetch('http://localhost:8000/book', {
+      const res = await fetch('http://localhost:9000/book', {
         mode: 'cors',
         method: "DELETE",
         credentials: "include",
@@ -38,7 +38,7 @@ const EditBook = () => {
     setTitleError('')
     setStatusError('')
     try {
-      const res = await fetch('http://localhost:8000/book', {
+      const res = await fetch('http://localhost:9000/book', {
         mode: 'cors',
         method: "PATCH",
         credentials: "include",
@@ -76,8 +76,8 @@ const EditBook = () => {
           <label>狀態:</label>
           <select value={status}
             onChange={(e) => setStatus(e.target.value)}>
-            <option value='Available'>Available</option>
-            <option value='Not Available'>Not Available</option>
+            <option value='Available'>可借閱</option>
+            <option value='Not Available'>已外借</option>
           </select>
           <div>{statusError}</div>
         </div>

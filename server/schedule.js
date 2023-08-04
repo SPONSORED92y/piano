@@ -1,5 +1,4 @@
 const cron = require('node-cron');
-const User = require('./models/User')
 const Box = require('./models/Box')
 
 let disableReserve = false
@@ -7,13 +6,13 @@ exports.getDisableReserve = () => {
     return disableReserve
 }
 const setDisableReserve = (val) => {
-    console.log('set')
+    console.log(val ? 'blocking reserve request' : 'reopened reserve request')
     disableReserve = val
 }
 exports.setDisableReserve = setDisableReserve
 
 exports.weeklyReserveUpdate = () => {
-    const job = cron.schedule('*/1 * * * *', async () => {
+    const job = cron.schedule('*/7 * * * *', async () => {
         console.log('prepare for weekly update')
         await new Promise(resolve => setTimeout(resolve, 3000));
         console.log('weekly update started')
@@ -39,4 +38,12 @@ exports.test = () => {
         disableReserve = !disableReserve
         console.log(disableReserve)
     })
+}
+
+exports.checkEnabled = (req, res, next) => {
+    if (!disableReserve) {
+        next()
+    } else {
+        res.status(409).send()
+    }
 }

@@ -8,7 +8,7 @@ const Create = () => {
   const getCookie = useCookie()
   const [title, setTitle] = useState('');
   const [status, setStatus] = useState('Available');
-  const [borrower, setBorrower] = useState();
+  const [borrower, setBorrower] = useState('');
   const [titleError, setTitleError] = useState('');
   const [statusError, setStatusError] = useState('');
   const { currentUser, setCurrentUser } = useContext(CurrentUserContext);
@@ -18,22 +18,21 @@ const Create = () => {
     setTitleError('')
     setStatusError('')
     try {
-      const res = await fetch('http://localhost:8000/create', {
+      const res = await fetch('http://localhost:9000/create', {
         mode: 'cors',
         method: "POST",
         credentials: "include",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ title, status, borrower })
       })
-      const data = await res.json();
-      console.log(data);
-      if (data.errors) {
+      if (res.ok) {
+        console.log(`${title} created successfully`)
+        navigate('/list')
+      } else {
+        const data = await res.json();
+        console.log(data);
         setTitleError(data.errors.title)
         setStatusError(data.errors.status)
-      }
-      if (data.title) {
-        console.log(`${data.title} created successfully`)
-        navigate('/list')
       }
     } catch (err) {
       console.log(err)
@@ -67,8 +66,8 @@ const Create = () => {
           <label>狀態:</label>
           <select value={status}
             onChange={(e) => setStatus(e.target.value)}>
-            <option value='Available'>Available</option>
-            <option value='Not Available'>Not Available</option>
+            <option value='Available'>可借閱</option>
+            <option value='Not Available'>已外借</option>
           </select>
           <div>{statusError}</div>
         </div>

@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import useCookie from "./useCookie";
 import CurrentUserContext from './CurrentUserContext';
 const Login = () => {
-  const [username, setUsername] = useState('jason2');
+  const [username, setUsername] = useState('jason');
   const [password, setPassword] = useState('123456');
   const [usernameError, setUsernameError] = useState('');
   const [passwordError, setPasswordError] = useState('');

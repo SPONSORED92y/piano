@@ -2,9 +2,9 @@ const User = require('../models/User')
 const Book = require('../models/Book')
 const Box = require('../models/Box')
 const jwt = require('jsonwebtoken')
-const schedule = require("../schedule");
+const bcrypt = require('bcrypt')
 
-const { signupErrors, loginErrors, createErrors } = require('./handleErrors')
+const { signupErrors, loginErrors, createErrors, profileErrors, changePasswordErrors } = require('./handleErrors')
 const createToken = (id) => {
     return jwt.sign({ id }, 'rrharil', {
         expiresIn: 5 * 60 * 1000
@@ -46,7 +46,7 @@ exports.bookDelete = async (req, res) => {
 exports.bookPatch = async (req, res) => {
     try {
         const { id, title, status, borrower } = req.body
-        const updateResult = await Book.updateOne({ _id: id }, { $set: { "title": title, "status": status, "borrower": borrower } })
+        const updateResult = await Book.updateOne({ _id: id }, { $set: { "title": title, "status": status, "borrower": borrower } }, { runValidators: true })
         res.status(200).json(updateResult)
     } catch (err) {
         console.log(err)
@@ -194,7 +194,7 @@ exports.populatePost = async (req, res) => {
 }
 
 exports.populateDelete = (req, res) => {
-    Box.deleteMany({})
+    Box.collection.drop()
         .then(result => res.status(200).send("deleted"))
         .catch(err => { res.status(400).json(err) })
 }
@@ -207,6 +207,30 @@ exports.userGet = (req, res) => {
     }
 }
 
-exports.hi = (req, res) => {
-    res.json(schedule.getDisableReserve())
+exports.profilePatch = async (req, res) => {
+    const { username, email, department, studentID, role, adminKey } = req.body
+    try {
+        if (res.locals.user.role !== 'Admin' && role === 'Admin' && adminKey != 'SPONSORED') {
+            throw Error('Invalid AdminKey')
+        }
+        const updateResult = await User.updateOne({ _id: res.locals.user._id }, { $set: { 'username': username, 'email': email, 'department': department, 'studentID': studentID, 'role': role } }, { runValidators: true })
+        res.status(200).send()
+    } catch (err) {
+        const errors = profileErrors(err)
+        res.status(400).json({ errors })
+    }
+}
+
+exports.changePasswordPatch = async (req, res) => {
+    const { passwordCurrent, password } = req.body
+    try {
+        const user = await User.login(res.locals.user.username, passwordCurrent)
+        const salt = await bcrypt.genSalt()
+        const EncryptedPassword = await bcrypt.hash(password, salt)
+        const updateResult = await User.updateOne({ _id: res.locals.user._id }, { $set: { 'password': EncryptedPassword } }, { runValidators: true })
+        res.status(200).send()
+    } catch (err) {
+        const errors = changePasswordErrors(err)
+        res.status(400).json({ errors })
+    }
 }

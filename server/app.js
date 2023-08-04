@@ -36,14 +36,14 @@ router.post('/create', requireAuth, checkUser, controller.createPost);
 router.post('/logout', controller.logoutPost);
 router.delete('/book', requireAuth, checkUser, controller.bookDelete);
 router.patch('/book', requireAuth, checkUser, controller.bookPatch);
-router.post('/reservePage', requireAuth, controller.boxGet);
-router.post('/reserve', requireAuth, checkUser, controller.boxPost);
-router.delete('/reserve', requireAuth, checkUser, controller.boxDelete);
-router.patch('/reserve', requireAuth, checkUser, controller.boxPatch);
+router.post('/reservePage', schedule.checkEnabled, requireAuth, controller.boxGet);
+router.post('/reserve', schedule.checkEnabled, requireAuth, checkUser, controller.boxPost);
+router.delete('/reserve', schedule.checkEnabled, requireAuth, checkUser, controller.boxDelete);
+router.patch('/reserve', schedule.checkEnabled, requireAuth, checkUser, controller.boxPatch);
 router.post('/populate', controller.populatePost)
 router.delete('/populate', controller.populateDelete)
 router.get('/user', checkUser, controller.userGet)
-router.get('/hi', controller.hi)
+router.patch('/profile', requireAuth, checkUser, controller.profilePatch)
+router.patch('/changePassword', requireAuth, checkUser, controller.changePasswordPatch)
 
-schedule.weeklyReserveUpdate()
-// schedule.test()
+// schedule.weeklyReserveUpdate()

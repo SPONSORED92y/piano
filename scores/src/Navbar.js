@@ -22,6 +22,7 @@ const Navbar = () => {
                 {!currentUser && <Link to="/login">登入</Link>}
                 {currentUser && <Link to="/logout">登出</Link>}
                 {!currentUser && <Link to="/signup">註冊</Link>}
+                {currentUser && <Link to="/profile">個人檔案</Link>}
             </div>
         </nav>
     );

@@ -6,6 +6,8 @@ import { useNavigate } from "react-router-dom";
 const Reserve = () => {
     const getCookie = useCookie()
     const navigate = useNavigate()
+    const [sec, setSec] = useState()
+
     const [boxes, setBoxes] = useState([])
     const [week, setWeek] = useState(1)
     const [room, setRoom] = useState(1)

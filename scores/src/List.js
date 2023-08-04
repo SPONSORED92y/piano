@@ -29,7 +29,7 @@ const List = () => {
                     // bookimage
                     <div className="book" key={book._id}>
                         <span style={{ paddingLeft: "20px", paddingRight: "20px" }}>{book.title}</span>
-                        <span style={{ paddingLeft: "20px", paddingRight: "20px" }}>{book.status}</span>
+                        <span style={{ paddingLeft: "20px", paddingRight: "20px" }}>{(book.status === 'Available') ? '可借閱' : '已外借'}</span>
                         {currentUser === 'Admin' && <span style={{ paddingLeft: "20px", paddingRight: "20px" }}>{book.borrower}</span>}
                         {currentUser === 'Admin' &&
                             <span
