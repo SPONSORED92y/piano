@@ -52,7 +52,7 @@ router.get('/healthz', (req, res) => {
 })
 router.get('/hi', (req, res) => {
     console.log('got hied')
-    console.log(`hi back ${req.hostname()}`)
+    console.log(`hi back ${req.hostname}`)
     res.status(200).send(`hi back ${req.hostname()}`)
 })
 
