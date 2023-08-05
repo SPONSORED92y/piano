@@ -3,9 +3,9 @@ import { useNavigate } from "react-router-dom";
 import useCookie from "./useCookie";
 import CurrentUserContext from './CurrentUserContext';
 const Login = () => {
-  const [username, setUsername] = useState('jason');
+  const [email, setEmail] = useState('jason');
   const [password, setPassword] = useState('123456');
-  const [usernameError, setUsernameError] = useState('');
+  const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
 
   const {
@@ -26,7 +26,7 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setUsernameError('')
+    setEmailError('')
     setPasswordError('')
     try {
       const res = await fetch('http://localhost:9000/login', {
@@ -34,12 +34,12 @@ const Login = () => {
         method: "POST",
         credentials: "include",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ username, password })
+        body: JSON.stringify({ email, password })
       })
       const data = await res.json();
       console.log(data);
       if (data.errors) {
-        setUsernameError(data.errors.username)
+        setEmailError(data.errors.email)
         setPasswordError(data.errors.password)
       }
       if (data.user) {
@@ -58,14 +58,14 @@ const Login = () => {
       <form onSubmit={handleSubmit}>
         <div>
 
-          <label>使用者名稱:</label>
+          <label>Email:</label>
           <input
             type="text"
             required
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
           />
-          <div>{usernameError}</div>
+          <div>{emailError}</div>
         </div>
         <div>
           <label>密碼:</label>

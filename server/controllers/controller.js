@@ -58,9 +58,9 @@ exports.loginPost = async (req, res) => {
     if (res.locals.user) {
         res.status(400).json({ error: "duplicate login" })
     } else {
-        const { username, password } = req.body;
+        const { email, password } = req.body;
         try {
-            const user = await User.login(username, password)
+            const user = await User.login(email, password)
             const token = createToken(user._id)
             res.cookie('jwt', token, { httpOnly: true, maxAge: 5 * 60 * 1000 })
             res.cookie('currentUser', user.role, { maxAge: 5 * 60 * 1000 })
@@ -224,7 +224,7 @@ exports.profilePatch = async (req, res) => {
 exports.changePasswordPatch = async (req, res) => {
     const { passwordCurrent, password } = req.body
     try {
-        const user = await User.login(res.locals.user.username, passwordCurrent)
+        const user = await User.login(res.locals.user.email, passwordCurrent)
         const salt = await bcrypt.genSalt()
         const EncryptedPassword = await bcrypt.hash(password, salt)
         const updateResult = await User.updateOne({ _id: res.locals.user._id }, { $set: { 'password': EncryptedPassword } }, { runValidators: true })

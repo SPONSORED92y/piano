@@ -1,8 +1,8 @@
 exports.loginErrors = (err) => {
     console.log(err.message, err.code);
-    let errors = { username: '', password: '' };
-    // incorrect username
-    if (err.message === 'incorrect username') {
+    let errors = { email: '', password: '' };
+    // incorrect email
+    if (err.message === 'incorrect email') {
         errors.password = '不存在此帳號';
     }
     // incorrect password
@@ -101,7 +101,7 @@ exports.createErrors = (err) => {
             }
         }
         //Book validation failed: title: title is empty
-        if (mes === 'title: username is empty') {
+        if (mes === 'title: title is empty') {
             errors.title = '標題不得為空白';
         }
     })

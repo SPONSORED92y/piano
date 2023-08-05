@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 
 const EditBook = () => {
@@ -10,7 +10,7 @@ const EditBook = () => {
   const [borrower, setBorrower] = useState(location.state.borrower);
   const [titleError, setTitleError] = useState('');
   const [statusError, setStatusError] = useState('');
-  // const [doneEdit, setDoneEdit] = useState(null);
+  const [errorMessage, setErrorMessage] = useState('');
 
   const handleClickDelete = async () => {
     try {
@@ -37,6 +37,7 @@ const EditBook = () => {
     e.preventDefault();
     setTitleError('')
     setStatusError('')
+    setErrorMessage('')
     try {
       const res = await fetch('http://localhost:9000/book', {
         mode: 'cors',
@@ -57,9 +58,24 @@ const EditBook = () => {
     }
   }
 
+  useEffect(() => {
+    if (status === 'Available') {
+      if (borrower !== '') {
+        setErrorMessage('可借閱狀態不能有出借社員')
+      } else {
+        setErrorMessage('')
+      }
+    } else {
+      if (borrower === '') {
+        setErrorMessage('已外借狀態必須有出借社員')
+      } else {
+        setErrorMessage('')
+      }
+    }
+  }, [status, borrower])
+
   return (
     <div className="EditBook">
-      {/* {doneEdit && <Navigate to='/list' />} */}
       <h1>編輯琴譜</h1>
       <form onSubmit={handleSubmit}>
         <div>
@@ -89,7 +105,8 @@ const EditBook = () => {
             onChange={(e) => setBorrower(e.target.value)}
           />
         </div>
-        <button>更新</button>
+        <div>{errorMessage}</div>
+        <button disabled={errorMessage !== ''}>更新</button>
         <div onClick={handleClickDelete}>刪除琴譜</div>
       </form>
     </div>

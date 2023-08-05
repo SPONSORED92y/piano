@@ -11,12 +11,14 @@ const Create = () => {
   const [borrower, setBorrower] = useState('');
   const [titleError, setTitleError] = useState('');
   const [statusError, setStatusError] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
   const { currentUser, setCurrentUser } = useContext(CurrentUserContext);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setTitleError('')
     setStatusError('')
+    setErrorMessage('')
     try {
       const res = await fetch('http://localhost:9000/create', {
         mode: 'cors',
@@ -47,6 +49,22 @@ const Create = () => {
       navigate('/')
     }
   }, [])
+
+  useEffect(() => {
+    if (status === 'Available') {
+      if (borrower !== '') {
+        setErrorMessage('可借閱狀態不能有出借社員')
+      } else {
+        setErrorMessage('')
+      }
+    } else {
+      if (borrower === '') {
+        setErrorMessage('已外借狀態必須有出借社員')
+      } else {
+        setErrorMessage('')
+      }
+    }
+  }, [status, borrower])
 
   return (
     <div className="login">
@@ -79,7 +97,8 @@ const Create = () => {
             onChange={(e) => setBorrower(e.target.value)}
           />
         </div>
-        <button>新增</button>
+        <div>{errorMessage}</div>
+        <button disabled={errorMessage !== ''}>新增</button>
       </form>
     </div>
   );

@@ -12,9 +12,9 @@ const setDisableReserve = (val) => {
 exports.setDisableReserve = setDisableReserve
 
 exports.weeklyReserveUpdate = () => {
-    const job = cron.schedule('*/7 * * * *', async () => {
+    const job = cron.schedule('59 59 23 * * 7', async () => {
         console.log('prepare for weekly update')
-        await new Promise(resolve => setTimeout(resolve, 3000));
+        await new Promise(resolve => setTimeout(resolve, 5 * 60 * 1000));
         console.log('weekly update started')
         setDisableReserve(true)
         try {
@@ -30,13 +30,6 @@ exports.weeklyReserveUpdate = () => {
             console.log(err)
         }
         setDisableReserve(false)
-    })
-}
-
-exports.test = () => {
-    const job = cron.schedule('*/10 * * * * *', () => {
-        disableReserve = !disableReserve
-        console.log(disableReserve)
     })
 }
 

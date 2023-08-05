@@ -6,7 +6,6 @@ import { useNavigate } from "react-router-dom";
 const Reserve = () => {
     const getCookie = useCookie()
     const navigate = useNavigate()
-    const [sec, setSec] = useState()
 
     const [boxes, setBoxes] = useState([])
     const [week, setWeek] = useState(1)
@@ -14,6 +13,9 @@ const Reserve = () => {
     const [popupVisibility, setPopupVisibility] = useState([])
     const [user, setUser] = useState({})
     const [signalRerender, setSignalRerender] = useState(false)
+    const [today, setDate] = useState(new Date());
+    const [disablePage, setDisablePage] = useState(false)
+
 
     const { currentUser, setCurrentUser } = useContext(CurrentUserContext);
 
@@ -86,25 +88,59 @@ const Reserve = () => {
 
 
     const handleClick = (box) => {
-        if (currentUser) {
-            if (currentUser === 'Admin') {
-                flipPopupVisibility(box.period)
-            } else {
-                if (user.username === box.user) {
+        if (!disablePage) {
+            if (currentUser) {
+                if (currentUser === 'Admin') {
                     flipPopupVisibility(box.period)
-                } else if (box.user === '' && user.times > 0 && box.status === 'Available' && box.week === 2) {
-                    flipPopupVisibility(box.period)
+                } else {
+                    if (user.username === box.user) {
+                        flipPopupVisibility(box.period)
+                    } else if (box.user === '' && user.times > 0 && box.status === 'Available' && box.week === 2) {
+                        flipPopupVisibility(box.period)
+                    }
                 }
             }
         }
     }
 
+
+
+    useEffect(() => {
+        const timer = setInterval(() => { // Creates an interval which will update the current data every minute
+            // This will trigger a rerender every component that uses the useDate hook.
+            setDate(new Date());
+        }, 1000);
+        return () => {
+            clearInterval(timer); // Return a funtion to clear the timer so that it will stop being called on unmount
+        }
+    }, []);
+
+
+    const specific = today.toLocaleDateString('roc', { weekday: 'long', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric' });
+    const day = today.getDay();
+    const hour = today.getHours();
+    const minute = today.getMinutes();
+    const second = today.getSeconds();
+    useEffect(() => {
+        if (day === 7 && hour === 23 && minute === 59 && second === 59) {
+            // console.log('updating')
+            setDisablePage(true)
+        }
+        if (day === 1 && hour === 8 && minute === 0 && second === 0) {
+            // console.log('done updating')
+            setDisablePage(false)
+        }
+    }, [today])
+
     return (
         <div className='reserve'>
+
             <h1>預約琴房</h1>
+            {disablePage && <div>非預約時段</div>}
+            <div>現在時間: {specific}</div>
             <div>
-                <div>姓名:{user.username}</div>
-                <div>本週剩餘次數:{user.times}</div>
+                <div>姓名:{user && user.username}</div>
+                <div>本週剩餘次數:{user && user.times}</div>
             </div>
             <div>
                 <span onClick={() => { setWeek(1) }}>本周</span>
