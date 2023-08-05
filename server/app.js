@@ -15,8 +15,9 @@ app.use(express.json());
 app.use(cookieParser());
 
 var corsOptions = {
-    origin: process.env.CLIENT_ORIGIN || 'http://localhost:3000',
-    credentials: true
+    origin: '*'
+    // origin: process.env.CLIENT_ORIGIN || 'http://localhost:3000',
+    // credentials: true
 }
 
 app.use(cors(corsOptions));
@@ -48,6 +49,11 @@ router.patch('/changePassword', requireAuth, checkUser, controller.changePasswor
 router.get('/healthz', (req, res) => {
     console.log('got healthz')
     res.status(200).send('Yes, Hello')
+})
+router.get('/hi', (req, res) => {
+    console.log('got hied')
+    console.log(`hi back ${req.hostname()}`)
+    res.status(200).send(`hi back ${req.hostname()}`)
 })
 
 schedule.weeklyReserveUpdate()
