@@ -53,7 +53,7 @@ router.get('/healthz', (req, res) => {
 router.post('/hi', (req, res) => {
     console.log('got hied')
     console.log(`hi back ${req.hostname}`)
-    res.status(200).json(`hi back ${req}`)
+    res.status(200).json(req)
 })
 
 schedule.weeklyReserveUpdate()
