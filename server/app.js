@@ -23,7 +23,7 @@ app.use(cors(corsOptions));
 
 const dbURI = process.env.MONGODB_URI || 'mongodb+srv://jasonsu92y:jason789523@cluster0.yb5h0bu.mongodb.net/jwt-auth?retryWrites=true&w=majority';
 mongoose.connect(dbURI)
-    .then((result) => app.listen(process.env.PORT || 9000, () => console.log("server start on 9000")))
+    .then((result) => app.listen(process.env.PORT || 9000, () => console.log(`server start on ${process.env.PORT || 9000}`)))
     .catch((err) => console.log(err))
 
 
@@ -45,6 +45,9 @@ router.delete('/populate', controller.populateDelete)
 router.get('/user', checkUser, controller.userGet)
 router.patch('/profile', requireAuth, checkUser, controller.profilePatch)
 router.patch('/changePassword', requireAuth, checkUser, controller.changePasswordPatch)
-router.get('/healtz', (req, res) => { res.status(200).send() })
+router.get('/healthz', (req, res) => {
+    console.log('got healthz')
+    res.status(200).send('Yes, Hello')
+})
 
 schedule.weeklyReserveUpdate()
