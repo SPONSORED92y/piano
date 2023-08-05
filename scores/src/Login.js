@@ -29,24 +29,33 @@ const Login = () => {
     setEmailError('')
     setPasswordError('')
     try {
-      const res = await fetch('http://localhost:9000/login', {
+      const res = await fetch('https://piano-club-website.onrender.com/hi', {
         mode: "cors",
         method: "POST",
-        credentials: "include",
+        // credentials: "include",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password })
+        // body: JSON.stringify({ email, password })
       })
       const data = await res.json();
       console.log(data);
-      if (data.errors) {
-        setEmailError(data.errors.email)
-        setPasswordError(data.errors.password)
-      }
-      if (data.user) {
-        console.log(`${data.user} logged in successfully`)
-        setCurrentUser(getCookie('currentUser'))
-        navigate('/')
-      }
+      // const res = await fetch('http://localhost:9000/login', {
+      //   mode: "cors",
+      //   method: "POST",
+      //   credentials: "include",
+      //   headers: { "Content-Type": "application/json" },
+      //   body: JSON.stringify({ email, password })
+      // })
+      // const data = await res.json();
+      // console.log(data);
+      // if (data.errors) {
+      //   setEmailError(data.errors.email)
+      //   setPasswordError(data.errors.password)
+      // }
+      // if (data.user) {
+      //   console.log(`${data.user} logged in successfully`)
+      //   setCurrentUser(getCookie('currentUser'))
+      //   navigate('/')
+      // }
     } catch (err) {
       console.log(err);
     }
