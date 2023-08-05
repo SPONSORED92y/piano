@@ -1,5 +1,6 @@
 const cron = require('node-cron');
 const Box = require('./models/Box')
+const User = require('./models/User')
 
 let disableReserve = false
 exports.getDisableReserve = () => {
@@ -25,6 +26,7 @@ exports.weeklyReserveUpdate = () => {
                     const updateResultNextweek = await Box.updateOne({ period: period, room: room, week: 2 }, { $set: { 'status': 'Available', 'user': '' } })
                 }
             }
+            const updateResultUser = await Box.updateMany({}, { $set: { 'times': 7 } })
             console.log('done weekly update')
         } catch (err) {
             console.log(err)

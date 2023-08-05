@@ -15,13 +15,13 @@ app.use(express.json());
 app.use(cookieParser());
 
 var corsOptions = {
-    origin: 'http://localhost:3000',
+    origin: process.env.CLIENT_ORIGIN || 'http://localhost:3000',
     credentials: true
 }
 
 app.use(cors(corsOptions));
 
-const dbURI = 'mongodb+srv://jasonsu92y:jason789523@cluster0.yb5h0bu.mongodb.net/jwt-auth?retryWrites=true&w=majority';
+const dbURI = process.env.MONGODB_URI || 'mongodb+srv://jasonsu92y:jason789523@cluster0.yb5h0bu.mongodb.net/jwt-auth?retryWrites=true&w=majority';
 mongoose.connect(dbURI)
     .then((result) => app.listen(9000, () => console.log("server start on 9000")))
     .catch((err) => console.log(err))
@@ -45,5 +45,6 @@ router.delete('/populate', controller.populateDelete)
 router.get('/user', checkUser, controller.userGet)
 router.patch('/profile', requireAuth, checkUser, controller.profilePatch)
 router.patch('/changePassword', requireAuth, checkUser, controller.changePasswordPatch)
+router.get('/healtz', (req, res) => { res.status(200).send() })
 
-// schedule.weeklyReserveUpdate()
+schedule.weeklyReserveUpdate()
