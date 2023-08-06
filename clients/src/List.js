@@ -1,19 +1,19 @@
 import { Link, useNavigate } from 'react-router-dom';
 import useFetch from "./useFetch"
-import { useEffect, useContext } from 'react';
-import useCookie from './useCookie';
+import { useContext, useEffect } from 'react';
 import CurrentUserContext from './CurrentUserContext';
 import Variable from './Variable'
 const List = () => {
-    const getCookie = useCookie()
     const navigate = useNavigate()
-    const { currentUser, setCurrentUser } = useContext(CurrentUserContext)
-    useEffect(() => {
-        setCurrentUser(getCookie('currentUser'))
-    }, [])
-
+    const { currentUser } = useContext(CurrentUserContext)
 
     const { error, isPending, data: books } = useFetch(`${Variable.serverURL}/list`);
+
+    useEffect(() => {
+        if (!currentUser) {
+            navigate('/')
+        }
+    }, [currentUser])
 
     return (
         <div className="list">

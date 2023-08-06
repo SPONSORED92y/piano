@@ -1,7 +1,6 @@
 import { useState, useContext, useEffect } from "react";
 import CurrentUserContext from './CurrentUserContext';
 import Variable from './Variable'
-// import { useNavigate } from "react-router-dom";
 const Popup = (props) => {
     const { visibility, id, status, user, boxUser, period, periodList, flipPopupVisibility, flipSignal, week } = props
     const [newStatus, setNewStatus] = useState(status)
@@ -11,7 +10,6 @@ const Popup = (props) => {
 
 
     const { currentUser } = useContext(CurrentUserContext);
-    // const navigate = useNavigate()
 
     const handleClick = () => {
         const go = async (action) => {
@@ -24,7 +22,6 @@ const Popup = (props) => {
                     body: JSON.stringify({ id })
                 })
                 if (res.ok) {
-                    // navigate('/reserve')
                     flipPopupVisibility(period)
                     if (status === 'Available') {
                         console.log('reserve successful')

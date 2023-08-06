@@ -1,6 +1,5 @@
 import { useEffect, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import useCookie from './useCookie';
 import CurrentUserContext from './CurrentUserContext';
 import Variable from './Variable'
 
@@ -23,19 +22,15 @@ const Signup = () => {
   const [adminKeyError, setAdminKeyError] = useState('');
   const [enabled, setEnabled] = useState(false);
   const {
-    currentUser,
-    setCurrentUser
-  } = useContext(CurrentUserContext);
+    currentUser } = useContext(CurrentUserContext);
 
-  const getCookie = useCookie()
   const navigate = useNavigate()
 
   useEffect(() => {
-    setCurrentUser(getCookie('currentUser'))
     if (currentUser) {
       navigate('/')
     }
-  }, [getCookie, navigate, currentUser, setCurrentUser])
+  }, [currentUser])
 
   const handleSubmit = async (e) => {
     e.preventDefault();

@@ -1,12 +1,10 @@
 import { useEffect, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import CurrentUserContext from './CurrentUserContext';
-import useCookie from "./useCookie";
 import Variable from './Variable'
 
 const Create = () => {
   const navigate = useNavigate()
-  const getCookie = useCookie()
   const [title, setTitle] = useState('');
   const [status, setStatus] = useState('Available');
   const [borrower, setBorrower] = useState('');
@@ -43,13 +41,12 @@ const Create = () => {
   }
 
   useEffect(() => {
-    setCurrentUser(getCookie('currentUser'))
     if (!currentUser) {
       navigate('/')
     } else if (currentUser !== 'Admin') {
       navigate('/')
     }
-  }, [])
+  }, [currentUser])
 
   useEffect(() => {
     if (status === 'Available') {

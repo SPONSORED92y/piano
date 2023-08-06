@@ -63,8 +63,7 @@ exports.loginPost = async (req, res) => {
             const user = await User.login(email, password)
             const token = createToken(user._id)
             res.cookie('jwt', token, { httpOnly: true, maxAge: 5 * 60 * 1000, sameSite: 'none', secure: true })
-            res.cookie('currentUser', user.role, { maxAge: 5 * 60 * 1000, sameSite: 'none', secure: true, domain: 'sponsored92y.github.io' })
-            res.status(200).json({ user: user._id })
+            res.status(200).json({ user: user })
         } catch (err) {
             const errors = loginErrors(err)
             res.status(400).json({ errors })
@@ -90,7 +89,6 @@ exports.signupPost = async (req, res) => {
 
 exports.logoutPost = async (req, res) => {
     res.cookie('jwt', '', { maxAge: 1, sameSite: 'none', secure: true })
-    res.cookie('currentUser', false, { maxAge: 1, sameSite: 'none', secure: true })
     res.status(200).json({})
 }
 

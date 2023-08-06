@@ -4,9 +4,7 @@ import CurrentUserContext from './CurrentUserContext';
 import Variable from './Variable'
 const Logout = () => {
   const navigate = useNavigate();
-  const {
-    setCurrentUser
-  } = useContext(CurrentUserContext);
+  const { setCurrentUser } = useContext(CurrentUserContext);
 
   useEffect(() => {
     fetch(`${Variable.serverURL}/logout`, {

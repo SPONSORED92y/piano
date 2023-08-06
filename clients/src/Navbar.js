@@ -1,17 +1,9 @@
 import { Link } from "react-router-dom";
-import { useEffect, useContext } from "react";
-import useCookie from "./useCookie";
+import { useContext } from "react";
 import CurrentUserContext from './CurrentUserContext';
 const Navbar = () => {
-    const {
-        currentUser,
-        setCurrentUser
-    } = useContext(CurrentUserContext);
-    const getCookie = useCookie()
+    const { currentUser } = useContext(CurrentUserContext);
 
-    useEffect(() => {
-        setCurrentUser(getCookie('currentUser'))
-    }, [getCookie, setCurrentUser])
     return (
         <nav className="navbar">
             <div className="links">

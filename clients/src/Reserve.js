@@ -1,11 +1,9 @@
 import { useEffect, useState, useContext } from "react";
-import useCookie from "./useCookie";
 import Popup from "./Popup";
 import CurrentUserContext from './CurrentUserContext';
 import { useNavigate } from "react-router-dom";
 import Variable from './Variable'
 const Reserve = () => {
-    const getCookie = useCookie()
     const navigate = useNavigate()
 
     const [boxes, setBoxes] = useState([])
@@ -18,7 +16,7 @@ const Reserve = () => {
     const [disablePage, setDisablePage] = useState(false)
 
 
-    const { currentUser, setCurrentUser } = useContext(CurrentUserContext);
+    const { currentUser } = useContext(CurrentUserContext);
 
     useEffect(() => {
         let vis112 = []
@@ -55,7 +53,6 @@ const Reserve = () => {
                 console.log(err)
                 navigate('/login')
             })
-        setCurrentUser(getCookie('currentUser'))
         if (currentUser) {
             fetch(`${Variable.serverURL}/reservePage`, {
                 mode: "cors",

@@ -1,6 +1,5 @@
 import { useEffect, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import useCookie from "./useCookie";
 import CurrentUserContext from './CurrentUserContext';
 import Variable from './Variable'
 const Login = () => {
@@ -9,19 +8,14 @@ const Login = () => {
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
 
-  const {
-    currentUser,
-    setCurrentUser
-  } = useContext(CurrentUserContext);
-  const getCookie = useCookie()
+  const { currentUser, setCurrentUser } = useContext(CurrentUserContext);
   const navigate = useNavigate()
 
   useEffect(() => {
-    setCurrentUser(getCookie('currentUser'))
     if (currentUser) {
       navigate('/')
     }
-  }, [getCookie, navigate, currentUser, setCurrentUser])
+  }, [currentUser])
 
 
 
@@ -38,15 +32,15 @@ const Login = () => {
         body: JSON.stringify({ email, password })
       })
       const data = await res.json();
-      console.log(data);
+      // console.log(data);
       if (data.errors) {
         setEmailError(data.errors.email)
         setPasswordError(data.errors.password)
       }
       if (data.user) {
-        console.log(`${data.user} logged in successfully`)
-        setCurrentUser(getCookie('currentUser'))
-        navigate('/')
+        console.log(`${data.user.username} logged in successfully`)
+        setCurrentUser(data.user.role)
+        // navigate('/')
       }
     } catch (err) {
       console.log(err);

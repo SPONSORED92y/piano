@@ -1,17 +1,19 @@
-import { useState, useEffect } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useState, useEffect, useContext } from "react"
+import { useNavigate, useLocation } from "react-router-dom"
 import Variable from './Variable'
+import CurrentUserContext from './CurrentUserContext'
 
 const EditBook = () => {
   const navigate = useNavigate()
   const location = useLocation()
   const id = location.state.id
-  const [title, setTitle] = useState(location.state.title);
-  const [status, setStatus] = useState(location.state.status);
-  const [borrower, setBorrower] = useState(location.state.borrower);
-  const [titleError, setTitleError] = useState('');
-  const [statusError, setStatusError] = useState('');
-  const [errorMessage, setErrorMessage] = useState('');
+  const [title, setTitle] = useState(location.state.title)
+  const [status, setStatus] = useState(location.state.status)
+  const [borrower, setBorrower] = useState(location.state.borrower)
+  const [titleError, setTitleError] = useState('')
+  const [statusError, setStatusError] = useState('')
+  const [errorMessage, setErrorMessage] = useState('')
+  const { currentUser } = useContext(CurrentUserContext)
 
   const handleClickDelete = async () => {
     try {
@@ -58,6 +60,13 @@ const EditBook = () => {
       console.log(err)
     }
   }
+  useEffect(() => {
+    if (!currentUser) {
+      navigate('/')
+    } else if (currentUser !== 'Admin') {
+      navigate('/')
+    }
+  }, [currentUser])
 
   useEffect(() => {
     if (status === 'Available') {
