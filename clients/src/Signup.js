@@ -2,16 +2,17 @@ import { useEffect, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import useCookie from './useCookie';
 import CurrentUserContext from './CurrentUserContext';
+import Variable from './Variable'
 
 const Signup = () => {
-  const [username, setUsername] = useState('jason');
-  const [password, setPassword] = useState('123');
-  const [passwordAgain, setPasswordAgain] = useState('123');
-  const [email, setEmail] = useState('jason@gmail.com');
-  const [department, setDepartment] = useState('EE');
-  const [studentID, setStudentID] = useState('E24106652');
+  const [username, setUsername] = useState(Variable.publish ? '' : 'jason');
+  const [password, setPassword] = useState(Variable.publish ? '' : '123456');
+  const [passwordAgain, setPasswordAgain] = useState(Variable.publish ? '' : '123456');
+  const [email, setEmail] = useState(Variable.publish ? '' : 'jason@gmail.com');
+  const [department, setDepartment] = useState(Variable.publish ? '' : 'EE');
+  const [studentID, setStudentID] = useState(Variable.publish ? '' : 'E24106652');
   const [role, setRole] = useState('Member');
-  const [adminKey, setAdminKey] = useState('SPONSORED');
+  const [adminKey, setAdminKey] = useState(Variable.publish ? '' : 'SPONSORED');
   const [usernameError, setUsernameError] = useState('');
   const [passwordError, setPasswordError] = useState('');
   const [passwordAgainError, setPasswordAgainError] = useState('');
@@ -46,7 +47,7 @@ const Signup = () => {
     setRoleError('')
     setAdminKeyError('')
     try {
-      const res = await fetch('http://localhost:9000/signup', {
+      const res = await fetch(`${Variable.serverURL}/signup`, {
         mode: 'cors',
         method: "POST",
         credentials: "include",

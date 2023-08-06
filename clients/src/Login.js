@@ -2,9 +2,10 @@ import { useEffect, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import useCookie from "./useCookie";
 import CurrentUserContext from './CurrentUserContext';
+import Variable from './Variable'
 const Login = () => {
-  const [email, setEmail] = useState('jason');
-  const [password, setPassword] = useState('123456');
+  const [email, setEmail] = useState(Variable.publish ? '' : 'jasonsu@gmail.com');
+  const [password, setPassword] = useState(Variable.publish ? '' : '789456');
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
 
@@ -29,33 +30,24 @@ const Login = () => {
     setEmailError('')
     setPasswordError('')
     try {
-      const res = await fetch('http://localhost:9000/hi', {
+      const res = await fetch(`${Variable.serverURL}/login`, {
         mode: "cors",
         method: "POST",
-        // credentials: "include",
+        credentials: "include",
         headers: { "Content-Type": "application/json" },
-        // body: JSON.stringify({ email, password })
+        body: JSON.stringify({ email, password })
       })
       const data = await res.json();
       console.log(data);
-      // const res = await fetch('http://localhost:9000/login', {
-      //   mode: "cors",
-      //   method: "POST",
-      //   credentials: "include",
-      //   headers: { "Content-Type": "application/json" },
-      //   body: JSON.stringify({ email, password })
-      // })
-      // const data = await res.json();
-      // console.log(data);
-      // if (data.errors) {
-      //   setEmailError(data.errors.email)
-      //   setPasswordError(data.errors.password)
-      // }
-      // if (data.user) {
-      //   console.log(`${data.user} logged in successfully`)
-      //   setCurrentUser(getCookie('currentUser'))
-      //   navigate('/')
-      // }
+      if (data.errors) {
+        setEmailError(data.errors.email)
+        setPasswordError(data.errors.password)
+      }
+      if (data.user) {
+        console.log(`${data.user} logged in successfully`)
+        setCurrentUser(getCookie('currentUser'))
+        navigate('/')
+      }
     } catch (err) {
       console.log(err);
     }

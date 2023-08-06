@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Variable from './Variable'
 
 const Profile = () => {
     const navigate = useNavigate()
@@ -28,7 +29,7 @@ const Profile = () => {
     const [enabled, setEnabled] = useState(false);
 
     useEffect(() => {
-        fetch('http://localhost:9000/user', {
+        fetch(`${Variable.serverURL}/user`, {
             mode: "cors",
             method: "GET",
             credentials: "include",
@@ -58,7 +59,7 @@ const Profile = () => {
         setRoleError('')
         setAdminKeyError('')
         try {
-            const res = await fetch('http://localhost:9000/profile', {
+            const res = await fetch(`${Variable.serverURL}/profile`, {
                 mode: 'cors',
                 method: "PATCH",
                 credentials: "include",
@@ -89,7 +90,7 @@ const Profile = () => {
         setPasswordError('')
         setPasswordCurrentError('')
         try {
-            const res = await fetch('http://localhost:9000/changePassword', {
+            const res = await fetch(`${Variable.serverURL}/changePassword`, {
                 mode: 'cors',
                 method: "PATCH",
                 credentials: "include",

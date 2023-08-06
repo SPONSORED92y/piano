@@ -1,5 +1,6 @@
 import { useState, useContext, useEffect } from "react";
 import CurrentUserContext from './CurrentUserContext';
+import Variable from './Variable'
 // import { useNavigate } from "react-router-dom";
 const Popup = (props) => {
     const { visibility, id, status, user, boxUser, period, periodList, flipPopupVisibility, flipSignal, week } = props
@@ -15,7 +16,7 @@ const Popup = (props) => {
     const handleClick = () => {
         const go = async (action) => {
             try {
-                const res = await fetch('http://localhost:9000/reserve', {
+                const res = await fetch(`${Variable.serverURL}/reserve`, {
                     mode: "cors",
                     method: action,
                     credentials: "include",
@@ -55,7 +56,7 @@ const Popup = (props) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const res = await fetch('http://localhost:9000/reserve', {
+            const res = await fetch(`${Variable.serverURL}/reserve`, {
                 mode: "cors",
                 method: "PATCH",
                 credentials: "include",

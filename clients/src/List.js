@@ -3,6 +3,7 @@ import useFetch from "./useFetch"
 import { useEffect, useContext } from 'react';
 import useCookie from './useCookie';
 import CurrentUserContext from './CurrentUserContext';
+import Variable from './Variable'
 const List = () => {
     const getCookie = useCookie()
     const navigate = useNavigate()
@@ -12,7 +13,7 @@ const List = () => {
     }, [])
 
 
-    const { error, isPending, data: books } = useFetch('http://localhost:9000/list');
+    const { error, isPending, data: books } = useFetch(`${Variable.serverURL}/list`);
 
     return (
         <div className="list">

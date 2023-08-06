@@ -2,6 +2,7 @@ import { useEffect, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import CurrentUserContext from './CurrentUserContext';
 import useCookie from "./useCookie";
+import Variable from './Variable'
 
 const Create = () => {
   const navigate = useNavigate()
@@ -20,7 +21,7 @@ const Create = () => {
     setStatusError('')
     setErrorMessage('')
     try {
-      const res = await fetch('http://localhost:9000/create', {
+      const res = await fetch(`${Variable.serverURL}/create`, {
         mode: 'cors',
         method: "POST",
         credentials: "include",
@@ -45,7 +46,7 @@ const Create = () => {
     setCurrentUser(getCookie('currentUser'))
     if (!currentUser) {
       navigate('/')
-    } else if (currentUser != 'Admin') {
+    } else if (currentUser !== 'Admin') {
       navigate('/')
     }
   }, [])

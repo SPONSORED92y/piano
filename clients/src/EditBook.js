@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
+import Variable from './Variable'
 
 const EditBook = () => {
   const navigate = useNavigate()
@@ -14,7 +15,7 @@ const EditBook = () => {
 
   const handleClickDelete = async () => {
     try {
-      const res = await fetch('http://localhost:9000/book', {
+      const res = await fetch(`${Variable.serverURL}/book`, {
         mode: 'cors',
         method: "DELETE",
         credentials: "include",
@@ -39,7 +40,7 @@ const EditBook = () => {
     setStatusError('')
     setErrorMessage('')
     try {
-      const res = await fetch('http://localhost:9000/book', {
+      const res = await fetch(`${Variable.serverURL}/book`, {
         mode: 'cors',
         method: "PATCH",
         credentials: "include",

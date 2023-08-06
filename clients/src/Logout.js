@@ -1,6 +1,7 @@
 import { useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import CurrentUserContext from './CurrentUserContext';
+import Variable from './Variable'
 const Logout = () => {
   const navigate = useNavigate();
   const {
@@ -8,7 +9,7 @@ const Logout = () => {
   } = useContext(CurrentUserContext);
 
   useEffect(() => {
-    fetch('http://localhost:9000/logout', {
+    fetch(`${Variable.serverURL}/logout`, {
       mode: "cors",
       method: "POST",
       credentials: "include",

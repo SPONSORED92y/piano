@@ -3,6 +3,7 @@ import useCookie from "./useCookie";
 import Popup from "./Popup";
 import CurrentUserContext from './CurrentUserContext';
 import { useNavigate } from "react-router-dom";
+import Variable from './Variable'
 const Reserve = () => {
     const getCookie = useCookie()
     const navigate = useNavigate()
@@ -40,7 +41,7 @@ const Reserve = () => {
     useEffect(() => {
         console.log('render')
         //fetch user data
-        fetch('http://localhost:9000/user', {
+        fetch(`${Variable.serverURL}/user`, {
             mode: "cors",
             method: "GET",
             credentials: "include",
@@ -56,7 +57,7 @@ const Reserve = () => {
             })
         setCurrentUser(getCookie('currentUser'))
         if (currentUser) {
-            fetch('http://localhost:9000/reservePage', {
+            fetch(`${Variable.serverURL}/reservePage`, {
                 mode: "cors",
                 method: "POST",
                 credentials: "include",
