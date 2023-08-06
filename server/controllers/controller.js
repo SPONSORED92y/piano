@@ -63,7 +63,7 @@ exports.loginPost = async (req, res) => {
             const user = await User.login(email, password)
             const token = createToken(user._id)
             res.cookie('jwt', token, { httpOnly: true, maxAge: 5 * 60 * 1000, sameSite: 'none', secure: true })
-            res.cookie('currentUser', user.role, { maxAge: 5 * 60 * 1000, sameSite: 'none', secure: true })
+            res.cookie('currentUser', user.role, { maxAge: 5 * 60 * 1000, sameSite: 'none', secure: true, domain: 'https://sponsored92y.github.io/piano-clients-publish' })
             res.status(200).json({ user: user._id })
         } catch (err) {
             const errors = loginErrors(err)
