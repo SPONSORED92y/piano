@@ -15,9 +15,9 @@ app.use(express.json());
 app.use(cookieParser());
 
 var corsOptions = {
-    origin: '*'
-    // origin: process.env.CLIENT_ORIGIN || 'http://localhost:3000',
-    // credentials: true
+    // origin: '*'
+    origin: process.env.CLIENT_ORIGIN || 'http://localhost:3000',
+    credentials: true
 }
 
 app.use(cors(corsOptions));
@@ -47,13 +47,14 @@ router.get('/user', checkUser, controller.userGet)
 router.patch('/profile', requireAuth, checkUser, controller.profilePatch)
 router.patch('/changePassword', requireAuth, checkUser, controller.changePasswordPatch)
 router.get('/healthz', (req, res) => {
-    console.log('got healthz')
+    // console.log('got healthz')
     res.status(200).send('Yes, Hello')
 })
 router.post('/hi', (req, res) => {
     console.log('got hied')
-    console.log(`hi back ${req.hostname}`)
-    res.status(200).json(req)
+    const ori = req.headers.origin
+    console.log(`hi back ${ori}`)
+    res.status(200).json({ ori })
 })
 
 schedule.weeklyReserveUpdate()
