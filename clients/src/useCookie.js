@@ -1,6 +1,7 @@
 const useCookie = () => {
     const getCookie = (name) => {
         let allCookies = document.cookie
+        console.log(document.cookie)
         for (let i = 0; i <= (allCookies.length - name.length); i++) {
             if (allCookies.substring(i, i + name.length) === name) {
                 let j = i + name.length + 1
