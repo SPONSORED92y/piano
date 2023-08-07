@@ -13,7 +13,7 @@ const List = () => {
         if (!currentUser) {
             navigate('/')
         }
-    }, [currentUser])
+    }, [currentUser, error])
 
     return (
         <div className="list">
@@ -21,20 +21,19 @@ const List = () => {
                 <h1>琴譜列表</h1>
                 {error && <div>{error}</div>}
                 {isPending && <div>Loading...</div>}
-                <div>
-                    <span style={{ paddingLeft: "20px", paddingRight: "20px" }} >琴譜名稱</span>
-                    <span style={{ paddingLeft: "20px", paddingRight: "20px" }} >狀態</span>
-                    {currentUser === 'Admin' && <span style={{ paddingLeft: "20px", paddingRight: "20px" }} >出借社員</span>}
+                <div className='columnContainer'>
+                    <span >琴譜名稱</span>
+                    <span >狀態</span>
+                    {currentUser === 'Admin' && <span >出借社員</span>}
                 </div>
                 {currentUser && books && books.map(book => (
                     // bookimage
                     <div className="book" key={book._id}>
-                        <span style={{ paddingLeft: "20px", paddingRight: "20px" }}>{book.title}</span>
-                        <span style={{ paddingLeft: "20px", paddingRight: "20px" }}>{(book.status === 'Available') ? '可借閱' : '已外借'}</span>
-                        {currentUser === 'Admin' && <span style={{ paddingLeft: "20px", paddingRight: "20px" }}>{book.borrower}</span>}
+                        <span className='title' >{book.title}</span>
+                        <span className='status'>{(book.status === 'Available') ? '可借閱' : '已外借'}</span>
+                        {currentUser === 'Admin' && <span className='borrower'>{book.borrower}</span>}
                         {currentUser === 'Admin' &&
-                            <span
-                                style={{ paddingLeft: "20px", paddingRight: "20px" }}
+                            <span className='edit'
                                 onClick={() => {
                                     navigate('/editBook', {
                                         state: {
@@ -47,7 +46,7 @@ const List = () => {
                                 }}>編輯</span>}
                     </div>
                 ))}
-                {currentUser === 'Admin' && <Link to={"/create"}>增加</Link>}
+                {currentUser === 'Admin' && <div className='create'> <Link to={"/create"}>增加</Link></div>}
             </div>
         </div >
     );

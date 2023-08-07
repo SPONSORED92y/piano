@@ -36,6 +36,7 @@ const Reserve = () => {
     const flipSignal = () => {
         setSignalRerender(!signalRerender)
     }
+
     useEffect(() => {
         console.log('render')
         //fetch user data
@@ -91,28 +92,28 @@ const Reserve = () => {
                 if (currentUser === 'Admin') {
                     flipPopupVisibility(box.period)
                 } else {
-                    if (user.username === box.user) {
-                        flipPopupVisibility(box.period)
-                    } else if (box.user === '' && user.times > 0 && box.status === 'Available' && box.week === 2) {
-                        flipPopupVisibility(box.period)
+                    if (user) {
+                        if (user.username === box.user) {
+                            flipPopupVisibility(box.period)
+                        } else if (box.user === '' && user.times > 0 && box.status === 'Available' && box.week === 2) {
+                            flipPopupVisibility(box.period)
+                        }
+                    } else {
+                        navigate('/login')
                     }
                 }
             }
         }
     }
 
-
-
     useEffect(() => {
-        const timer = setInterval(() => { // Creates an interval which will update the current data every minute
-            // This will trigger a rerender every component that uses the useDate hook.
+        const timer = setInterval(() => {
             setDate(new Date());
         }, 1000);
         return () => {
-            clearInterval(timer); // Return a funtion to clear the timer so that it will stop being called on unmount
+            clearInterval(timer);
         }
     }, []);
-
 
     const specific = today.toLocaleDateString('roc', { weekday: 'long', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric' });
     const day = today.getDay();
@@ -134,33 +135,34 @@ const Reserve = () => {
         <div className='reserve'>
 
             <h1>預約琴房</h1>
+
+
+
             {disablePage && <div>非預約時段</div>}
             <div>現在時間: {specific}</div>
             <div>
                 <div>姓名:{user && user.username}</div>
                 <div>本週剩餘次數:{user && user.times}</div>
             </div>
-            <div>
-                <span onClick={() => { setWeek(1) }}>本周</span>
-                <span onClick={() => { setWeek(2) }}>下周</span>
-                <div>week: {week}</div>
+            <div className="weekContainer">
+                <span className="week" style={{ backgroundColor: (week === 1) ? "#47deec" : "white" }} onClick={() => { setWeek(1) }}>本周</span>
+                <span className="week" style={{ backgroundColor: (week === 2) ? "#47deec" : "white" }} onClick={() => { setWeek(2) }}>下周</span>
             </div>
-            <div>
-                <span onClick={() => { setRoom(1) }}>琴房一</span>
-                <span onClick={() => { setRoom(2) }}>琴房二</span>
-                <span onClick={() => { setRoom(3) }}>琴房三</span>
-                <div>room: {room}</div>
+            <div className="roomContainer">
+                <span className="room" style={{ backgroundColor: (room === 1) ? "#47deec" : "white" }} onClick={() => { setRoom(1) }}>琴房一</span>
+                <span className="room" style={{ backgroundColor: (room === 2) ? "#47deec" : "white" }} onClick={() => { setRoom(2) }}>琴房二</span>
+                <span className="room" style={{ backgroundColor: (room === 3) ? "#47deec" : "white" }} onClick={() => { setRoom(3) }}>琴房三</span>
             </div>
-            <div><span className='daysOfWeek'>      </span><span className='daysOfWeek'>星期一</span><span className='daysOfWeek'>星期二</span><span className='daysOfWeek'>星期三</span><span className='daysOfWeek'>星期四</span><span className='daysOfWeek'>星期五</span><span className='daysOfWeek'>星期六</span><span className='daysOfWeek'>星期日</span></div>
+            <div><span className='daysOfWeek'><div style={{ visibility: 'hidden' }}>佔位子</div></span><span className='daysOfWeek'>星期一</span><span className='daysOfWeek'>星期二</span><span className='daysOfWeek'>星期三</span><span className='daysOfWeek'>星期四</span><span className='daysOfWeek'>星期五</span><span className='daysOfWeek'>星期六</span><span className='daysOfWeek'>星期日</span></div>
             <div className="columnContainer">
-                <div className="column">
+                <div className="columnPeriod">
                     <div>{periodList[0]}</div><div>{periodList[1]}</div><div>{periodList[2]}</div><div>{periodList[3]}</div><div>{periodList[4]}</div><div>{periodList[5]}</div><div>{periodList[6]}</div><div>{periodList[7]}</div><div>{periodList[8]}</div><div>{periodList[9]}</div><div>{periodList[10]}</div><div>{periodList[11]}</div><div>{periodList[12]}</div><div>{periodList[13]}</div><div>{periodList[14]}</div><div>{periodList[15]}</div>
                 </div>
                 {boxes.map(box16 => (
                     <div className="column" key={box16[0]._id}>
-                        <div className="box">{box16.map(box => (
+                        {box16.map(box => (
                             <div key={box._id}>
-                                <div onClick={() => handleClick(box)} style={{ backgroundColor: (box.status === 'Available') ? 'white' : ((box.status === 'Not Available') ? 'gray' : ((box.user === user.username) ? 'rgb(84, 219, 136)' : 'rgb(60, 138, 216)')) }}>{box.user ? box.user : "____"}</div>
+                                <div className="box" onClick={() => handleClick(box)} style={{ backgroundColor: (box.status === 'Available') ? 'white' : ((box.status === 'Not Available') ? 'gray' : ((user && (box.user === user.username)) ? 'rgb(84, 219, 136)' : 'rgb(60, 138, 216)')) }}>{box.user ? box.user : <div style={{ visibility: 'hidden' }}>佔位子</div>}</div>
                                 <Popup
                                     visibility={popupVisibility[box.period - 1]}
                                     id={box._id}
@@ -174,10 +176,10 @@ const Reserve = () => {
                                     week={week}
                                 />
                             </div>))}
-                        </div>
-                    </div>))}
+                    </div>
+                ))}
             </div>
-        </div>
+        </div >
     );
 }
 

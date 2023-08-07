@@ -13,7 +13,7 @@ const setDisableReserve = (val) => {
 exports.setDisableReserve = setDisableReserve
 
 exports.weeklyReserveUpdate = () => {
-    const job = cron.schedule('59 59 23 * * 7', async () => {
+    const job = cron.schedule('* * */3 * * *', async () => {
         console.log('prepare for weekly update')
         await new Promise(resolve => setTimeout(resolve, 5 * 60 * 1000));
         console.log('weekly update started')
@@ -26,7 +26,7 @@ exports.weeklyReserveUpdate = () => {
                     const updateResultNextweek = await Box.updateOne({ period: period, room: room, week: 2 }, { $set: { 'status': 'Available', 'user': '' } })
                 }
             }
-            const updateResultUser = await Box.updateMany({}, { $set: { 'times': 7 } })
+            const updateResultUser = await User.updateMany({}, { $set: { 'times': 7 } })
             console.log('done weekly update')
         } catch (err) {
             console.log(err)

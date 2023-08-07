@@ -2,17 +2,15 @@
     padding: 20px;
     display: flex;
     align-items: flex-end;
-    justify-content: space-between;
-    flex-direction: column;
+    justify-content: end;
     border-bottom: 1px solid #f2f2f2;
     background-color: rgb(224, 172, 108);
     /* text-align: right; */
 }
 
-.navbar .links {
+.navbar {
 
     /* display: flex; */
-    border: 5px;
 }
 
 .navbar a {
@@ -22,4 +20,16 @@
     text-decoration: none;
     color: black;
     border-color: black;
+}
+
+.navbar .home,
+.navbar .list,
+.navbar .reserve,
+.navbar .about,
+.navbar .login,
+.navbar .logout,
+.navbar .profile,
+.navbar .signup {
+    border-bottom: 2px solid;
+    margin: 5px;
 }

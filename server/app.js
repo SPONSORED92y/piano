@@ -50,11 +50,5 @@ router.get('/healthz', (req, res) => {
     // console.log('got healthz')
     res.status(200).send('Yes, Hello')
 })
-router.post('/hi', (req, res) => {
-    console.log('got hied')
-    const ori = req.headers.origin
-    console.log(`hi back ${ori}`)
-    res.status(200).json({ ori })
-})
 
 schedule.weeklyReserveUpdate()

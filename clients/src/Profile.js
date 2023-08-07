@@ -1,9 +1,10 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import Variable from './Variable'
-
+import CurrentUserContext from './CurrentUserContext';
 const Profile = () => {
     const navigate = useNavigate()
+    const { setCurrentUser } = useContext(CurrentUserContext);
 
     const [user, setUser] = useState()
     const [passwordCurrent, setPasswordCurrent] = useState('');
@@ -47,6 +48,7 @@ const Profile = () => {
             setDepartment(user.department)
             setStudentID(user.studentID)
             setRole(user.role)
+            setCurrentUser(user.role)
         }
     }, [user])
 

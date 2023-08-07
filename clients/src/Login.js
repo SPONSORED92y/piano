@@ -32,13 +32,14 @@ const Login = () => {
         body: JSON.stringify({ email, password })
       })
       const data = await res.json();
-      // console.log(data);
+      console.log(data);
       if (data.errors) {
         setEmailError(data.errors.email)
         setPasswordError(data.errors.password)
       }
       if (data.user) {
         console.log(`${data.user.username} logged in successfully`)
+        console.log(data.user.role)
         setCurrentUser(data.user.role)
         // navigate('/')
       }

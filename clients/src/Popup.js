@@ -106,7 +106,7 @@ const Popup = (props) => {
         if (status === 'Not Available') {
             return ''
         } else if (status === 'Occupied') {
-            if (boxUser === user.username) {
+            if (user && boxUser === user.username) {
                 return '取消預約'
             }
         } else if (status === 'Available' && week === 2) {
@@ -125,10 +125,10 @@ const Popup = (props) => {
             <div style={{ visibility: visibility ? 'visible' : 'hidden' }} className="popupContainer">
 
                 <div>預約</div>
-                <div>period:{period % 16}</div>
-                <div>時段:{periodList[(period % 16) - 1]}</div>
-                <span onClick={() => { flipPopupVisibility(period) }}>關閉</span>
-                <span onClick={handleClick}>{buttonOption()}</span>
+                {/* <div>period:{period % 16}</div> */}
+                <div>時段:{periodList[((period - 1) % 16)]}</div>
+                <div className="closeButton" onClick={() => { flipPopupVisibility(period) }}>關閉</div>
+                <div className="reserveButton" onClick={handleClick}>{buttonOption()}</div>
                 {currentUser === 'Admin' && <form onSubmit={handleSubmit}>
                     <label>狀態:</label>
                     <select value={newStatus}
