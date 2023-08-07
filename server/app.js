@@ -51,4 +51,4 @@ router.get('/healthz', (req, res) => {
     res.status(200).send('Yes, Hello')
 })
 
-schedule.weeklyReserveUpdate()
+// schedule.weeklyReserveUpdate()
