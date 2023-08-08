@@ -16,3 +16,5 @@
 在個人檔案中更改身分不會得到新的currentUser cookie
 
 師徒制功能
+
+logging
