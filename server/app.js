@@ -30,25 +30,24 @@ mongoose.connect(dbURI)
 
 var router = express.Router();
 app.use('/', router);
-router.get('/list', requireAuth, checkUser, controller.listGet);
-router.post('/login', checkUser, controller.loginPost);
-router.post('/signup', controller.signupPost);
-router.post('/create', requireAuth, checkUser, controller.createPost);
-router.post('/logout', controller.logoutPost);
-router.delete('/book', requireAuth, checkUser, controller.bookDelete);
-router.patch('/book', requireAuth, checkUser, controller.bookPatch);
-router.post('/reservePage', schedule.checkEnabled, requireAuth, controller.boxGet);
-router.post('/reserve', schedule.checkEnabled, requireAuth, checkUser, controller.boxPost);
-router.delete('/reserve', schedule.checkEnabled, requireAuth, checkUser, controller.boxDelete);
-router.patch('/reserve', schedule.checkEnabled, requireAuth, checkUser, controller.boxPatch);
-router.post('/populate', controller.populatePost)
-router.delete('/populate', controller.populateDelete)
-router.get('/user', checkUser, controller.userGet)
-router.patch('/profile', requireAuth, checkUser, controller.profilePatch)
-router.patch('/changePassword', requireAuth, checkUser, controller.changePasswordPatch)
-router.get('/healthz', (req, res) => {
-    // console.log('got healthz')
-    res.status(200).send('Yes, Hello')
+router.get('/server', (req, res) => {
+    res.status(200).send('I am Groot\n')
 })
+router.get('/server/list', requireAuth, checkUser, controller.listGet);
+router.post('/server/login', checkUser, controller.loginPost);
+router.post('/server/signup', controller.signupPost);
+router.post('/server/create', requireAuth, checkUser, controller.createPost);
+router.post('/server/logout', controller.logoutPost);
+router.delete('/server/book', requireAuth, checkUser, controller.bookDelete);
+router.patch('/server/book', requireAuth, checkUser, controller.bookPatch);
+router.post('/server/reservePage', schedule.checkEnabled, requireAuth, controller.boxGet);
+router.post('/server/reserve', schedule.checkEnabled, requireAuth, checkUser, controller.boxPost);
+router.delete('/server/reserve', schedule.checkEnabled, requireAuth, checkUser, controller.boxDelete);
+router.patch('/server/reserve', schedule.checkEnabled, requireAuth, checkUser, controller.boxPatch);
+router.post('/server/populate', controller.populatePost)
+router.delete('/server/populate', controller.populateDelete)
+router.get('/server/user', checkUser, controller.userGet)
+router.patch('/server/profile', requireAuth, checkUser, controller.profilePatch)
+router.patch('/server/changePassword', requireAuth, checkUser, controller.changePasswordPatch)
 
 // schedule.weeklyReserveUpdate()
