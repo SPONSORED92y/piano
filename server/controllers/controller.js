@@ -3,6 +3,7 @@ const Book = require('../models/Book')
 const Box = require('../models/Box')
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
+const nodemailer = require('nodemailer')
 
 const { signupErrors, loginErrors, createErrors, profileErrors, changePasswordErrors } = require('./handleErrors')
 const createToken = (id) => {
@@ -55,20 +56,20 @@ exports.bookPatch = async (req, res) => {
 }
 
 exports.loginPost = async (req, res) => {
-    if (res.locals.user) {
-        res.status(400).json({ error: "duplicate login" })
-    } else {
-        const { email, password } = req.body;
-        try {
-            const user = await User.login(email, password)
-            const token = createToken(user._id)
-            res.cookie('jwt', token, { httpOnly: true, maxAge: 10 * 60 * 1000})
-            res.status(200).json({ user: user })
-        } catch (err) {
-            const errors = loginErrors(err)
-            res.status(400).json({ errors })
-        }
+    // if (res.locals.user) {
+    // res.status(400).json({ error: "duplicate login" })
+    // } else {
+    const { email, password } = req.body;
+    try {
+        const user = await User.login(email, password)
+        const token = createToken(user._id)
+        res.cookie('jwt', token, { httpOnly: true, maxAge: 10 * 60 * 1000 })
+        res.status(200).json({ user: user })
+    } catch (err) {
+        const errors = loginErrors(err)
+        res.status(400).json({ errors })
     }
+    // }
 }
 
 exports.signupPost = async (req, res) => {
@@ -232,3 +233,45 @@ exports.changePasswordPatch = async (req, res) => {
         res.status(400).json({ errors })
     }
 }
+
+exports.userListGet = async (req, res) => {
+    try {
+        if (res.locals.user.role !== 'Admin') {
+            throw Error('Only Admin can access the information')
+        }
+        let users = []
+        users = await Book.find({}).sort({ "username": 1 })
+        res.status(200).json(users)
+    } catch (err) {
+        console.log(err)
+    }
+}
+
+// exports.forgotPasswordPatch = async (req, res) => {
+//     try {
+//         const user = await User.findOne({ email: req.email })
+//         if (!user) {
+//             throw Error('該Email尚未註冊')
+//         }
+//         const
+//         const transporter = nodemailer.createTransport({
+//             service: 'gmail',
+//             auth: {
+//                 user: 'jasonsu92y@gmail.com',
+//                 pass: 'fhaameaqusgabkma'
+//             }
+//         })
+//         const mailOptions = {
+//             from: 'jasonsu92y@gmail.com',
+//             to: req.email,
+//             subject: '成大鋼琴社琴點系統-忘記密碼',
+//             text: `您帳號的密碼是`
+//         }
+//     } catch (err) {
+//         const errors = profileErrors(err)
+//         res.status(400).json({ errors })
+//     }
+
+
+
+// }
