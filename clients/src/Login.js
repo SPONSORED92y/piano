@@ -24,7 +24,7 @@ const Login = () => {
     setEmailError('')
     setPasswordError('')
     try {
-      const res = await fetch(`${Variable.serverURL}/login`, {
+      const res = await fetch('http://146.190.87.130/server/login', {
         mode: "cors",
         method: "POST",
         credentials: "include",
