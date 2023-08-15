@@ -3,6 +3,7 @@ const mongoose = require('mongoose')
 mongoose.set('strictQuery', true)
 const cookieParser = require('cookie-parser')
 const { requireAuth, checkUser } = require('./authMiddleware')
+const cors = require('cors')
 
 const controller = require("./controllers/controller");
 const schedule = require("./schedule");
@@ -11,6 +12,16 @@ const app = express();
 
 app.use(express.json());
 app.use(cookieParser());
+
+var corsOptions = {
+    // origin: '*',
+    // origin: process.env.CLIENT_ORIGIN || 'http://localhost:3000',
+    // credentials: true
+    // origin: '*'
+    origin: 'http://localhost:3000',
+    credentials: true
+}
+app.use(cors(corsOptions));
 
 const dbURI = process.env.MONGODB_URI || 'mongodb+srv://jasonsu92y:jason789523@cluster0.yb5h0bu.mongodb.net/jwt-auth?retryWrites=true&w=majority';
 mongoose.connect(dbURI)
@@ -38,7 +49,10 @@ router.delete('/server/populate', controller.populateDelete)
 router.get('/server/user', checkUser, controller.userGet)
 router.patch('/server/profile', requireAuth, checkUser, controller.profilePatch)
 router.patch('/server/changePassword', requireAuth, checkUser, controller.changePasswordPatch)
-// router.get('/server/forgotPassword', controller.forgotPasswordPatch)
+// router.get('/server/forgotPassword', controller.forgotPasswordGet)
 router.get('/server/Userlist', requireAuth, checkUser, controller.userListGet);
+router.patch('/server/profileEditUser', requireAuth, checkUser, controller.profileEditUserPatch)
+router.patch('/server/changePasswordEditUser', requireAuth, checkUser, controller.changePasswordEditUserPatch)
+router.delete('/server/editUser', requireAuth, checkUser, controller.editUserDelete)
 
-schedule.weeklyReserveUpdate()
+// schedule.weeklyReserveUpdate()

@@ -1,4 +1,4 @@
-const publish = true;
-const serverURL = publish ? '/server' : 'http://localhost:9000'
+const publish = false
+const serverURL = publish ? '/server' : 'http://localhost:9000/server'
 const Variable = { publish, serverURL }
-export default Variable;
+export default Variable

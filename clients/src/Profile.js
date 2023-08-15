@@ -1,33 +1,36 @@
-import { useEffect, useState, useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState, useContext } from "react"
+import { useNavigate, useLocation } from "react-router-dom"
 import Variable from './Variable'
-import CurrentUserContext from './CurrentUserContext';
+import CurrentUserContext from './CurrentUserContext'
 const Profile = () => {
     const navigate = useNavigate()
-    const { setCurrentUser } = useContext(CurrentUserContext);
+    const location = useLocation()
+
+    const { setCurrentUser } = useContext(CurrentUserContext)
 
     const [user, setUser] = useState()
-    const [passwordCurrent, setPasswordCurrent] = useState('');
-    const [password, setPassword] = useState('');
-    const [passwordAgain, setPasswordAgain] = useState('');
-    //props to form
-    const [username, setUsername] = useState('');
-    const [email, setEmail] = useState('');
-    const [department, setDepartment] = useState('');
-    const [studentID, setStudentID] = useState('');
-    const [role, setRole] = useState('');
-    const [adminKey, setAdminKey] = useState('');
+    //form
+    const [username, setUsername] = useState('')
+    const [email, setEmail] = useState('')
+    const [department, setDepartment] = useState('')
+    const [studentID, setStudentID] = useState('')
+    const [role, setRole] = useState('')
+    const [adminKey, setAdminKey] = useState('')
+    //password
+    const [passwordCurrent, setPasswordCurrent] = useState('')
+    const [password, setPassword] = useState('')
+    const [passwordAgain, setPasswordAgain] = useState('')
     //error message
-    const [usernameError, setUsernameError] = useState('');
-    const [emailError, setEmailError] = useState('');
-    const [departmentError, setDepartmentError] = useState('');
-    const [studentIDError, setStudentIDError] = useState('');
-    const [roleError, setRoleError] = useState('');
-    const [adminKeyError, setAdminKeyError] = useState('');
-    const [passwordCurrentError, setPasswordCurrentError] = useState('');
-    const [passwordError, setPasswordError] = useState('');
-    const [passwordAgainError, setPasswordAgainError] = useState('');
-    const [enabled, setEnabled] = useState(false);
+    const [usernameError, setUsernameError] = useState('')
+    const [emailError, setEmailError] = useState('')
+    const [departmentError, setDepartmentError] = useState('')
+    const [studentIDError, setStudentIDError] = useState('')
+    const [roleError, setRoleError] = useState('')
+    const [adminKeyError, setAdminKeyError] = useState('')
+    const [passwordCurrentError, setPasswordCurrentError] = useState('')
+    const [passwordError, setPasswordError] = useState('')
+    const [passwordAgainError, setPasswordAgainError] = useState('')
+    const [enabled, setEnabled] = useState(false)
 
     useEffect(() => {
         fetch(`${Variable.serverURL}/user`, {
@@ -53,7 +56,7 @@ const Profile = () => {
     }, [user])
 
     const handleSubmitProfile = async (e) => {
-        e.preventDefault();
+        e.preventDefault()
         setUsernameError('')
         setEmailError('')
         setDepartmentError('')
@@ -70,10 +73,13 @@ const Profile = () => {
             })
             if (res.ok) {
                 console.log(`${username} profile updated successfully`)
+                if (user.role !== role) {
+                    setCurrentUser(role)
+                }
                 navigate('/')
             } else {
-                const data = await res.json();
-                console.log(data);
+                const data = await res.json()
+                console.log(data)
                 setUsernameError(data.errors.username)
                 setEmailError(data.errors.email)
                 setDepartmentError(data.errors.department)
@@ -87,7 +93,7 @@ const Profile = () => {
     }
 
     const handleSubmitPassword = async (e) => {
-        e.preventDefault();
+        e.preventDefault()
         setPasswordAgainError('')
         setPasswordError('')
         setPasswordCurrentError('')
@@ -103,8 +109,8 @@ const Profile = () => {
                 console.log(`${username} password changed successfully`)
                 navigate('/logout')
             } else {
-                const data = await res.json();
-                console.log(data);
+                const data = await res.json()
+                console.log(data)
                 setPasswordCurrentError(data.errors.passwordCurrent)
                 setPasswordError(data.errors.password)
             }
@@ -229,7 +235,7 @@ const Profile = () => {
             </form>
 
         </div>
-    );
+    )
 }
 
-export default Profile;
+export default Profile

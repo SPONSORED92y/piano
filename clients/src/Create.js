@@ -1,20 +1,20 @@
-import { useEffect, useState, useContext } from "react";
-import { useNavigate } from "react-router-dom";
-import CurrentUserContext from './CurrentUserContext';
+import { useEffect, useState, useContext } from "react"
+import { useNavigate } from "react-router-dom"
+import CurrentUserContext from './CurrentUserContext'
 import Variable from './Variable'
 
 const Create = () => {
   const navigate = useNavigate()
-  const [title, setTitle] = useState('');
-  const [status, setStatus] = useState('Available');
-  const [borrower, setBorrower] = useState('');
-  const [titleError, setTitleError] = useState('');
-  const [statusError, setStatusError] = useState('');
-  const [errorMessage, setErrorMessage] = useState('');
-  const { currentUser, setCurrentUser } = useContext(CurrentUserContext);
+  const [title, setTitle] = useState('')
+  const [status, setStatus] = useState('Available')
+  const [borrower, setBorrower] = useState('')
+  const [titleError, setTitleError] = useState('')
+  const [statusError, setStatusError] = useState('')
+  const [errorMessage, setErrorMessage] = useState('')
+  const { currentUser, setCurrentUser } = useContext(CurrentUserContext)
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    e.preventDefault()
     setTitleError('')
     setStatusError('')
     setErrorMessage('')
@@ -30,8 +30,8 @@ const Create = () => {
         console.log(`${title} created successfully`)
         navigate('/list')
       } else {
-        const data = await res.json();
-        console.log(data);
+        const data = await res.json()
+        console.log(data)
         setTitleError(data.errors.title)
         setStatusError(data.errors.status)
       }
@@ -99,6 +99,6 @@ const Create = () => {
         <button disabled={errorMessage !== ''}>新增</button>
       </form>
     </div>
-  );
+  )
 }
-export default Create;
+export default Create

@@ -1,7 +1,7 @@
-import { useEffect, useState, useContext } from "react";
-import Popup from "./Popup";
-import CurrentUserContext from './CurrentUserContext';
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState, useContext } from "react"
+import Popup from "./Popup"
+import CurrentUserContext from './CurrentUserContext'
+import { useNavigate } from "react-router-dom"
 import Variable from './Variable'
 const Reserve = () => {
     const navigate = useNavigate()
@@ -12,11 +12,11 @@ const Reserve = () => {
     const [popupVisibility, setPopupVisibility] = useState([])
     const [user, setUser] = useState({})
     const [signalRerender, setSignalRerender] = useState(false)
-    const [today, setDate] = useState(new Date());
+    const [today, setDate] = useState(new Date())
     const [disablePage, setDisablePage] = useState(false)
 
 
-    const { currentUser } = useContext(CurrentUserContext);
+    const { currentUser } = useContext(CurrentUserContext)
 
     useEffect(() => {
         let vis112 = []
@@ -28,7 +28,7 @@ const Reserve = () => {
 
     }, [])
     const flipPopupVisibility = (period) => {
-        let newVis112 = popupVisibility;
+        let newVis112 = popupVisibility
         newVis112[period - 1] = !newVis112[period - 1]
         setPopupVisibility(newVis112)
         flipSignal()
@@ -108,18 +108,18 @@ const Reserve = () => {
 
     useEffect(() => {
         const timer = setInterval(() => {
-            setDate(new Date());
-        }, 1000);
+            setDate(new Date())
+        }, 1000)
         return () => {
-            clearInterval(timer);
+            clearInterval(timer)
         }
-    }, []);
+    }, [])
 
-    const specific = today.toLocaleDateString('roc', { weekday: 'long', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric' });
-    const day = today.getDay();
-    const hour = today.getHours();
-    const minute = today.getMinutes();
-    const second = today.getSeconds();
+    const specific = today.toLocaleDateString('roc', { weekday: 'long', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric' })
+    const day = today.getDay()
+    const hour = today.getHours()
+    const minute = today.getMinutes()
+    const second = today.getSeconds()
     useEffect(() => {
         if (day === 7 && hour === 23 && minute === 59 && second === 59) {
             // console.log('updating')
@@ -133,54 +133,58 @@ const Reserve = () => {
 
     return (
         <div className='reserve'>
-
             <h1>預約琴房</h1>
-
-
-
-            {disablePage && <div>非預約時段</div>}
-            <div>現在時間: {specific}</div>
-            <div>
-                <div>姓名:{user && user.username}</div>
-                <div>本週剩餘次數:{user && user.times}</div>
-            </div>
-            <div className="weekContainer">
-                <span className="week" style={{ backgroundColor: (week === 1) ? "#47deec" : "white" }} onClick={() => { setWeek(1) }}>本周</span>
-                <span className="week" style={{ backgroundColor: (week === 2) ? "#47deec" : "white" }} onClick={() => { setWeek(2) }}>下周</span>
-            </div>
-            <div className="roomContainer">
-                <span className="room" style={{ backgroundColor: (room === 1) ? "#47deec" : "white" }} onClick={() => { setRoom(1) }}>琴房一</span>
-                <span className="room" style={{ backgroundColor: (room === 2) ? "#47deec" : "white" }} onClick={() => { setRoom(2) }}>琴房二</span>
-                <span className="room" style={{ backgroundColor: (room === 3) ? "#47deec" : "white" }} onClick={() => { setRoom(3) }}>琴房三</span>
-            </div>
-            <div><span className='daysOfWeek'><div style={{ visibility: 'hidden' }}>佔位子</div></span><span className='daysOfWeek'>星期一</span><span className='daysOfWeek'>星期二</span><span className='daysOfWeek'>星期三</span><span className='daysOfWeek'>星期四</span><span className='daysOfWeek'>星期五</span><span className='daysOfWeek'>星期六</span><span className='daysOfWeek'>星期日</span></div>
-            <div className="columnContainer">
-                <div className="columnPeriod">
-                    <div>{periodList[0]}</div><div>{periodList[1]}</div><div>{periodList[2]}</div><div>{periodList[3]}</div><div>{periodList[4]}</div><div>{periodList[5]}</div><div>{periodList[6]}</div><div>{periodList[7]}</div><div>{periodList[8]}</div><div>{periodList[9]}</div><div>{periodList[10]}</div><div>{periodList[11]}</div><div>{periodList[12]}</div><div>{periodList[13]}</div><div>{periodList[14]}</div><div>{periodList[15]}</div>
-                </div>
-                {boxes.map(box16 => (
-                    <div className="column" key={box16[0]._id}>
-                        {box16.map(box => (
-                            <div key={box._id}>
-                                <div className="box" onClick={() => handleClick(box)} style={{ backgroundColor: (box.status === 'Available') ? 'white' : ((box.status === 'Not Available') ? 'gray' : ((user && (box.user === user.username)) ? 'rgb(84, 219, 136)' : 'rgb(60, 138, 216)')) }}>{box.user ? box.user : <div style={{ visibility: 'hidden' }}>佔位子</div>}</div>
-                                <Popup
-                                    visibility={popupVisibility[box.period - 1]}
-                                    id={box._id}
-                                    status={box.status}
-                                    boxUser={box.user}
-                                    user={user}
-                                    period={box.period}
-                                    periodList={periodList}
-                                    flipPopupVisibility={flipPopupVisibility}
-                                    flipSignal={flipSignal}
-                                    week={week}
-                                />
-                            </div>))}
+            {disablePage && <div style={{ "color": "red" }}>非預約時段</div>}
+            <div className="bigBox">
+                <div className="colLeft">
+                    <div className="weekContainer">
+                        <span className="week" style={{ backgroundColor: (week === 1) ? "#47deec" : "white" }} onClick={() => { setWeek(1) }}>本周</span>
+                        <span className="week" style={{ backgroundColor: (week === 2) ? "#47deec" : "white" }} onClick={() => { setWeek(2) }}>下周</span>
+                        <span className="reserveRules">預約規則?</span>
                     </div>
-                ))}
+                    <div className="roomContainer">
+                        <span className="room" style={{ backgroundColor: (room === 1) ? "#47deec" : "white" }} onClick={() => { setRoom(1) }}>琴房一</span>
+                        <span className="room" style={{ backgroundColor: (room === 2) ? "#47deec" : "white" }} onClick={() => { setRoom(2) }}>琴房二</span>
+                        <span className="room" style={{ backgroundColor: (room === 3) ? "#47deec" : "white" }} onClick={() => { setRoom(3) }}>琴房三</span>
+                    </div>
+                </div>
+                <div className="colRight">
+                    <div className="clock">現在時間 :  {specific}</div>
+                    <div className="name">姓名 :  {user && user.username}</div>
+                    <div className="count">本週剩餘次數 :  {user && user.times}</div>
+                </div>
+            </div>
+            <div className="tableContainer">
+                <div className="daysOfWeek"><span><div style={{ visibility: 'hidden' }}>佔位子</div></span><span>星期一</span><span >星期二</span><span>星期三</span><span >星期四</span><span>星期五</span><span>星期六</span><span >星期日</span></div>
+                <div className="columnContainer">
+                    <div className="columnPeriod">
+                        <div>{periodList[0]}</div><div>{periodList[1]}</div><div>{periodList[2]}</div><div>{periodList[3]}</div><div>{periodList[4]}</div><div>{periodList[5]}</div><div>{periodList[6]}</div><div>{periodList[7]}</div><div>{periodList[8]}</div><div>{periodList[9]}</div><div>{periodList[10]}</div><div>{periodList[11]}</div><div>{periodList[12]}</div><div>{periodList[13]}</div><div>{periodList[14]}</div><div>{periodList[15]}</div>
+                    </div>
+                    {boxes.map(box16 => (
+                        <div className="column" key={box16[0]._id}>
+                            {box16.map(box => (
+                                <div key={box._id}>
+                                    {/* <div className="box" onClick={() => handleClick(box)} style={{ backgroundColor: (box.status === 'Available') ? 'white' : ((box.status === 'Not Available') ? 'gray' : ((user && (box.user === user.username)) ? 'rgb(84, 219, 136)' : 'rgb(60, 138, 216)')) }}>{box.user ? box.user : <div style={{ visibility: 'hidden' }}>佔位子</div>}</div> */}
+                                    <div className="box" onClick={() => handleClick(box)}>{box.user ? box.user : <div style={{ visibility: 'hidden' }}>佔位子</div>}</div>
+                                    <Popup
+                                        visibility={popupVisibility[box.period - 1]}
+                                        id={box._id}
+                                        status={box.status}
+                                        boxUser={box.user}
+                                        user={user}
+                                        period={box.period}
+                                        periodList={periodList}
+                                        flipPopupVisibility={flipPopupVisibility}
+                                        flipSignal={flipSignal}
+                                        week={week}
+                                    />
+                                </div>))}
+                        </div>
+                    ))}
+                </div>
             </div>
         </div >
-    );
+    )
 }
 
-export default Reserve;
+export default Reserve

@@ -1,13 +1,13 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom'
 import useFetch from "./useFetch"
-import { useContext, useEffect } from 'react';
-import CurrentUserContext from './CurrentUserContext';
+import { useContext, useEffect } from 'react'
+import CurrentUserContext from './CurrentUserContext'
 import Variable from './Variable'
 const UserList = () => {
     const navigate = useNavigate()
     const { currentUser } = useContext(CurrentUserContext)
 
-    const { error, isPending, data: users } = useFetch(`${Variable.serverURL}/userList`);
+    const { error, isPending, data: users } = useFetch(`${Variable.serverURL}/userList`)
 
     useEffect(() => {
         if (!currentUser) {
@@ -35,24 +35,20 @@ const UserList = () => {
                         <span className='department' >{user.department}</span>
                         <span className='role'>{(user.role === 'Admin') ? '幹部' : '一般社員'}</span>
                         {<span className='edit'
-                            // TODO
                             onClick={() => {
-                                navigate('/editBook', {
+                                navigate('/editUser', {
                                     state: {
-                                        title: book.title,
-                                        id: book._id,
-                                        status: book.status,
-                                        borrower: book.borrower,
+                                        user: user
                                     }
                                 })
                             }}>編輯</span>}
                     </div>
                 ))}
-                {currentUser === 'Admin' && <div className='create'> <Link to={"/create"}>增加</Link></div>}
+                <div className='create'> <Link to={"/create"}>增加</Link></div>
             </div>
         </div >
-    );
+    )
 }
 
 
-export default UserList;
+export default UserList

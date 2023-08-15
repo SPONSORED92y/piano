@@ -37,6 +37,9 @@ exports.createPost = async (req, res) => {
 
 exports.bookDelete = async (req, res) => {
     try {
+        if (res.locals.user.role !== 'Admin') {
+            throw Error('Only Admin can do this action')
+        }
         const deleteResult = await Book.deleteOne({ _id: req.body.id })
         res.status(200).json(deleteResult)
     } catch (err) {
@@ -247,7 +250,41 @@ exports.userListGet = async (req, res) => {
     }
 }
 
-// exports.forgotPasswordPatch = async (req, res) => {
+exports.profileEditUserPatch = async (req, res) => {
+    const { id, username, email, department, studentID } = req.body
+    try {
+        const updateResult = await User.updateOne({ _id: id }, { $set: { 'username': username, 'email': email, 'department': department, 'studentID': studentID } }, { runValidators: true })
+        res.status(200).send()
+    } catch (err) {
+        const errors = profileErrors(err)
+        res.status(400).json({ errors })
+    }
+}
+
+exports.changePasswordEditUserPatch = async (req, res) => {
+    const { id, password } = req.body
+    try {
+        const salt = await bcrypt.genSalt()
+        const EncryptedPassword = await bcrypt.hash(password, salt)
+        const updateResult = await User.updateOne({ _id: id }, { $set: { 'password': EncryptedPassword } }, { runValidators: true })
+        res.status(200).send()
+    } catch (err) {
+        const errors = changePasswordErrors(err)
+        res.status(400).json({ errors })
+    }
+}
+exports.editUserDelete = async (req, res) => {
+    try {
+        if (res.locals.user.role !== 'Admin') {
+            throw Error('Only Admin can do this action')
+        }
+        const deleteResult = await User.deleteOne({ _id: req.body.id })
+        res.status(200).json(deleteResult)
+    } catch (err) {
+        res.status(400).json(err)
+    }
+}
+// exports.forgotPasswordGet = async (req, res) => {
 //     try {
 //         const user = await User.findOne({ email: req.email })
 //         if (!user) {
@@ -271,7 +308,4 @@ exports.userListGet = async (req, res) => {
 //         const errors = profileErrors(err)
 //         res.status(400).json({ errors })
 //     }
-
-
-
 // }

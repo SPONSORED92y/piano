@@ -1,5 +1,5 @@
-import { useState, useContext, useEffect } from "react";
-import CurrentUserContext from './CurrentUserContext';
+import { useState, useContext, useEffect } from "react"
+import CurrentUserContext from './CurrentUserContext'
 import Variable from './Variable'
 const Popup = (props) => {
     const { visibility, id, status, user, boxUser, period, periodList, flipPopupVisibility, flipSignal, week } = props
@@ -9,7 +9,7 @@ const Popup = (props) => {
     const [updateError, setUpdateError] = useState('')
 
 
-    const { currentUser } = useContext(CurrentUserContext);
+    const { currentUser } = useContext(CurrentUserContext)
 
     const handleClick = () => {
         const go = async (action) => {
@@ -29,11 +29,11 @@ const Popup = (props) => {
                         console.log('cancel successful')
                     }
                 } else {
-                    const data = await res.json();
-                    console.log(data);
+                    const data = await res.json()
+                    console.log(data)
                 }
             } catch (err) {
-                console.log(err);
+                console.log(err)
             }
         }
 
@@ -51,7 +51,7 @@ const Popup = (props) => {
     }
 
     const handleSubmit = async (e) => {
-        e.preventDefault();
+        e.preventDefault()
         try {
             const res = await fetch(`${Variable.serverURL}/reserve`, {
                 mode: "cors",
@@ -66,11 +66,11 @@ const Popup = (props) => {
                 flipSignal()
                 console.log('update successful')
             } else {
-                const data = await res.json();
-                console.log(data);
+                const data = await res.json()
+                console.log(data)
             }
         } catch (err) {
-            console.log(err);
+            console.log(err)
         }
     }
 
@@ -150,7 +150,7 @@ const Popup = (props) => {
             </div>
             <div className="backCover" style={{ visibility: visibility ? 'visible' : 'hidden' }}></div>
         </div>
-    );
+    )
 }
 
-export default Popup;
+export default Popup

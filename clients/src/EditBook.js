@@ -37,7 +37,7 @@ const EditBook = () => {
   }
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    e.preventDefault()
     setTitleError('')
     setStatusError('')
     setErrorMessage('')
@@ -120,6 +120,6 @@ const EditBook = () => {
         <div onClick={handleClickDelete}>刪除琴譜</div>
       </form>
     </div>
-  );
+  )
 }
-export default EditBook;
+export default EditBook

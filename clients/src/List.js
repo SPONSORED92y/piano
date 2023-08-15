@@ -1,13 +1,13 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom'
 import useFetch from "./useFetch"
-import { useContext, useEffect } from 'react';
-import CurrentUserContext from './CurrentUserContext';
+import { useContext, useEffect } from 'react'
+import CurrentUserContext from './CurrentUserContext'
 import Variable from './Variable'
 const List = () => {
     const navigate = useNavigate()
     const { currentUser } = useContext(CurrentUserContext)
 
-    const { error, isPending, data: books } = useFetch(`${Variable.serverURL}/list`);
+    const { error, isPending, data: books } = useFetch(`${Variable.serverURL}/list`)
 
     useEffect(() => {
         if (!currentUser) {
@@ -49,8 +49,8 @@ const List = () => {
                 {currentUser === 'Admin' && <div className='create'> <Link to={"/create"}>增加</Link></div>}
             </div>
         </div >
-    );
+    )
 }
 
 
-export default List;
+export default List

@@ -15,6 +15,6 @@ const useCookie = () => {
         }
         return null
     }
-    return getCookie;
+    return getCookie
 }
 export default useCookie

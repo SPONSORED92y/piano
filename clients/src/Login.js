@@ -1,38 +1,38 @@
-import { useEffect, useState, useContext } from "react";
-import { useNavigate } from "react-router-dom";
-import CurrentUserContext from './CurrentUserContext';
+import { useEffect, useState, useContext } from "react"
+import { useNavigate } from "react-router-dom"
+import CurrentUserContext from './CurrentUserContext'
 import Variable from './Variable'
 const Login = () => {
-  const [email, setEmail] = useState(Variable.publish ? '' : 'jasonsu@gmail.com');
-  const [password, setPassword] = useState(Variable.publish ? '' : '789456');
-  const [emailError, setEmailError] = useState('');
-  const [passwordError, setPasswordError] = useState('');
+  const [email, setEmail] = useState(Variable.publish ? '' : 'jasonsu@gmail.com')
+  const [password, setPassword] = useState(Variable.publish ? '' : '789456')
+  const [emailError, setEmailError] = useState('')
+  const [passwordError, setPasswordError] = useState('')
 
-  const { currentUser, setCurrentUser } = useContext(CurrentUserContext);
+  const { currentUser, setCurrentUser } = useContext(CurrentUserContext)
   const navigate = useNavigate()
 
   useEffect(() => {
     if (currentUser) {
-      navigate('/')
+      navigate('/news')
     }
   }, [currentUser])
 
 
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    e.preventDefault()
     setEmailError('')
     setPasswordError('')
     try {
-      const res = await fetch('http://146.190.87.130/server/login', {
+      const res = await fetch(`${Variable.serverURL}/login`, {
         mode: "cors",
         method: "POST",
         credentials: "include",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password })
       })
-      const data = await res.json();
-      console.log(data);
+      const data = await res.json()
+      console.log(data)
       if (data.errors) {
         setEmailError(data.errors.email)
         setPasswordError(data.errors.password)
@@ -44,40 +44,45 @@ const Login = () => {
         // navigate('/')
       }
     } catch (err) {
-      console.log(err);
+      console.log(err)
     }
   }
 
   return (
     <div className="login">
       <h1>登入</h1>
-      <form onSubmit={handleSubmit}>
-        <div>
-
-          <label>Email:</label>
-          <input
-            type="text"
-            required
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <div>{emailError}</div>
-        </div>
-        <div>
-          <label>密碼:</label>
-          <input
-            type="password"
-            required
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          <div>{passwordError}</div>
-        </div>
-        <button>登入</button>
-      </form>
+      <div className="bigBox">
+        <form onSubmit={handleSubmit}>
+          <div>
+            {/* <label>Email:</label> */}
+            <input
+              type="text"
+              required
+              value={email}
+              placeholder="Email"
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <div>{emailError}</div>
+          </div>
+          <div>
+            {/* <label>密碼:</label> */}
+            <input
+              type="password"
+              required
+              value={password}
+              placeholder="密碼"
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <div>{passwordError}</div>
+          </div>
+          <button className="loginButton">登入</button>
+        </form>
+        <div className="divider"></div>
+        <button className="signupButton" onClick={() => navigate('/signup')}>註冊新帳號</button>
+      </div>
     </div>
-  );
+  )
 }
 
 
-export default Login;
+export default Login

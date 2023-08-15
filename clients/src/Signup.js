@@ -1,28 +1,28 @@
-import { useEffect, useState, useContext } from "react";
-import { useNavigate } from "react-router-dom";
-import CurrentUserContext from './CurrentUserContext';
+import { useEffect, useState, useContext } from "react"
+import { useNavigate } from "react-router-dom"
+import CurrentUserContext from './CurrentUserContext'
 import Variable from './Variable'
 
 const Signup = () => {
-  const [username, setUsername] = useState(Variable.publish ? '' : 'jason');
-  const [password, setPassword] = useState(Variable.publish ? '' : '123456');
-  const [passwordAgain, setPasswordAgain] = useState(Variable.publish ? '' : '123456');
-  const [email, setEmail] = useState(Variable.publish ? '' : 'jason@gmail.com');
-  const [department, setDepartment] = useState(Variable.publish ? '' : 'EE');
-  const [studentID, setStudentID] = useState(Variable.publish ? '' : 'E24106652');
-  const [role, setRole] = useState('Member');
-  const [adminKey, setAdminKey] = useState(Variable.publish ? '' : 'SPONSORED');
-  const [usernameError, setUsernameError] = useState('');
-  const [passwordError, setPasswordError] = useState('');
-  const [passwordAgainError, setPasswordAgainError] = useState('');
-  const [emailError, setEmailError] = useState('');
-  const [departmentError, setDepartmentError] = useState('');
-  const [studentIDError, setStudentIDError] = useState('');
-  const [roleError, setRoleError] = useState('');
-  const [adminKeyError, setAdminKeyError] = useState('');
-  const [enabled, setEnabled] = useState(false);
+  const [username, setUsername] = useState(Variable.publish ? '' : 'jason')
+  const [password, setPassword] = useState(Variable.publish ? '' : '123456')
+  const [passwordAgain, setPasswordAgain] = useState(Variable.publish ? '' : '123456')
+  const [email, setEmail] = useState(Variable.publish ? '' : 'jason@gmail.com')
+  const [department, setDepartment] = useState(Variable.publish ? '' : 'EE')
+  const [studentID, setStudentID] = useState(Variable.publish ? '' : 'E24106652')
+  const [role, setRole] = useState('Member')
+  const [adminKey, setAdminKey] = useState(Variable.publish ? '' : 'SPONSORED')
+  const [usernameError, setUsernameError] = useState('')
+  const [passwordError, setPasswordError] = useState('')
+  const [passwordAgainError, setPasswordAgainError] = useState('')
+  const [emailError, setEmailError] = useState('')
+  const [departmentError, setDepartmentError] = useState('')
+  const [studentIDError, setStudentIDError] = useState('')
+  const [roleError, setRoleError] = useState('')
+  const [adminKeyError, setAdminKeyError] = useState('')
+  const [enabled, setEnabled] = useState(false)
   const {
-    currentUser } = useContext(CurrentUserContext);
+    currentUser } = useContext(CurrentUserContext)
 
   const navigate = useNavigate()
 
@@ -33,7 +33,7 @@ const Signup = () => {
   }, [currentUser])
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    e.preventDefault()
     setUsernameError('')
     setPasswordError('')
     setEmailError('')
@@ -49,8 +49,8 @@ const Signup = () => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ username, password, email, department, studentID, role, adminKey })
       })
-      const data = await res.json();
-      console.log(data);
+      const data = await res.json()
+      console.log(data)
       if (data.errors) {
         setUsernameError(data.errors.username)
         setPasswordError(data.errors.password)
@@ -168,6 +168,6 @@ const Signup = () => {
         <button disabled={!enabled}>註冊</button>
       </form>
     </div>
-  );
+  )
 }
-export default Signup;
+export default Signup

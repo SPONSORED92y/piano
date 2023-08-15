@@ -28,7 +28,7 @@ const Home = () => {
 
             <h2>By: ㄍㄇ(´･ω･`)</h2>
         </div>
-    );
+    )
 }
 
-export default Home;
+export default Home
