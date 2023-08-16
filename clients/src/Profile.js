@@ -137,7 +137,7 @@ const Profile = () => {
             {user && <div>本週剩餘次數:{user.times}</div>}
             <form onSubmit={handleSubmitProfile}>
                 <div>
-                    <label>{'姓名: (請使用本名)'}</label>
+                    <label>姓名: (請使用本名)</label>
                     <input
                         type="text"
                         required
@@ -147,7 +147,7 @@ const Profile = () => {
                     <div>{usernameError}</div>
                 </div>
                 <div>
-                    <label>{'Email: '}</label>
+                    <label>Email: </label>
                     <input
                         type="text"
                         required
@@ -157,7 +157,7 @@ const Profile = () => {
                     <div>{emailError}</div>
                 </div>
                 <div>
-                    <label>{'系級: (校外人士請填"校外")'}</label>
+                    <label>系級: (校外人士請填"校外")</label>
                     <input
                         type="text"
                         required
@@ -167,7 +167,7 @@ const Profile = () => {
                     <div>{departmentError}</div>
                 </div>
                 <div>
-                    <label>{'學號: (校外人士請填"0")'}</label>
+                    <label>學號: (校外人士請填"0")</label>
                     <input
                         type="text"
                         required
@@ -177,7 +177,7 @@ const Profile = () => {
                     <div>{studentIDError}</div>
                 </div>
                 <div>
-                    <label>{'身分: '}</label>
+                    <label>身分: </label>
                     <select value={role}
                         onChange={(e) => setRole(e.target.value)}>
                         <option value='Member'>一般社員</option>

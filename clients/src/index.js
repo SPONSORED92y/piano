@@ -1,6 +1,12 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import './index.css'
+import './style/list.css'
+import './style/login.css'
+import './style/navbar.css'
+import './style/reserve.css'
+import './style/signup.css'
+import './style/userList.css'
 import App from './App'
 
 const root = ReactDOM.createRoot(document.getElementById('root'))

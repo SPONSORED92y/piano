@@ -1,0 +1,81 @@
+/* login */
+.login {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.login h1 {
+    font-size: 60px;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.login .bigBox {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url('../../public/loginBackground.png');
+    width: 796px;
+    height: 407px;
+    background-size: cover;
+    margin-top: 90px;
+}
+
+.login .colLeft {
+    box-sizing: border-box;
+    height: 319.6px;
+    width: 302.8px;
+}
+
+.login .colRight {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-sizing: border-box;
+    height: 319.6px;
+    width: 302.8px;
+    border: solid 3px gray;
+    padding: 20px 20px 20px 20px;
+    border-radius: 12px;
+    font-size: 30px;
+    margin-left: 30px;
+}
+
+.login input {
+    height: 30px;
+    width: 250px;
+    border-radius: 6px;
+    padding: 10px;
+    margin-bottom: 15px;
+    font-size: 20px;
+}
+
+.login .loginButton {
+    height: 45px;
+    line-height: 45px;
+    width: 273.2px;
+    font-size: 20px;
+    border: solid 2px black;
+    border-radius: 4px;
+    margin-bottom: 15px;
+
+    background-color: white;
+}
+
+.login .divider {
+    height: 0px;
+    width: 273.2px;
+    border: solid 1px gray;
+    margin-bottom: 15px;
+}
+
+.login .signupButton {
+    height: 45px;
+    width: 120px;
+    font-size: 20px;
+    border: solid 2px black;
+    line-height: 45px;
+    border-radius: 4px;
+    background-color: white;
+}

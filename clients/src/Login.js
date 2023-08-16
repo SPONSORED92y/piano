@@ -50,35 +50,38 @@ const Login = () => {
 
   return (
     <div className="login">
-      <h1>登入</h1>
+      {/* <h1>登入</h1> */}
       <div className="bigBox">
-        <form onSubmit={handleSubmit}>
-          <div>
-            {/* <label>Email:</label> */}
-            <input
-              type="text"
-              required
-              value={email}
-              placeholder="Email"
-              onChange={(e) => setEmail(e.target.value)}
-            />
-            <div>{emailError}</div>
-          </div>
-          <div>
-            {/* <label>密碼:</label> */}
-            <input
-              type="password"
-              required
-              value={password}
-              placeholder="密碼"
-              onChange={(e) => setPassword(e.target.value)}
-            />
-            <div>{passwordError}</div>
-          </div>
-          <button className="loginButton">登入</button>
-        </form>
-        <div className="divider"></div>
-        <button className="signupButton" onClick={() => navigate('/signup')}>註冊新帳號</button>
+        {/* <img src="loginBackground.png" alt="loginBackground" width="1425" height="729"></img> */}
+        <div className="colLeft">
+        </div>
+        <div className="colRight">
+          <form onSubmit={handleSubmit}>
+            <div>
+              <input
+                type="text"
+                required
+                value={email}
+                placeholder="Email"
+                onChange={(e) => setEmail(e.target.value)}
+              />
+              <div>{emailError}</div>
+            </div>
+            <div>
+              <input
+                type="password"
+                required
+                value={password}
+                placeholder="密碼"
+                onChange={(e) => setPassword(e.target.value)}
+              />
+              <div>{passwordError}</div>
+            </div>
+            <button className="loginButton">登入</button>
+          </form>
+          <div className="divider"></div>
+          <button className="signupButton" onClick={() => navigate('/signup')}>註冊新帳號</button>
+        </div>
       </div>
     </div>
   )

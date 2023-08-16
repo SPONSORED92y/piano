@@ -17,38 +17,42 @@ const List = () => {
 
     return (
         <div className="list">
-            <div>
-                <h1>琴譜列表</h1>
-                {error && <div>{error}</div>}
-                {isPending && <div>Loading...</div>}
-                <div className='columnContainer'>
-                    <span >琴譜名稱</span>
-                    <span >狀態</span>
-                    {currentUser === 'Admin' && <span >出借社員</span>}
-                </div>
-                {currentUser && books && books.map(book => (
-                    // bookimage
-                    <div className="book" key={book._id}>
-                        <span className='title' >{book.title}</span>
-                        <span className='status'>{(book.status === 'Available') ? '可借閱' : '已外借'}</span>
-                        {currentUser === 'Admin' && <span className='borrower'>{book.borrower}</span>}
-                        {currentUser === 'Admin' &&
-                            <span className='edit'
-                                onClick={() => {
-                                    navigate('/editBook', {
-                                        state: {
-                                            title: book.title,
-                                            id: book._id,
-                                            status: book.status,
-                                            borrower: book.borrower,
-                                        }
-                                    })
-                                }}>編輯</span>}
-                    </div>
-                ))}
-                {currentUser === 'Admin' && <div className='create'> <Link to={"/create"}>增加</Link></div>}
-            </div>
-        </div >
+            <h1>琴譜列表</h1>
+            {error && <div>{error}</div>}
+            {isPending && <div>Loading...</div>}
+            <table>
+                <thead>
+                    <th>標題</th>
+                    <th>狀態</th>
+                    {currentUser === 'Admin' && <th >出借社員</th>}
+                    {currentUser === 'Admin' && <th >借出日期</th>}
+                </thead>
+                <tbody>
+                    {currentUser && books && books.map(book => (
+                        // bookimage
+                        <tr className="book" key={book._id}>
+                            <td className='title' >{book.title}</td>
+                            <td className='status'>{(book.status === 'Available') ? '可借閱' : '已外借'}</td>
+                            {currentUser === 'Admin' && <td className='borrower'>{book.borrower}</td>}
+                            {currentUser === 'Admin' && <td className='date'>{book.date}</td>}
+                            {currentUser === 'Admin' &&
+                                <div className='edit'
+                                    onClick={() => {
+                                        navigate('/editBook', {
+                                            state: {
+                                                title: book.title,
+                                                id: book._id,
+                                                status: book.status,
+                                                borrower: book.borrower,
+                                            }
+                                        })
+                                    }}>編輯</div>}
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
+            {currentUser === 'Admin' && <div className='create'> <Link to={"/create"}>增加</Link></div>}
+        </div>
     )
 }
 

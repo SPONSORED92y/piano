@@ -82,91 +82,95 @@ const Signup = () => {
   }, [password, passwordAgain])
 
   return (
-    <div className="login">
+    <div className="signup">
       <h1>註冊</h1>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>使用者名稱:</label>
-          <input
-            type="text"
-            required
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-          />
-          <div>{usernameError}</div>
-        </div>
-        <div>
-          <label>密碼:</label>
-          <input
-            type="password"
-            required
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          <div>{passwordError}</div>
-        </div>
-        <div>
-          <label>請再次輸入密碼:</label>
-          <input
-            type="password"
-            required
-            value={passwordAgain}
-            onChange={(e) => setPasswordAgain(e.target.value)}
-          />
-          <div>{passwordAgainError}</div>
-        </div>
-        <div>
-          <label>email:</label>
-          <input
-            type="text"
-            required
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <div>{emailError}</div>
-        </div>
-        <div>
-          <label>系級:</label>
-          <input
-            type="text"
-            required
-            value={department}
-            onChange={(e) => setDepartment(e.target.value)}
-          />
-          <div>{departmentError}</div>
-        </div>
-        <div>
-          <label>學號:</label>
-          <input
-            type="text"
-            required
-            value={studentID}
-            onChange={(e) => setStudentID(e.target.value)}
-          />
-          <div>{studentIDError}</div>
-        </div>
-        <div>
-          <label>身分:</label>
-          <select value={role}
-            onChange={(e) => setRole(e.target.value)}>
-            <option value='Member'>一般社員</option>
-            <option value='Admin'>幹部</option>
-          </select>
-          <div>{roleError}</div>
-        </div>
-        {(role === 'Admin') &&
+      <div className="bigBox">
+
+        <form onSubmit={handleSubmit}>
           <div>
-            <label>通關密語:</label>
+            <label>姓名: (請使用本名)</label>
             <input
               type="text"
-              value={adminKey}
-              onChange={(e) => setAdminKey(e.target.value)}
+              required
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
             />
-            <div>{adminKeyError}</div>
+            <div>{usernameError}</div>
           </div>
-        }
-        <button disabled={!enabled}>註冊</button>
-      </form>
+          <div>
+            <label>密碼:</label>
+            <input
+              type="password"
+              required
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <div>{passwordError}</div>
+          </div>
+          <div>
+            <label>請再次輸入密碼:</label>
+            <input
+              type="password"
+              required
+              value={passwordAgain}
+              onChange={(e) => setPasswordAgain(e.target.value)}
+            />
+            <div>{passwordAgainError}</div>
+          </div>
+          <div>
+            <label>Email: </label>
+            <input
+              type="text"
+              required
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <div>{emailError}</div>
+          </div>
+          <div>
+            <label>系級: (校外人士請填"校外")</label>
+            <input
+              type="text"
+              required
+              value={department}
+              placeholder="電機114"
+              onChange={(e) => setDepartment(e.target.value)}
+            />
+            <div>{departmentError}</div>
+          </div>
+          <div>
+            <label>學號: (校外人士請填"0")</label>
+            <input
+              type="text"
+              required
+              value={studentID}
+              onChange={(e) => setStudentID(e.target.value)}
+            />
+            <div>{studentIDError}</div>
+          </div>
+          <div>
+            <label>身分: </label>
+            <select value={role}
+              onChange={(e) => setRole(e.target.value)}>
+              <option value='Member'>一般社員</option>
+              <option value='Admin'>幹部</option>
+            </select>
+            <div>{roleError}</div>
+          </div>
+          {(role === 'Admin') &&
+            <div>
+              <label>通關密語:</label>
+              <input
+                type="text"
+                value={adminKey}
+                onChange={(e) => setAdminKey(e.target.value)}
+              />
+              <div>{adminKeyError}</div>
+            </div>
+          }
+          <button disabled={!enabled}>註冊</button>
+        </form>
+      </div>
     </div>
   )
 }

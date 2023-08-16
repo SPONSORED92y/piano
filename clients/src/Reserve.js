@@ -134,7 +134,7 @@ const Reserve = () => {
     return (
         <div className='reserve'>
             <h1>預約琴房</h1>
-            {disablePage && <div style={{ "color": "red" }}>非預約時段</div>}
+            {disablePage && <div className="notReserveTime">非預約時段</div>}
             <div className="bigBox">
                 <div className="colLeft">
                     <div className="weekContainer">

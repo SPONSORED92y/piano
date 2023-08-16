@@ -15,9 +15,9 @@ exports.listGet = async (req, res) => {
     let books = []
     try {
         if (res.locals.user.role === 'Admin') {
-            books = await Book.find().sort({ "title": 1 })
+            books = await Book.find().sort({ 'title': 1 })
         } else {
-            books = await Book.find({}, { borrower: 0 }).sort({ "title": 1 })
+            books = await Book.find({}, { borrower: 0, date: 0 }).sort({ 'title': 1 })
         }
         res.status(200).json(books)
     } catch (err) {
@@ -25,10 +25,10 @@ exports.listGet = async (req, res) => {
     }
 }
 exports.createPost = async (req, res) => {
-    const { title, status, borrower } = req.body
+    const { title, status, borrower, date } = req.body
     try {
-        const book = await Book.create({ title, status, borrower })
-        res.status(201).json({ "book": book._id })
+        const book = await Book.create({ title, status, borrower, date })
+        res.status(201).json({ 'book': book._id })
     } catch (err) {
         const errors = createErrors(err)
         res.status(400).json({ errors })
@@ -50,7 +50,7 @@ exports.bookDelete = async (req, res) => {
 exports.bookPatch = async (req, res) => {
     try {
         const { id, title, status, borrower } = req.body
-        const updateResult = await Book.updateOne({ _id: id }, { $set: { "title": title, "status": status, "borrower": borrower } }, { runValidators: true })
+        const updateResult = await Book.updateOne({ _id: id }, { $set: { 'title': title, 'status': status, 'date': date, 'borrower': borrower } }, { runValidators: true })
         res.status(200).json(updateResult)
     } catch (err) {
         console.log(err)
@@ -59,10 +59,7 @@ exports.bookPatch = async (req, res) => {
 }
 
 exports.loginPost = async (req, res) => {
-    // if (res.locals.user) {
-    // res.status(400).json({ error: "duplicate login" })
-    // } else {
-    const { email, password } = req.body;
+    const { email, password } = req.body
     try {
         const user = await User.login(email, password)
         const token = createToken(user._id)
@@ -84,7 +81,7 @@ exports.signupPost = async (req, res) => {
         const user = await User.create({ username, password, email, department, studentID, role })
         // const token = createToken(user._id)
         // res.cookie('jwt', token, { httpOnly: true, maxAge: 5 * 60 * 1000 })
-        res.status(201).json({ "user": user._id })
+        res.status(201).json({ 'user': user._id })
     } catch (err) {
         const errors = signupErrors(err)
         res.status(400).json({ errors })
@@ -99,7 +96,7 @@ exports.logoutPost = async (req, res) => {
 exports.boxGet = async (req, res) => {
     let boxes = []
     try {
-        boxes = await Box.find({ "week": req.body.week, "room": req.body.room }).sort({ "period": 1 })
+        boxes = await Box.find({ 'week': req.body.week, 'room': req.body.room }).sort({ 'period': 1 })
         res.status(200).json(boxes)
     } catch (err) {
         console.log(err)
@@ -117,8 +114,8 @@ exports.boxPost = async (req, res) => {
         if (res.locals.user.times <= 0) {
             throw Error('exceed reserve number limit')
         }
-        const updateResultBox = await Box.updateOne({ _id: req.body.id }, { $set: { "user": res.locals.user.username, "status": "Occupied" } })
-        const updateResultUser = await User.updateOne({ _id: res.locals.user._id }, { $set: { "times": res.locals.user.times - 1 } })
+        const updateResultBox = await Box.updateOne({ _id: req.body.id }, { $set: { 'user': res.locals.user.username, 'status': 'Occupied' } })
+        const updateResultUser = await User.updateOne({ _id: res.locals.user._id }, { $set: { 'times': res.locals.user.times - 1 } })
         res.status(200).json({ updateResultBox, updateResultUser })
     } catch (err) {
         console.log(err)
@@ -134,10 +131,10 @@ exports.boxDelete = async (req, res) => {
         if (box.user !== res.locals.user.username) {
             throw Error('can not delete others reserve')
         }
-        const updateResultBox = await Box.updateOne({ _id: req.body.id }, { $set: { "user": "", "status": "Available" } })
+        const updateResultBox = await Box.updateOne({ _id: req.body.id }, { $set: { 'user': '', 'status': 'Available' } })
         let updateResultUser
         if (box.week === 2 && res.locals.user.times <= 6) {
-            updateResultUser = await User.updateOne({ _id: res.locals.user._id }, { $set: { "times": res.locals.user.times + 1 } })
+            updateResultUser = await User.updateOne({ _id: res.locals.user._id }, { $set: { 'times': res.locals.user.times + 1 } })
         }
         res.status(200).json({ updateResultBox, updateResultUser })
     } catch (err) {
@@ -163,7 +160,7 @@ exports.boxPatch = async (req, res) => {
         }
 
         const box = await Box.findOne({ _id: id })
-        const updateResult = await Box.updateOne({ _id: id }, { $set: { "user": newUser, "status": newStatus } })
+        const updateResult = await Box.updateOne({ _id: id }, { $set: { 'user': newUser, 'status': newStatus } })
         res.status(200).json(updateResult)
     } catch (err) {
         console.log(err)
@@ -172,17 +169,17 @@ exports.boxPatch = async (req, res) => {
 }
 
 exports.populatePost = async (req, res) => {
-    const statusList = ["Available", "Not Available", "Occupied"]
-    const userList = ["Jason", "Jenny", "Frost", "Vivi", "TT"]
-    let count = 0;
+    const statusList = ['Available', 'Not Available', 'Occupied']
+    const userList = ['Jason', 'Jenny', 'Frost', 'Vivi', 'TT']
+    let count = 0
     try {
         for (let week = 1; week <= 2; week++) {
             for (let room = 1; room <= 3; room++) {
                 for (let period = 1; period <= 112; period++) {
-                    count++;
+                    count++
                     const status = statusList[Math.floor(Math.random() * 3)]
-                    let user = ""
-                    if (status === "Occupied") {
+                    let user = ''
+                    if (status === 'Occupied') {
                         user = userList[Math.floor(Math.random() * 5)]
                     }
                     const box = await Box.create({ period, week, room, status, user })
@@ -197,7 +194,7 @@ exports.populatePost = async (req, res) => {
 
 exports.populateDelete = (req, res) => {
     Box.collection.drop()
-        .then(result => res.status(200).send("deleted"))
+        .then(result => res.status(200).send('deleted'))
         .catch(err => { res.status(400).json(err) })
 }
 
@@ -243,7 +240,7 @@ exports.userListGet = async (req, res) => {
             throw Error('Only Admin can access the information')
         }
         let users = []
-        users = await Book.find({}).sort({ "username": 1 })
+        users = await User.find({}).sort({ 'username': 1 })
         res.status(200).json(users)
     } catch (err) {
         console.log(err)

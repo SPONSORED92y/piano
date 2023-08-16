@@ -1,5 +1,5 @@
-const mongoose = require("mongoose")
-const bcrypt = require("bcrypt")
+const mongoose = require('mongoose')
+const bcrypt = require('bcrypt')
 const { isEmail } = require('validator');
 const UserSchema = new mongoose.Schema({
     email: {
@@ -28,8 +28,8 @@ const UserSchema = new mongoose.Schema({
     role: {
         type: String,
         required: [true, 'role is empty'],
-        enum: ["Admin", "Member"],
-        default: "Member",
+        enum: ['Admin', 'Member'],
+        default: 'Member',
     },
     times: {//times left to reserve piano room
         type: Number,
@@ -57,4 +57,4 @@ UserSchema.statics.login = async function (email, password) {
     }
 }
 
-module.exports = mongoose.model("User", UserSchema)
+module.exports = mongoose.model('User', UserSchema)

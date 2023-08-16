@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose')
 const BoxSchema = new mongoose.Schema({
     period: {
         type: Number,
@@ -17,13 +17,13 @@ const BoxSchema = new mongoose.Schema({
     status: {
         type: String,
         required: [true, 'status is empty'],
-        enum: ["Available", "Not Available", "Occupied"],
-        default: "Available",
+        enum: ['Available', 'Not Available', 'Occupied'],
+        default: 'Available',
     },
     user: {
         type: String,
-        default: "",
+        default: '',
     },
 });
 
-module.exports = mongoose.model("Box", BoxSchema);
+module.exports = mongoose.model('Box', BoxSchema);

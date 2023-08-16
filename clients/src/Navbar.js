@@ -6,8 +6,7 @@ const Navbar = () => {
 
     return (
         <nav className="navbar">
-            <img src="title.jpg" alt="title" width="297" height="50"></img>
-            {!currentUser && <div className="signup"><Link to="/signup">註冊</Link></div>}
+            <img src="title.jpg" alt="title" width="504.5" height="50"></img>
             {!currentUser && <div className="login"><Link to="/login">登入</Link></div>}
             {currentUser && <div className="logout"><Link to="/logout">登出</Link></div>}
             {currentUser && <div className="profile"><Link to="/profile">個人檔案</Link></div>}

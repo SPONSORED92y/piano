@@ -10,6 +10,7 @@ const EditBook = () => {
   const [title, setTitle] = useState(location.state.title)
   const [status, setStatus] = useState(location.state.status)
   const [borrower, setBorrower] = useState(location.state.borrower)
+  const [date, setDate] = useState(location.state.date)
   const [titleError, setTitleError] = useState('')
   const [statusError, setStatusError] = useState('')
   const [errorMessage, setErrorMessage] = useState('')
@@ -47,7 +48,7 @@ const EditBook = () => {
         method: "PATCH",
         credentials: "include",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ id, title, status, borrower })
+        body: JSON.stringify({ id, title, status, borrower, date })
       })
       if (res.ok) {
         console.log(`${title} edited successfully`)
@@ -60,20 +61,21 @@ const EditBook = () => {
       console.log(err)
     }
   }
-  useEffect(() => {
-    if (!currentUser) {
-      navigate('/')
-    } else if (currentUser !== 'Admin') {
-      navigate('/')
-    }
-  }, [currentUser])
 
   useEffect(() => {
     if (status === 'Available') {
       if (borrower !== '') {
-        setErrorMessage('可借閱狀態不能有出借社員')
+        if (date !== '') {
+          setErrorMessage('可借閱狀態不能有出借社員和借出日期')
+        } else {
+          setErrorMessage('可借閱狀態不能有出借社員')
+        }
       } else {
-        setErrorMessage('')
+        if (date !== '') {
+          setErrorMessage('可借閱狀態不能有借出日期')
+        } else {
+          setErrorMessage('')
+        }
       }
     } else {
       if (borrower === '') {
@@ -82,7 +84,7 @@ const EditBook = () => {
         setErrorMessage('')
       }
     }
-  }, [status, borrower])
+  }, [status, borrower, date])
 
   return (
     <div className="EditBook">
@@ -113,6 +115,14 @@ const EditBook = () => {
             type="text"
             value={borrower}
             onChange={(e) => setBorrower(e.target.value)}
+          />
+        </div>
+        <div>
+          <label>借出日期: </label>
+          <input
+            type="text"
+            value={date}
+            onChange={(e) => setDate(e.target.value)}
           />
         </div>
         <div>{errorMessage}</div>

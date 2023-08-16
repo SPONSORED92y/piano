@@ -21,30 +21,35 @@ const UserList = () => {
                 <h1>已註冊帳號列表</h1>
                 {error && <div>{error}</div>}
                 {isPending && <div>Loading...</div>}
-                <div className='columnContainer'>
-                    <span >姓名</span>
-                    <span >Email</span>
-                    <span >系級</span>
-                    <span >身分</span>
-                </div>
-                {currentUser && users && users.map(user => (
-                    // bookimage
-                    <div className="user" key={user._id}>
-                        <span className='username' >{user.username}</span>
-                        <span className='email' >{user.email}</span>
-                        <span className='department' >{user.department}</span>
-                        <span className='role'>{(user.role === 'Admin') ? '幹部' : '一般社員'}</span>
-                        {<span className='edit'
-                            onClick={() => {
-                                navigate('/editUser', {
-                                    state: {
-                                        user: user
-                                    }
-                                })
-                            }}>編輯</span>}
-                    </div>
-                ))}
-                <div className='create'> <Link to={"/create"}>增加</Link></div>
+                <table>
+                    <thead>
+                        <th>姓名</th>
+                        <th>Email</th>
+                        <th>系級</th>
+                        <th>身分</th>
+                    </thead>
+                    <tbody>
+                        {currentUser && users && users.map(user => (
+                            <tr className="user" key={user._id}>
+                                <td className='username' >{user.username}</td>
+                                <td className='email' >{user.email}</td>
+                                <td className='department' >{user.department}</td>
+                                <td className='role'>{(user.role === 'Admin') ? '幹部' : '一般社員'}</td>
+                                <td>
+
+                                    {<div className='edit'
+                                        onClick={() => {
+                                            navigate('/editUser', {
+                                                state: {
+                                                    user: user
+                                                }
+                                            })
+                                        }}>編輯</div>}
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
             </div>
         </div >
     )

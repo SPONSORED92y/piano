@@ -8,6 +8,7 @@ const Create = () => {
   const [title, setTitle] = useState('')
   const [status, setStatus] = useState('Available')
   const [borrower, setBorrower] = useState('')
+  const [date, setDate] = useState('')
   const [titleError, setTitleError] = useState('')
   const [statusError, setStatusError] = useState('')
   const [errorMessage, setErrorMessage] = useState('')
@@ -24,7 +25,7 @@ const Create = () => {
         method: "POST",
         credentials: "include",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ title, status, borrower })
+        body: JSON.stringify({ title, status, borrower, date })
       })
       if (res.ok) {
         console.log(`${title} created successfully`)
@@ -51,9 +52,17 @@ const Create = () => {
   useEffect(() => {
     if (status === 'Available') {
       if (borrower !== '') {
-        setErrorMessage('可借閱狀態不能有出借社員')
+        if (date !== '') {
+          setErrorMessage('可借閱狀態不能有出借社員和借出日期')
+        } else {
+          setErrorMessage('可借閱狀態不能有出借社員')
+        }
       } else {
-        setErrorMessage('')
+        if (date !== '') {
+          setErrorMessage('可借閱狀態不能有借出日期')
+        } else {
+          setErrorMessage('')
+        }
       }
     } else {
       if (borrower === '') {
@@ -62,10 +71,10 @@ const Create = () => {
         setErrorMessage('')
       }
     }
-  }, [status, borrower])
+  }, [status, borrower, date])
 
   return (
-    <div className="login">
+    <div className="create">
       <h1>新增琴譜</h1>
       <form onSubmit={handleSubmit}>
         <div>
@@ -79,7 +88,7 @@ const Create = () => {
           <div>{titleError}</div>
         </div>
         <div>
-          <label>狀態:</label>
+          <label>狀態: </label>
           <select value={status}
             onChange={(e) => setStatus(e.target.value)}>
             <option value='Available'>可借閱</option>
@@ -88,11 +97,19 @@ const Create = () => {
           <div>{statusError}</div>
         </div>
         <div>
-          <label>出借社員:</label>
+          <label>出借社員: </label>
           <input
             type="text"
             value={borrower}
             onChange={(e) => setBorrower(e.target.value)}
+          />
+        </div>
+        <div>
+          <label>借出日期: </label>
+          <input
+            type="text"
+            value={date}
+            onChange={(e) => setDate(e.target.value)}
           />
         </div>
         <div>{errorMessage}</div>

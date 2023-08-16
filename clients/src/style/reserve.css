@@ -1,0 +1,165 @@
+/* reserve */
+.reserve h1 {
+    text-align: center;
+}
+
+.reserve .notReserveTime {
+    color: red;
+    font-size: 20px;
+}
+
+.reserve .bigBox {
+    display: flex;
+    justify-content: center;
+    height: 100px;
+}
+
+.reserve .colLeft {
+    margin: 0px 30px;
+    width: 426px;
+}
+
+.reserve .colRight {
+    margin: 0px 30px;
+    width: 426px;
+}
+
+.clock {
+    margin-top: 3px;
+    font-size: 18px;
+    border-bottom: solid 1px;
+    padding: 4px;
+}
+
+.name {
+    border-bottom: solid 1px;
+    font-size: 18px;
+    padding: 4px;
+}
+
+.count {
+    border-bottom: solid 1px;
+    font-size: 18px;
+    padding: 4px;
+
+}
+
+.reserve .weekContainer {
+    margin: 3px;
+}
+
+.reserve .roomContainer {
+    margin: 3px;
+}
+
+.reserve .weekContainer .week {
+    margin: 6px;
+    display: inline-block;
+    width: 130px;
+    text-align: center;
+    font-size: 19px;
+    padding: 4px 6px 4px 6px;
+    border: solid 2px;
+    border-radius: 8px;
+    font-weight: 600;
+}
+
+.reserve .weekContainer .reserveRules {
+    margin: 6px;
+    display: inline-block;
+    width: 80px;
+    text-align: center;
+    font-size: 16px;
+    padding: 4px 6px 4px 6px;
+    border: solid 1px;
+    border-radius: 8px;
+}
+
+.reserve .roomContainer .room {
+    margin: 6px;
+    display: inline-block;
+    text-align: center;
+    font-size: 19px;
+    width: 110px;
+    padding: 4px 6px 4px 6px;
+    border: solid 2px;
+    border-radius: 8px;
+    font-weight: 600;
+}
+
+.reserve .tableContainer {
+    margin: 0px 20px;
+    width: 960px;
+    height: 600px;
+    overflow: auto;
+    margin-top: 10px;
+    font: 18px;
+    border: solid 2px;
+}
+
+.daysOfWeek {
+    padding: 4px 0px;
+    height: 22px;
+    width: 960px;
+    border-bottom: solid 2px;
+}
+
+.daysOfWeek span {
+    display: inline-block;
+    text-align: center;
+    vertical-align: baseline;
+    height: 30px;
+    width: 120px;
+    /* padding: 4px 6px 4px 6px; */
+}
+
+.column,
+.columnPeriod {
+    display: inline-block;
+    width: 120px;
+    /* padding: 6px 6px 6px 6px; */
+}
+
+.columnPeriod div,
+.box {
+    /* width: 80px; */
+    padding: 3px 0px;
+    text-align: center;
+    border: solid 1px gray;
+    border-collapse: collapse;
+}
+
+/* popup */
+.popupContainer {
+    width: 160px;
+    background-color: #b4b4b4;
+    text-align: center;
+    border-radius: 6px;
+    padding: 8px 0;
+    position: absolute;
+    bottom: 5px;
+    z-index: 2;
+}
+
+.backCover {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: #000;
+    opacity: .75;
+    z-index: 1;
+}
+
+.popup .closeButton,
+.popup .reserveButton {
+    margin: 6px;
+    display: inline-block;
+    width: auto;
+    /* padding: 4px 6px 4px 6px; */
+    border: solid 1px;
+    border-radius: 8px;
+}

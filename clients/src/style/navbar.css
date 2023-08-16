@@ -1,0 +1,38 @@
+/* navbar */
+.navbar {
+    display: block;
+    border-bottom: 1px solid #f2f2f2;
+    background-color: rgb(78, 73, 70);
+    height: 50px;
+}
+
+.navbar div {
+    display: block;
+    float: right;
+    width: auto;
+    height: 50px;
+    padding: 5px 0px;
+    background-color: rgb(78, 73, 70);
+    text-align: center;
+    padding: 0px 4px;
+}
+
+.navbar div:hover {
+    background-color: rgb(84, 92, 92);
+}
+
+.navbar a {
+    line-height: 50px;
+    font-size: 22px;
+    text-decoration: none;
+    color: white;
+}
+
+.navbar img {
+    display: block;
+    float: left;
+}
+
+.home {
+    display: block;
+}

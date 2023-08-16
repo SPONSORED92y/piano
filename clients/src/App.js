@@ -10,6 +10,7 @@ import Profile from './Profile'
 import Create from './Create'
 import EditBook from './EditBook'
 import UserList from './UserList'
+import EditUser from './EditUser'
 
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { useState } from 'react'
@@ -39,6 +40,7 @@ function App() {
               <Route path="/editBook" element={<EditBook />} />
               <Route path="/profile" element={<Profile />} />
               <Route path="/userList" element={<UserList />} />
+              <Route path="/editUser" element={<EditUser />} />
             </Routes>
           </div>
         </CurrentUserContext.Provider>

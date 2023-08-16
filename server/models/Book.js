@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 const BookSchema = new mongoose.Schema({
     title: {
         type: String,
@@ -8,13 +8,17 @@ const BookSchema = new mongoose.Schema({
     status: {
         type: String,
         required: [true, 'status is empty'],
-        enum: ["Available", "Not Available"],
-        default: "Available",
+        enum: ['Available', 'Not Available'],
+        default: 'Available',
+    },
+    date: {
+        type: String,
+        default: '',
     },
     borrower: {
         type: String,
-        default: "",
+        default: '',
     },
 });
 
-module.exports = mongoose.model("Book", BookSchema);
+module.exports = mongoose.model('Book', BookSchema);

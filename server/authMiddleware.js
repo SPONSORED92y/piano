@@ -1,5 +1,5 @@
-const jwt = require('jsonwebtoken');
-const User = require('./models/User');
+const jwt = require('jsonwebtoken')
+const User = require('./models/User')
 const requireAuth = (req, res, next) => {
     const token = req.cookies.jwt
     if (token) {
@@ -8,7 +8,7 @@ const requireAuth = (req, res, next) => {
                 console.log(err.message)
                 res.status(401).json({ "error": "not logged in" })
             } else {
-                next();
+                next()
             }
         })
     } else {
@@ -24,7 +24,7 @@ const checkUser = (req, res, next) => {
                 res.locals.user = null
                 next()
             } else {
-                let user = await User.findById(decodedToken.id);
+                let user = await User.findById(decodedToken.id)
                 res.locals.user = user
                 next()
             }
@@ -35,4 +35,4 @@ const checkUser = (req, res, next) => {
     }
 }
 
-module.exports = { requireAuth, checkUser };
+module.exports = { requireAuth, checkUser }
