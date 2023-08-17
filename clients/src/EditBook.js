@@ -63,6 +63,12 @@ const EditBook = () => {
   }
 
   useEffect(() => {
+    if (!Variable.getCookie('currentUser') || Variable.getCookie('currentUser') !== 'Admin') {
+      navigate('/logout')
+    }
+  }, [])
+
+  useEffect(() => {
     if (status === 'Available') {
       if (borrower !== '') {
         if (date !== '') {

@@ -1,6 +1,9 @@
 import { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 const useFetch = (url) => {
+    const navigate = useNavigate()
+
     const [data, setData] = useState(null)
     const [isPending, setIsPending] = useState(null)
     const [error, setError] = useState(null)
@@ -16,7 +19,8 @@ const useFetch = (url) => {
         })
             .then(res => {
                 if (!res.ok) {
-                    throw Error('could not fetch the data for that resource')
+                    navigate('/login')
+                    // throw Error('could not fetch the data for that resource')
                 }
                 return res.json()
             })

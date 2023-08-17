@@ -8,16 +8,17 @@ const Login = () => {
   const [emailError, setEmailError] = useState('')
   const [passwordError, setPasswordError] = useState('')
 
-  const { currentUser, setCurrentUser } = useContext(CurrentUserContext)
+  const { setCurrentUser } = useContext(CurrentUserContext)
   const navigate = useNavigate()
 
   useEffect(() => {
-    if (currentUser) {
+    if (Variable.getCookie('currentUser')) {
+      setCurrentUser(Variable.getCookie('currentUser'))
       navigate('/news')
+    } else {
+      setCurrentUser(null)
     }
-  }, [currentUser])
-
-
+  }, [])
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -41,7 +42,7 @@ const Login = () => {
         console.log(`${data.user.username} logged in successfully`)
         console.log(data.user.role)
         setCurrentUser(data.user.role)
-        // navigate('/')
+        navigate('/news')
       }
     } catch (err) {
       console.log(err)

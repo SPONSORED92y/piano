@@ -3,7 +3,7 @@ const Book = require('../models/Book')
 const Box = require('../models/Box')
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
-const nodemailer = require('nodemailer')
+// const nodemailer = require('nodemailer')
 
 const { signupErrors, loginErrors, createErrors, profileErrors, changePasswordErrors } = require('./handleErrors')
 const createToken = (id) => {
@@ -63,13 +63,13 @@ exports.loginPost = async (req, res) => {
     try {
         const user = await User.login(email, password)
         const token = createToken(user._id)
-        res.cookie('jwt', token, { httpOnly: true, maxAge: 10 * 60 * 1000 })
+        res.cookie('jwt', token, { httpOnly: true, maxAge: 15 * 60 * 1000 })
+        res.cookie('currentUser', user.role, { maxAge: 15 * 60 * 1000 })
         res.status(200).json({ user: user })
     } catch (err) {
         const errors = loginErrors(err)
         res.status(400).json({ errors })
     }
-    // }
 }
 
 exports.signupPost = async (req, res) => {
@@ -79,8 +79,6 @@ exports.signupPost = async (req, res) => {
             throw Error('Invalid AdminKey')
         }
         const user = await User.create({ username, password, email, department, studentID, role })
-        // const token = createToken(user._id)
-        // res.cookie('jwt', token, { httpOnly: true, maxAge: 5 * 60 * 1000 })
         res.status(201).json({ 'user': user._id })
     } catch (err) {
         const errors = signupErrors(err)
@@ -89,7 +87,8 @@ exports.signupPost = async (req, res) => {
 }
 
 exports.logoutPost = async (req, res) => {
-    res.cookie('jwt', '', { maxAge: 1, sameSite: 'none', secure: true })
+    res.cookie('jwt', '', { maxAge: 1 })
+    res.cookie('currentUser', '', { maxAge: 1 })
     res.status(200).json({})
 }
 
@@ -144,23 +143,23 @@ exports.boxDelete = async (req, res) => {
 }
 exports.boxPatch = async (req, res) => {
     //warning: Admin can modify status and user at will. This means that Admin can reserve unlimited times using the update method
-    const { id, newStatus, newUser } = req.body
+    const { id, status, boxUser } = req.body
     try {
         if (res.locals.user.role !== 'Admin') {
             throw Error('Only Admin can do this action')
         }
-        if (newStatus !== 'Occupied') {
-            if (newUser !== '') {
-                throw Error(`there cant be a user wihile status is${newStatus}`)
+        if (status !== 'Occupied') {
+            if (boxUser !== '') {
+                throw Error(`there cant be a user wihile status is${status}`)
             }
         } else {
-            if (newUser === '') {
+            if (boxUser === '') {
                 throw Error('there must be a user wihile status is Occupied')
             }
         }
 
         const box = await Box.findOne({ _id: id })
-        const updateResult = await Box.updateOne({ _id: id }, { $set: { 'user': newUser, 'status': newStatus } })
+        const updateResult = await Box.updateOne({ _id: id }, { $set: { 'user': boxUser, 'status': status } })
         res.status(200).json(updateResult)
     } catch (err) {
         console.log(err)
@@ -281,6 +280,29 @@ exports.editUserDelete = async (req, res) => {
         res.status(400).json(err)
     }
 }
+
+// exports.messagePost = async (req, res) => {
+//     let messages = []
+//     try {
+//         const cursor = Person.find({}).sort({'sequence':-1}).cursor();
+
+//         for (let doc = await cursor.next(); doc != null; doc = await cursor.next()) {
+//           console.log(doc); // Prints documents one at a time
+//         }
+
+//         if (res.locals.user.role === 'Admin') {
+//             messages = await Book.find().sort({ 'title': 1 })
+//         } else {
+//             messages = await Book.find({}, { borrower: 0, date: 0 }).sort({ 'title': 1 })
+//         }
+//         res.status(200).json(messages)
+//     } catch (err) {
+//         console.log(err)
+//     }
+// }
+
+
+
 // exports.forgotPasswordGet = async (req, res) => {
 //     try {
 //         const user = await User.findOne({ email: req.email })

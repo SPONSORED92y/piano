@@ -62,6 +62,9 @@ router.patch('/server/changePassword', requireAuth, checkUser, controller.change
 router.get('/server/Userlist', requireAuth, checkUser, controller.userListGet)
 router.patch('/server/profileEditUser', requireAuth, checkUser, controller.profileEditUserPatch)
 router.patch('/server/changePasswordEditUser', requireAuth, checkUser, controller.changePasswordEditUserPatch)
-router.delete('/server/editUser', requireAuth, checkUser, controller.editUserDelete)
+// router.get('/server/message', requireAuth, checkUser, controller.messageGet)
+// router.post('/server/messageSend', requireAuth, checkUser, controller.messageSendPost)
+// router.delete('/server/message', requireAuth, checkUser, controller.messageDelete)
+// router.delete('/server/editUser', requireAuth, checkUser, controller.editUserDelete)
 
 // schedule.weeklyReserveUpdate()

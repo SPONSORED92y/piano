@@ -123,9 +123,7 @@ const Popup = (props) => {
     return (
         <div className='popup'>
             <div style={{ visibility: visibility ? 'visible' : 'hidden' }} className="popupContainer">
-
                 <div>預約</div>
-                {/* <div>period:{period % 16}</div> */}
                 <div>時段:{periodList[((period - 1) % 16)]}</div>
                 <div className="closeButton" onClick={() => { flipPopupVisibility(period) }}>關閉</div>
                 <div className="reserveButton" onClick={handleClick}>{buttonOption()}</div>

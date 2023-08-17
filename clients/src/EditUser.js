@@ -103,12 +103,10 @@ const EditUser = () => {
   }
 
   useEffect(() => {
-    if (!currentUser) {
-      navigate('/')
-    } else if (currentUser !== 'Admin') {
-      navigate('/')
+    if (!Variable.getCookie('currentUser') || Variable.getCookie('currentUser') !== 'Admin') {
+      navigate('/logout')
     }
-  }, [currentUser])
+  }, [])
 
   useEffect(() => {
     if (password !== '' && passwordAgain !== '') {

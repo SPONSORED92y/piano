@@ -1,6 +1,6 @@
 import { useEffect, useState, useContext } from "react"
 import { useNavigate } from "react-router-dom"
-import CurrentUserContext from './CurrentUserContext'
+// import CurrentUserContext from './CurrentUserContext'
 import Variable from './Variable'
 
 const Signup = () => {
@@ -21,16 +21,15 @@ const Signup = () => {
   const [roleError, setRoleError] = useState('')
   const [adminKeyError, setAdminKeyError] = useState('')
   const [enabled, setEnabled] = useState(false)
-  const {
-    currentUser } = useContext(CurrentUserContext)
+  // const { currentUser } = useContext(CurrentUserContext)
 
   const navigate = useNavigate()
 
   useEffect(() => {
-    if (currentUser) {
-      navigate('/')
+    if (Variable.getCookie('currentUser')) {
+      navigate('/news')
     }
-  }, [currentUser])
+  }, [])
 
   const handleSubmit = async (e) => {
     e.preventDefault()

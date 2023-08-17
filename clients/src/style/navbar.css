@@ -6,7 +6,7 @@
     height: 50px;
 }
 
-.navbar div {
+.navbar>div {
     display: block;
     float: right;
     width: auto;
@@ -15,22 +15,49 @@
     background-color: rgb(78, 73, 70);
     text-align: center;
     padding: 0px 4px;
+    line-height: 50px;
+    font-size: 22px;
+    color: white;
+    cursor: pointer;
 }
 
 .navbar div:hover {
-    background-color: rgb(84, 92, 92);
-}
-
-.navbar a {
-    line-height: 50px;
-    font-size: 22px;
-    text-decoration: none;
-    color: white;
+    /* background-color: rgb(84, 92, 92); */
+    background-color: rgb(234, 171, 182);
 }
 
 .navbar img {
     display: block;
     float: left;
+}
+
+.navbar .language {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+    width: 50px;
+    padding: 0px;
+}
+
+.navbar .language img {
+    z-index: 1;
+}
+
+.navbar .dropBox {
+    position: absolute;
+    top: 52px;
+    height: 60px;
+    width: 60px;
+    z-index: 1;
+}
+
+.navbar .dropBox .option {
+    height: 30px;
+    width: 60px;
+    font-size: 14px;
+    color: white;
+    line-height: 30px;
 }
 
 .home {

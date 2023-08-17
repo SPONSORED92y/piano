@@ -1,4 +1,12 @@
 /* reserve */
+.reserve {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 800px;
+    /* background-color: #e8d4dd; */
+}
+
 .reserve h1 {
     text-align: center;
 }
@@ -12,6 +20,7 @@
     display: flex;
     justify-content: center;
     height: 100px;
+
 }
 
 .reserve .colLeft {
@@ -62,6 +71,7 @@
     border: solid 2px;
     border-radius: 8px;
     font-weight: 600;
+    cursor: pointer;
 }
 
 .reserve .weekContainer .reserveRules {
@@ -85,59 +95,55 @@
     border: solid 2px;
     border-radius: 8px;
     font-weight: 600;
+    cursor: pointer;
 }
 
+/* table */
 .reserve .tableContainer {
+    /* background-color: rgb(78, 73, 70); */
+    /* color: white; */
     margin: 0px 20px;
-    width: 960px;
-    height: 600px;
-    overflow: auto;
+    width: 1000px;
+    height: 700px;
+    overflow-y: hidden;
+    overflow-x: scroll;
     margin-top: 10px;
     font: 18px;
-    border: solid 2px;
+    /* border: solid 2px; */
 }
 
-.daysOfWeek {
-    padding: 4px 0px;
-    height: 22px;
-    width: 960px;
-    border-bottom: solid 2px;
-}
-
-.daysOfWeek span {
-    display: inline-block;
+.reserve table {
+    border-collapse: collapse;
+    /* border: 2px solid; */
     text-align: center;
-    vertical-align: baseline;
-    height: 30px;
-    width: 120px;
-    /* padding: 4px 6px 4px 6px; */
+    font-size: 20px;
 }
 
-.column,
-.columnPeriod {
-    display: inline-block;
+.reserve td {
     width: 120px;
-    /* padding: 6px 6px 6px 6px; */
+    height: 32px;
+    border-bottom: 1px solid gray;
+    border: solid 1px gray;
 }
 
-.columnPeriod div,
-.box {
-    /* width: 80px; */
+.reserve td .box {
+    position: relative;
+    width: 120px;
+    height: 26px;
     padding: 3px 0px;
     text-align: center;
-    border: solid 1px gray;
-    border-collapse: collapse;
+    cursor: pointer;
 }
 
 /* popup */
+
 .popupContainer {
+    position: absolute;
     width: 160px;
     background-color: #b4b4b4;
     text-align: center;
     border-radius: 6px;
     padding: 8px 0;
-    position: absolute;
-    bottom: 5px;
     z-index: 2;
 }
 
@@ -154,8 +160,8 @@
     z-index: 1;
 }
 
-.popup .closeButton,
-.popup .reserveButton {
+.reserve .closeButton,
+.reserve .goodButton {
     margin: 6px;
     display: inline-block;
     width: auto;

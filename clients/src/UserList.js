@@ -10,10 +10,10 @@ const UserList = () => {
     const { error, isPending, data: users } = useFetch(`${Variable.serverURL}/userList`)
 
     useEffect(() => {
-        if (!currentUser) {
-            navigate('/')
+        if (!Variable.getCookie('currentUser') || Variable.getCookie('currentUser') !== 'Admin') {
+            navigate('/logout')
         }
-    }, [currentUser, error])
+    }, [])
 
     return (
         <div className="userList">

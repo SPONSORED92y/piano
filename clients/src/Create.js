@@ -12,7 +12,7 @@ const Create = () => {
   const [titleError, setTitleError] = useState('')
   const [statusError, setStatusError] = useState('')
   const [errorMessage, setErrorMessage] = useState('')
-  const { currentUser, setCurrentUser } = useContext(CurrentUserContext)
+  const { currentUser } = useContext(CurrentUserContext)
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -42,12 +42,10 @@ const Create = () => {
   }
 
   useEffect(() => {
-    if (!currentUser) {
-      navigate('/')
-    } else if (currentUser !== 'Admin') {
-      navigate('/')
+    if (!Variable.getCookie('currentUser') || Variable.getCookie('currentUser') !== 'Admin') {
+      navigate('/logout')
     }
-  }, [currentUser])
+  }, [])
 
   useEffect(() => {
     if (status === 'Available') {

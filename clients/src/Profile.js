@@ -4,7 +4,6 @@ import Variable from './Variable'
 import CurrentUserContext from './CurrentUserContext'
 const Profile = () => {
     const navigate = useNavigate()
-    const location = useLocation()
 
     const { setCurrentUser } = useContext(CurrentUserContext)
 
@@ -33,6 +32,10 @@ const Profile = () => {
     const [enabled, setEnabled] = useState(false)
 
     useEffect(() => {
+        const abortCont = new AbortController()
+        if (!Variable.getCookie('currentUser')) {
+            navigate('/logout')
+        }
         fetch(`${Variable.serverURL}/user`, {
             mode: "cors",
             method: "GET",
@@ -41,7 +44,14 @@ const Profile = () => {
         })
             .then(res => res.json())
             .then(data => setUser(data))
-            .catch(err => console.log(err))
+            .catch(err => {
+                if (err.name === 'AbortError') {
+                    console.log('fetch aborted')
+                } else {
+                    console.log(err)
+                }
+            })
+        return () => abortCont.abort()
     }, [])
 
     useEffect(() => {
