@@ -4,6 +4,7 @@ const Home = () => {
         <div className="Home">
             <h1>首頁</h1>
             <h2>更新日誌</h2>
+            <div className="highlight">手機介面優化</div>
             <div>可以重複登入，不必先登出</div>
             <div>完成使用者列表功能</div>
             <div>管理員查閱社員列表</div>

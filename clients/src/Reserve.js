@@ -117,6 +117,7 @@ const Reserve = () => {
                 setPositionTop(offsets.top)
                 setPositionLeft(offsets.left)
                 setStatus(boxes[period - 1].status)
+                setBoxUser(boxes[period - 1].user)
             } else {
                 if (user) {
                     if (user.username === boxes[period - 1].user) {

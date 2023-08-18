@@ -1,38 +1,56 @@
 /* navbarBig */
+.navbarSmall {
+    display: none;
+}
+
 .navbarBig {
     display: block;
     border-bottom: 1px solid #f2f2f2;
     background-color: rgb(78, 73, 70);
     height: 50px;
+    width: 100%;
 }
 
-.navbarSmall {
-    display: none;
+.navbarBig ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    /* overflow: hidden; */
 }
 
-.navbarBig>div {
-    display: block;
+.navbarBig li {
+    float: right;
+}
+
+.navbarBig .title {
+    float: left;
+    height: 48px;
+    width: 484px;
+}
+
+@media screen and (max-width: 1250px) {
+    .navbarBig .title {
+        display: none;
+    }
+}
+
+.navbarBig .navButton {
+    display: inline;
     float: right;
     width: auto;
     height: 50px;
-    padding: 10px 0px;
     background-color: rgb(78, 73, 70);
     text-align: center;
-    padding: 0px 4px;
+    padding: 0px 10px;
     line-height: 50px;
     font-size: 22px;
     color: white;
     cursor: pointer;
 }
 
-.navbarBig div:hover {
-    /* background-color: rgb(84, 92, 92); */
+.navbarBig .language:hover,
+.navbarBig .navButton:hover {
     background-color: rgb(234, 171, 182);
-}
-
-.navbarBig img {
-    display: block;
-    float: left;
 }
 
 .navbarBig .language {
@@ -43,6 +61,7 @@
     width: 50px;
     padding: 0px;
     position: relative;
+    cursor: pointer;
 }
 
 .navbarBig .dropBox {
@@ -50,7 +69,6 @@
     top: 50px;
     height: 60px;
     width: 100%;
-    z-index: 1;
     box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
 }
 
@@ -59,7 +77,9 @@
     font-size: 14px;
     color: white;
     line-height: 30px;
+    text-align: center;
 }
+
 
 @media screen and (max-width: 1000px) {
     .navbarBig {
@@ -78,6 +98,7 @@
         height: 50px;
         display: flex;
         justify-content: center;
+        align-items: center;
         background-color: rgb(78, 73, 70);
     }
 
@@ -100,6 +121,7 @@
         width: 100%;
         height: 50px;
         background-color: rgb(78, 73, 70);
+        border-top: solid 1px black;
     }
 
     .navbarSmall .bigDropbox {
@@ -108,8 +130,7 @@
         display: flex;
         width: 100%;
         flex-direction: column;
-        /* align-items: start; */
-
+        border-top: solid 1px black;
     }
 
     .navbarSmall .navButton {
@@ -128,33 +149,41 @@
     }
 
     .navbarSmall .bigDropbox .brick {
+        box-sizing: border-box;
         width: 100%;
         height: 50px;
+        line-height: 50px;
         background-color: rgb(78, 73, 70);
         color: white;
-        padding-left: 5px;
-        line-height: 50px;
         font-size: 22px;
+        padding-left: 5px;
         cursor: pointer;
-        text-align: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-bottom: solid 1px black;
     }
 
     .navbarSmall .globe {
-        display: block;
-        float: left;
+        /* display: flex; */
+        /* justify-self: center; */
     }
 
     .navbarSmall .line {
-        display: block;
-        float: left;
+        /* display: flex; */
+        /* justify-self: center; */
         border: solid 1px gray;
-        height: 80%;
+        height: 70%;
         width: 0px;
+        margin: 0px 30px;
     }
 
     .navbarSmall .option {
-        display: block;
-        float: right;
+        height: 30px;
+        width: 60px;
+        text-align: center;
+        line-height: 30px;
+        padding: 0px 10px;
     }
 
     .navbarSmall .brick:hover,

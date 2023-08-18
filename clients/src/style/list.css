@@ -4,13 +4,7 @@
     flex-direction: column;
     justify-content: start;
     align-items: center;
-}
-
-.list .bigBox {
-    width: auto;
-    height: 530px;
-    overflow: auto;
-
+    width: 1000px;
 }
 
 .list h1 {
@@ -19,7 +13,7 @@
 
 .list table {
     border-collapse: collapse;
-    width: 720px;
+    /* width: 720px; */
     border: 2px solid;
     text-align: center;
     font-size: 20px;
@@ -31,15 +25,22 @@
 
 }
 
-.list td {
+.list tr {
+    height: 45px;
     border-bottom: 1px solid gray;
+}
+
+.list td {
+    width: auto;
     padding: 8px 30px;
 
 }
 
 .list .edit {
+    position: relative;
+    top: 5px;
+    box-sizing: border-box;
     padding: 1px 2px;
-    margin: 2px;
     border: solid 1px;
     border-radius: 8px;
 }
