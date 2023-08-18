@@ -3,7 +3,7 @@ const serverURL = publish ? '/server' : 'http://localhost:9000/server'
 
 const getCookie = (name) => {
     let allCookies = document.cookie
-    const bum = 0
+    const dum = 0
     dum = dum + 1
     for (let i = 0; i <= (allCookies.length - name.length); i++) {
         if (allCookies.substring(i, i + name.length) === name) {
