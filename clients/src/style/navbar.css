@@ -1,17 +1,21 @@
-/* navbar */
-.navbar {
+/* navbarBig */
+.navbarBig {
     display: block;
     border-bottom: 1px solid #f2f2f2;
     background-color: rgb(78, 73, 70);
     height: 50px;
 }
 
-.navbar>div {
+.navbarSmall {
+    display: none;
+}
+
+.navbarBig>div {
     display: block;
     float: right;
     width: auto;
     height: 50px;
-    padding: 5px 0px;
+    padding: 10px 0px;
     background-color: rgb(78, 73, 70);
     text-align: center;
     padding: 0px 4px;
@@ -21,45 +25,140 @@
     cursor: pointer;
 }
 
-.navbar div:hover {
+.navbarBig div:hover {
     /* background-color: rgb(84, 92, 92); */
     background-color: rgb(234, 171, 182);
 }
 
-.navbar img {
+.navbarBig img {
     display: block;
     float: left;
 }
 
-.navbar .language {
+.navbarBig .language {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 50px;
     width: 50px;
     padding: 0px;
+    position: relative;
 }
 
-.navbar .language img {
-    z-index: 1;
-}
-
-.navbar .dropBox {
+.navbarBig .dropBox {
     position: absolute;
-    top: 52px;
+    top: 50px;
     height: 60px;
-    width: 60px;
+    width: 100%;
     z-index: 1;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
 }
 
-.navbar .dropBox .option {
+.navbarBig .dropBox .option {
     height: 30px;
-    width: 60px;
     font-size: 14px;
     color: white;
     line-height: 30px;
 }
 
-.home {
-    display: block;
+@media screen and (max-width: 1000px) {
+    .navbarBig {
+        display: none;
+    }
+
+    .navbarSmall {
+        display: flex;
+        height: 100px;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .navbarSmall .titleBox {
+        width: 100%;
+        height: 50px;
+        display: flex;
+        justify-content: center;
+        background-color: rgb(78, 73, 70);
+    }
+
+    .navbarSmall .title {
+        width: 370px;
+        height: 36px;
+    }
+
+    .navbarSmall #tools {
+        border: solid 1px black;
+        box-sizing: border-box;
+        height: 50px;
+        width: 50px;
+        padding: 10px;
+        float: left;
+    }
+
+    .navbarSmall .bigBox {
+        position: relative;
+        width: 100%;
+        height: 50px;
+        background-color: rgb(78, 73, 70);
+    }
+
+    .navbarSmall .bigDropbox {
+        position: absolute;
+        top: 50px;
+        display: flex;
+        width: 100%;
+        flex-direction: column;
+        /* align-items: start; */
+
+    }
+
+    .navbarSmall .navButton {
+        display: block;
+        float: right;
+        width: auto;
+        height: 50px;
+        padding: 8px 0px;
+        background-color: rgb(78, 73, 70);
+        text-align: center;
+        padding: 0px 4px;
+        line-height: 50px;
+        font-size: 22px;
+        color: white;
+        cursor: pointer;
+    }
+
+    .navbarSmall .bigDropbox .brick {
+        width: 100%;
+        height: 50px;
+        background-color: rgb(78, 73, 70);
+        color: white;
+        padding-left: 5px;
+        line-height: 50px;
+        font-size: 22px;
+        cursor: pointer;
+        text-align: center;
+    }
+
+    .navbarSmall .globe {
+        display: block;
+        float: left;
+    }
+
+    .navbarSmall .line {
+        display: block;
+        float: left;
+        border: solid 1px gray;
+        height: 80%;
+        width: 0px;
+    }
+
+    .navbarSmall .option {
+        display: block;
+        float: right;
+    }
+
+    .navbarSmall .brick:hover,
+    .navbarSmall .navButton:hover {
+        background-color: rgb(234, 171, 182);
+    }
 }

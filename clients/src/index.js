@@ -7,7 +7,6 @@ import './style/navbar.css'
 import './style/reserve.css'
 import './style/signup.css'
 import './style/userList.css'
-import './style/chat.css'
 import App from './App'
 
 const root = ReactDOM.createRoot(document.getElementById('root'))

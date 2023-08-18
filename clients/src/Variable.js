@@ -1,4 +1,4 @@
-const publish = true
+const publish = false
 const serverURL = publish ? '/server' : 'http://localhost:9000/server'
 
 const getCookie = (name) => {

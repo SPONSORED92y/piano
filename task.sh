@@ -1,3 +1,5 @@
+ssh root@146.190.87.130
+
 rm -rf ./clients/ncku-piano-club.com
 mv ./clients/build ./clients/ncku-piano-club.com
 git add .
