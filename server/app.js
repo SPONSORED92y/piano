@@ -5,7 +5,6 @@ const cookieParser = require('cookie-parser')
 const { requireAuth, checkUser } = require('./authMiddleware')
 const helmet = require("helmet")
 
-const cors = require('cors')
 
 const controller = require("./controllers/controller")
 const schedule = require("./schedule")
@@ -24,12 +23,13 @@ const limiter = RateLimit({
 app.use(limiter);
 
 
-var corsOptions = {
-    origin: 'http://localhost:3000',
-    // credentials: true
-    credentials: true
-}
-app.use(cors(corsOptions))
+// const cors = require('cors')
+// var corsOptions = {
+//     origin: 'http://localhost:3000',
+//     // credentials: true
+//     credentials: true
+// }
+// app.use(cors(corsOptions))
 app.use(helmet())
 
 const dbURI = process.env.MONGODB_URI || 'mongodb+srv://jasonsu92y:jason789523@cluster0.yb5h0bu.mongodb.net/jwt-auth?retryWrites=true&w=majority'
@@ -67,4 +67,4 @@ router.patch('/server/changePasswordEditUser', requireAuth, checkUser, controlle
 // router.delete('/server/message', requireAuth, checkUser, controller.messageDelete)
 // router.delete('/server/editUser', requireAuth, checkUser, controller.editUserDelete)
 
-// schedule.weeklyReserveUpdate()
+schedule.weeklyReserveUpdate()

@@ -20,11 +20,14 @@ const Reserve = () => {
     const [boxUser, setBoxUser] = useState('')
     const [enabled, setEnabled] = useState(true)
     const [updateError, setUpdateError] = useState('')
+    //rule help popup
+    const [visible, setVisible] = useState('hidden')
 
     const { currentUser } = useContext(CurrentUserContext)
 
     const periodList = ['08:00 ~ 09:00', '09:00 ~ 10:00', '10:00 ~ 11:00', '11:00 ~ 12:00', '12:00 ~ 13:00', '13:00 ~ 14:00', '14:00 ~ 15:00', '15:00 ~ 16:00', '16:00 ~ 17:00', '17:00 ~ 18:00', '18:00 ~ 19:00', '19:00 ~ 20:00', '20:00 ~ 21:00', '21:00 ~ 22:00', '22:00 ~ 23:00', '23:00 ~ 24:00']
 
+    const specific = today.toLocaleDateString('roc', { weekday: 'long', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric' })
     //time
     useEffect(() => {
         const timer = setInterval(() => {
@@ -34,21 +37,17 @@ const Reserve = () => {
             clearInterval(timer)
         }
     }, [])
-    const specific = today.toLocaleDateString('roc', { weekday: 'long', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric' })
-    const day = today.getDay()
-    const hour = today.getHours()
-    const minute = today.getMinutes()
-    const second = today.getSeconds()
 
     useEffect(() => {
+        console.log(today.getDay(), today.getHours(), today.getMinutes(), today.getSeconds())
         if (!Variable.getCookie('currentUser')) {
             navigate('/logout')
         }
-        if (day === 7 && hour === 23 && minute === 59 && second === 59) {
+        if (today.getDay() === 1 && today.getHours() < 8) {
             // console.log('updating')
             setDisablePage(true)
         }
-        if (day === 1 && hour === 8 && minute === 0 && second === 0) {
+        if (today.getDay() === 1 && today.getHours() >= 8) {
             // console.log('done updating')
             setDisablePage(false)
         }
@@ -205,12 +204,20 @@ const Reserve = () => {
         <div className='reserve'>
             <h1>預約琴房</h1>
             {disablePage && <div className="notReserveTime">非預約時段</div>}
+            <div className="backCover" onClick={() => { setVisible('hidden') }} style={{ visibility: visible }}></div>
+            <div className="rulePopup" style={{ visibility: visible }}>
+                <h3>預約規則</h3>
+                <div>只能預約下周的琴房,當周可以取消</div>
+                <div>每人每周有七個預約次數</div>
+                <div>每周一00:00~8:00停止預約功能,8:00重新開放,並且可預約新一周的琴房</div>
+            </div>
+
             <div className="bigBox">
                 <div className="colLeft">
                     <div className="weekContainer">
                         <span className="week" style={{ backgroundColor: (week === 1) ? "#47deec" : "white" }} onClick={() => { setWeek(1) }}>本周</span>
                         <span className="week" style={{ backgroundColor: (week === 2) ? "#47deec" : "white" }} onClick={() => { setWeek(2) }}>下周</span>
-                        <span className="reserveRules">預約規則?</span>
+                        <span className="reserveRules" onClick={() => { setVisible('visible') }}>預約規則?</span>
                     </div>
                     <div className="roomContainer">
                         <span className="room" style={{ backgroundColor: (room === 1) ? "#47deec" : "white" }} onClick={() => { setRoom(1) }}>琴房一</span>
@@ -276,7 +283,7 @@ const Reserve = () => {
                         <button disabled={!enabled}>更新</button>
                     </form>}
             </div >}
-            {focusBox && <div className="backCover"></div>}
+            {focusBox && <div className="backCover" onClick={() => { setFocusBox(null) }}></div>}
 
         </div >
     )
