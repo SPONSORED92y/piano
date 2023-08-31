@@ -14,9 +14,9 @@ const Logout = () => {
       headers: { "Content-Type": "application/json" },
     }).then(res => {
       setCurrentUser(null)
-      navigate('/')
+      navigate('/', { state: { logout: true } })
     }).catch(err => {
-      console.log(err)
+      //console.log(err)
     })
   }, [navigate, setCurrentUser])
 

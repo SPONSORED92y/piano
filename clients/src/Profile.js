@@ -1,11 +1,13 @@
 import { useEffect, useState, useContext } from "react"
-import { useNavigate, useLocation } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import Variable from './Variable'
 import CurrentUserContext from './CurrentUserContext'
+import LangContext from "./LangContext"
 const Profile = () => {
     const navigate = useNavigate()
 
     const { setCurrentUser } = useContext(CurrentUserContext)
+    const { language } = useContext(LangContext)
 
     const [user, setUser] = useState()
     //form
@@ -46,9 +48,9 @@ const Profile = () => {
             .then(data => setUser(data))
             .catch(err => {
                 if (err.name === 'AbortError') {
-                    console.log('fetch aborted')
+                    //console.log('fetch aborted')
                 } else {
-                    console.log(err)
+                    //console.log(err)
                 }
             })
         return () => abortCont.abort()
@@ -82,14 +84,14 @@ const Profile = () => {
                 body: JSON.stringify({ username, email, department, studentID, role, adminKey })
             })
             if (res.ok) {
-                console.log(`${username} profile updated successfully`)
+                //console.log(`${username} profile updated successfully`)
                 if (user.role !== role) {
                     setCurrentUser(role)
                 }
                 navigate('/')
             } else {
                 const data = await res.json()
-                console.log(data)
+                //console.log(data)
                 setUsernameError(data.errors.username)
                 setEmailError(data.errors.email)
                 setDepartmentError(data.errors.department)
@@ -98,7 +100,7 @@ const Profile = () => {
                 setAdminKeyError(data.errors.adminKey)
             }
         } catch (err) {
-            console.log(err)
+            //console.log(err)
         }
     }
 
@@ -116,23 +118,23 @@ const Profile = () => {
                 body: JSON.stringify({ passwordCurrent, password })
             })
             if (res.ok) {
-                console.log(`${username} password changed successfully`)
+                //console.log(`${username} password changed successfully`)
                 navigate('/logout')
             } else {
                 const data = await res.json()
-                console.log(data)
+                //console.log(data)
                 setPasswordCurrentError(data.errors.passwordCurrent)
                 setPasswordError(data.errors.password)
             }
         } catch (err) {
-            console.log(err)
+            //console.log(err)
         }
     }
 
     useEffect(() => {
         if (password !== '' && passwordAgain !== '') {
             if (password !== passwordAgain) {
-                setPasswordAgainError('輸入的密碼不同')
+                setPasswordAgainError(language === 'zh' ? '輸入的密碼不同' : 'Two New Password are not identical')
                 setEnabled(false)
             } else {
                 setPasswordAgainError('')
@@ -143,11 +145,11 @@ const Profile = () => {
 
     return (
         <div className="profile">
-            <h1>個人檔案</h1>
-            {user && <div>本週剩餘次數:{user.times}</div>}
+            <h1>{language === 'zh' ? '個人檔案' : 'Profile'}</h1>
+            {user && <div>{language === 'zh' ? '本週剩餘次數: ' : 'Reserve Points: '}{user.times}</div>}
             <form onSubmit={handleSubmitProfile}>
                 <div>
-                    <label>姓名: (請使用本名)</label>
+                    <label>{language === 'zh' ? '姓名: (請使用本名)' : 'Real Name:'}</label>
                     <input
                         type="text"
                         required
@@ -157,7 +159,7 @@ const Profile = () => {
                     <div>{usernameError}</div>
                 </div>
                 <div>
-                    <label>Email: </label>
+                    <label>Email:</label>
                     <input
                         type="text"
                         required
@@ -167,7 +169,7 @@ const Profile = () => {
                     <div>{emailError}</div>
                 </div>
                 <div>
-                    <label>系級: (校外人士請填"校外")</label>
+                    <label>{language === 'zh' ? '系級: (校外人士請填"校外")' : 'Department: ( "guest" if you\'re not inside NCKU )'}</label>
                     <input
                         type="text"
                         required
@@ -177,7 +179,7 @@ const Profile = () => {
                     <div>{departmentError}</div>
                 </div>
                 <div>
-                    <label>學號: (校外人士請填"0")</label>
+                    <label>{language === 'zh' ? '學號: (校外人士請填"0")' : 'Sutdent ID: ("0" if you\'re not inside NCKU )'}</label>
                     <input
                         type="text"
                         required
@@ -187,17 +189,17 @@ const Profile = () => {
                     <div>{studentIDError}</div>
                 </div>
                 <div>
-                    <label>身分: </label>
+                    <label>{language === 'zh' ? '身分: ' : 'Role'}</label>
                     <select value={role}
                         onChange={(e) => setRole(e.target.value)}>
-                        <option value='Member'>一般社員</option>
-                        <option value='Admin'>幹部</option>
+                        <option value='Member'>{language === 'zh' ? '一般社員' : 'Club Member'}</option>
+                        <option value='Admin'>{language === 'zh' ? '幹部' : 'Club Officer'}</option>
                     </select>
                     <div>{roleError}</div>
                 </div>
                 {(role === 'Admin') &&
                     <div>
-                        <label>通關密語:</label>
+                        <label>{language === 'zh' ? '金鑰: ' : 'Secret:'}</label>
                         <input
                             type="text"
                             value={adminKey}
@@ -206,13 +208,12 @@ const Profile = () => {
                         <div>{adminKeyError}</div>
                     </div>
                 }
-                <button >更新資料</button>
+                <button >{language === 'zh' ? '更新資料' : 'Save Edit'}</button>
             </form>
             <form onSubmit={handleSubmitPassword}>
-
-                <h2>更改密碼: </h2>
+                <h2>{language === 'zh' ? '更改密碼: ' : 'Change Password'}</h2>
                 <div>
-                    <label>現在密碼: </label>
+                    <label>{language === 'zh' ? '現在密碼: ' : 'Current Password: '}</label>
                     <input
                         type="password"
                         required
@@ -222,7 +223,7 @@ const Profile = () => {
                     <div>{passwordCurrentError}</div>
                 </div>
                 <div>
-                    <label>新密碼: </label>
+                    <label>{language === 'zh' ? '新密碼: ' : 'New Password: '}</label>
                     <input
                         type="password"
                         required
@@ -232,7 +233,7 @@ const Profile = () => {
                     <div>{passwordError}</div>
                 </div>
                 <div>
-                    <label>請再次輸入新密碼:</label>
+                    <label>{language === 'zh' ? '請再次輸入新密碼:' : 'New Password Again: '}</label>
                     <input
                         type="password"
                         required
@@ -241,7 +242,7 @@ const Profile = () => {
                     />
                     <div>{passwordAgainError}</div>
                 </div>
-                <button disabled={!enabled}>更改密碼</button>
+                <button disabled={!enabled}>{language === 'zh' ? '更改密碼' : 'Change Password'}</button>
             </form>
 
         </div>

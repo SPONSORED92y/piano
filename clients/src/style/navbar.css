@@ -5,8 +5,8 @@
 
 .navbarBig {
     display: block;
-    border-bottom: 1px solid #f2f2f2;
-    background-color: rgb(78, 73, 70);
+    border-bottom: 1px solid var(--LIGHT_PINK);
+    background-color: var(--GRAY);
     height: 50px;
     width: 100%;
 }
@@ -25,13 +25,7 @@
 .navbarBig .title {
     float: left;
     height: 48px;
-    width: 484px;
-}
-
-@media screen and (max-width: 1250px) {
-    .navbarBig .title {
-        display: none;
-    }
+    width: 261px;
 }
 
 .navbarBig .navButton {
@@ -39,7 +33,7 @@
     float: right;
     width: auto;
     height: 50px;
-    background-color: rgb(78, 73, 70);
+    background-color: var(--GRAY);
     text-align: center;
     padding: 0px 10px;
     line-height: 50px;
@@ -50,7 +44,7 @@
 
 .navbarBig .language:hover,
 .navbarBig .navButton:hover {
-    background-color: rgb(234, 171, 182);
+    background-color: var(--PINK);
 }
 
 .navbarBig .language {
@@ -99,12 +93,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        background-color: rgb(78, 73, 70);
-    }
-
-    .navbarSmall .title {
-        width: 370px;
-        height: 36px;
+        background-color: var(--GRAY);
     }
 
     .navbarSmall #tools {
@@ -120,7 +109,7 @@
         position: relative;
         width: 100%;
         height: 50px;
-        background-color: rgb(78, 73, 70);
+        background-color: var(--GRAY);
         border-top: solid 1px black;
     }
 
@@ -131,6 +120,7 @@
         width: 100%;
         flex-direction: column;
         border-top: solid 1px black;
+        z-index: 1;
     }
 
     .navbarSmall .navButton {
@@ -139,7 +129,7 @@
         width: auto;
         height: 50px;
         padding: 8px 0px;
-        background-color: rgb(78, 73, 70);
+        background-color: var(--GRAY);
         text-align: center;
         padding: 0px 4px;
         line-height: 50px;
@@ -153,7 +143,7 @@
         width: 100%;
         height: 50px;
         line-height: 50px;
-        background-color: rgb(78, 73, 70);
+        background-color: var(--GRAY);
         color: white;
         font-size: 22px;
         padding-left: 5px;
@@ -188,6 +178,6 @@
 
     .navbarSmall .brick:hover,
     .navbarSmall .navButton:hover {
-        background-color: rgb(234, 171, 182);
+        background-color: var(--PINK);
     }
 }

@@ -1,0 +1,15 @@
+.logoutPopup {
+    position: fixed;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.logoutPopup .message {
+    position: relative;
+    width: 150px;
+    height: 30px;
+    font-size: 14px;
+    background-color: pink;
+    color: black;
+}

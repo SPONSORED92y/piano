@@ -4,7 +4,16 @@
     flex-direction: column;
     justify-content: start;
     align-items: center;
-    width: 1000px;
+    width: 800px;
+    background-color: var(--PINK);
+}
+
+.list .bigBox {
+    width: 800px;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
 }
 
 .list h1 {
@@ -13,6 +22,7 @@
 
 .list table {
     border-collapse: collapse;
+    background-color: var(--LIGHT_PINK);
     /* width: 720px; */
     border: 2px solid;
     text-align: center;
@@ -31,31 +41,35 @@
 }
 
 .list td {
+    height: 45px;
     width: auto;
     padding: 8px 30px;
-
 }
 
 .list .edit {
     position: relative;
-    top: 5px;
+    top: 15px;
     box-sizing: border-box;
-    padding: 1px 2px;
-    border: solid 1px;
+    background-color: var(--GRAY);
+    color: var(--LIGHT_PINK);
+    border: solid 2px var(--PINK);
+    margin: 0px 10px;
+    padding: 1px 6px;
     border-radius: 8px;
+    cursor: pointer;
 }
 
 .list .create {
+    text-align: center;
     margin: 6px;
     display: inline-block;
-    width: auto;
+    width: 100px;
     padding: 4px 6px 4px 6px;
-    border: solid 1px;
+    background-color: var(--LIGHT_PINK);
+    border: solid 2px var(--GRAY);
     border-radius: 8px;
-}
-
-.list .create a {
-    text-decoration: none;
-    font-size: 15px;
-    color: #000;
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--GRAY);
+    cursor: pointer;
 }

@@ -1,16 +1,26 @@
+import { useLocation } from "react-router-dom"
+import { useContext } from "react"
+import LangContext from "./LangContext"
 const Home = () => {
-
+    const location = useLocation()
+    const { language } = useContext(LangContext)
     return (
         <div className="Home">
-            <h1>首頁</h1>
+            {location.state && location.state.logout && <div className="logoutPopup">
+                <div className="message">
+                    {language === 'zh' ? "您已登出!" : 'You have loged out !!!'}
+                </div>
+            </div>}
+            <h1>{language === 'zh' ? "首頁" : 'Home'}</h1>
             <h2>更新日誌</h2>
-            <div className="highlight">手機介面優化</div>
+            <div className="highlight">可切換成英文</div>
+            <div className="highlight">最新消息頁面</div>
+            <div className="highlight">手機介面優化 v2</div>
             <div>可以重複登入，不必先登出</div>
             <div>完成使用者列表功能</div>
             <div>管理員查閱社員列表</div>
             <div>琴譜借出日期欄位</div>
             <div>一點點的美術!!!</div>
-            <div>並沒有任何效果的語言切換功能(´･ω･`)</div>
             <div></div>
             <h2>ㄍㄇ的話: 請大家盡情使用預約琴房的功能,以下是使用說明和注意事項</h2>
             <h3>帳號功能</h3>
@@ -28,10 +38,10 @@ const Home = () => {
             <div>3.目前每3個小時會做一次"每周更新",也就是下周的紀錄會被推到本周,每人的預約次數也會更新</div>
             <div>4.管理員有權限可以直接修改每個時段的狀態和使用者</div>
             <div>5.本周可以取消預約!!</div>
-            <div>6.周一的00:00到8:00應該是無法預約的(如果這功能沒壞掉的話)((補:對,他是壞的</div>
+            <div>6.周一的00:00到8:00應該是無法預約的</div>
             <h3>其他</h3>
             <div>1.首頁和關於頁面之後應該會寫點別的,大家可以討論看看要寫什麼</div>
-            <div>2.如果你遇到bug卡住了之類的(其實蠻容易遇到的),請登出再登入,或是重新點一次連結</div>
+            <div>2.如果你遇到bug卡住了之類的,可以跟ㄍㄇ說</div>
 
             <h2>By: ㄍㄇ(´･ω･`)</h2>
         </div>

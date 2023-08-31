@@ -41,18 +41,18 @@ const EditUser = () => {
         body: JSON.stringify({ id, username, email, department, studentID })
       })
       if (res.ok) {
-        console.log(`${username} profile updated successfully`)
+        //console.log(`${username} profile updated successfully`)
         navigate('/userList')
       } else {
         const data = await res.json()
-        console.log(data)
+        //console.log(data)
         setUsernameError(data.errors.username)
         setEmailError(data.errors.email)
         setDepartmentError(data.errors.department)
         setStudentIDError(data.errors.studentID)
       }
     } catch (err) {
-      console.log(err)
+      //console.log(err)
     }
   }
 
@@ -69,15 +69,15 @@ const EditUser = () => {
         body: JSON.stringify({ id, password })
       })
       if (res.ok) {
-        console.log(`${username} password changed successfully`)
+        //console.log(`${username} password changed successfully`)
         navigate('/userList')
       } else {
         const data = await res.json()
-        console.log(data)
+        //console.log(data)
         setPasswordError(data.errors.password)
       }
     } catch (err) {
-      console.log(err)
+      //console.log(err)
     }
   }
 
@@ -91,14 +91,14 @@ const EditUser = () => {
         body: JSON.stringify({ id })
       })
       if (res.ok) {
-        console.log(`${username} deleted successfully`)
+        //console.log(`${username} deleted successfully`)
         navigate('/userList')
       } else {
         const data = await res.json()
-        console.log(data)
+        //console.log(data)
       }
     } catch (err) {
-      console.log(err)
+      //console.log(err)
     }
   }
 

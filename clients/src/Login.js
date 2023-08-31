@@ -1,6 +1,7 @@
 import { useEffect, useState, useContext } from "react"
 import { useNavigate } from "react-router-dom"
 import CurrentUserContext from './CurrentUserContext'
+import LangContext from "./LangContext"
 import Variable from './Variable'
 const Login = () => {
   const [email, setEmail] = useState(Variable.publish ? '' : 'jasonsu@gmail.com')
@@ -9,6 +10,7 @@ const Login = () => {
   const [passwordError, setPasswordError] = useState('')
 
   const { setCurrentUser } = useContext(CurrentUserContext)
+  const { language } = useContext(LangContext)
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -20,8 +22,7 @@ const Login = () => {
     }
   }, [])
 
-  const handleSubmit = async (e) => {
-    e.preventDefault()
+  const handleSubmit = async () => {
     setEmailError('')
     setPasswordError('')
     try {
@@ -33,32 +34,33 @@ const Login = () => {
         body: JSON.stringify({ email, password })
       })
       const data = await res.json()
-      console.log(data)
+      ////console.log(data)
       if (data.errors) {
         setEmailError(data.errors.email)
         setPasswordError(data.errors.password)
       }
       if (data.user) {
-        console.log(`${data.user.username} logged in successfully`)
-        console.log(data.user.role)
+        ////console.log(`${data.user.username} logged in successfully`)
+        ////console.log(data.user.role)
         setCurrentUser(data.user.role)
         navigate('/news')
       }
     } catch (err) {
-      console.log(err)
+      ////console.log(err)
     }
   }
 
   return (
     <div className="login">
-      {/* <h1>登入</h1> */}
       <div className="bigBox">
-        {/* <img src="loginBackground.png" alt="loginBackground" width="1425" height="729"></img> */}
-        <div className="colLeft">
-        </div>
+        <img className="colLeft" src="logo.png">
+        </img>
         <div className="colRight">
           <form onSubmit={handleSubmit}>
-            <div>
+            <div className="row1">
+              <div className="highContainer">
+                <img className="high" src="high.png"></img>
+              </div>
               <input
                 type="text"
                 required
@@ -66,25 +68,30 @@ const Login = () => {
                 placeholder="Email"
                 onChange={(e) => setEmail(e.target.value)}
               />
-              <div>{emailError}</div>
             </div>
-            <div>
+            <div className="row2">
+              <div className="lowContainer">
+                <img className="low" src="low.png"></img>
+              </div>
               <input
                 type="password"
                 required
                 value={password}
-                placeholder="密碼"
+                placeholder={language === 'zh' ? "密碼" : 'Password'}
                 onChange={(e) => setPassword(e.target.value)}
               />
-              <div>{passwordError}</div>
             </div>
-            <button className="loginButton">登入</button>
+            <div className="row3">
+              <div className="error">{emailError}</div>
+              <div className="error">{passwordError}</div>
+            </div>
+            <div className="loginButton" onClick={() => handleSubmit()}>{language === 'zh' ? "登入" : 'Login'}</div>
           </form>
-          <div className="divider"></div>
-          <button className="signupButton" onClick={() => navigate('/signup')}>註冊新帳號</button>
+          {/* <div className="divider"></div> */}
+          <div className="signupButton" onClick={() => navigate('/signup')}>{language === 'zh' ? "註冊新帳號" : 'Sign Up'}</div>
         </div>
-      </div>
-    </div>
+      </div >
+    </div >
   )
 }
 

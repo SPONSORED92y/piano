@@ -11,6 +11,8 @@ import Create from './Create'
 import EditBook from './EditBook'
 import UserList from './UserList'
 import EditUser from './EditUser'
+import CreatePost from './CreatePost'
+import Post from './Post'
 
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { useState } from 'react'
@@ -35,6 +37,7 @@ function App() {
                 <Route path="/logout" element={<Logout />} />
                 <Route path="/signup" element={<Signup />} />
                 <Route path="/news" element={<News />} />
+                <Route path="/post/:id" element={<Post />} />
                 <Route path="/list" element={<List />} />
                 <Route path="/reserve" element={<Reserve />} />
                 <Route path="/create" element={<Create />} />
@@ -42,6 +45,7 @@ function App() {
                 <Route path="/profile" element={<Profile />} />
                 <Route path="/userList" element={<UserList />} />
                 <Route path="/editUser" element={<EditUser />} />
+                <Route path="/createPost" element={<CreatePost />} />
               </Routes>
             </div>
           </LangContext.Provider>

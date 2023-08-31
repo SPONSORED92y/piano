@@ -1,11 +1,12 @@
 const User = require('../models/User')
 const Book = require('../models/Book')
 const Box = require('../models/Box')
+const Post = require('../models/Post')
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
 // const nodemailer = require('nodemailer')
 
-const { signupErrors, loginErrors, createErrors, profileErrors, changePasswordErrors } = require('./handleErrors')
+const { signupErrors, loginErrors, createErrors, profileErrors, changePasswordErrors, createPostErrors } = require('./handleErrors')
 const createToken = (id) => {
     return jwt.sign({ id }, 'rrharil', {
         expiresIn: 5 * 60 * 1000
@@ -281,6 +282,44 @@ exports.editUserDelete = async (req, res) => {
     }
 }
 
+exports.postsGet = async (req, res) => {
+    try {
+        let posts = []
+        posts = await Post.find({}).sort({ 'date': -1 })
+        res.status(200).json(posts)
+    } catch (err) {
+        console.log(err)
+    }
+}
+exports.postGet = async (req, res) => {
+    try {
+        const id = req.params.id.substring(1, 25)
+        const post = await Post.findOne({ _id: id })
+        res.status(200).json(post)
+    } catch (err) {
+        console.log(err)
+    }
+}
+exports.createPostsPost = async (req, res) => {
+    const { title, content } = req.body
+    try {
+        const post = await Post.create({ title, content, date: new Date() })
+        res.status(201).json({ 'post': post._id })
+    } catch (err) {
+        const errors = createPostErrors(err)
+        res.status(400).json({ errors })
+    }
+}
+exports.editPostPost = async (req, res) => {
+    const { id, title, content } = req.body
+    try {
+        const result = await Post.updateOne({ _id: id.substring(3, 27) }, { title, content })
+        res.status(200).json({ 'post': post._id })
+    } catch (err) {
+        const errors = createPostErrors(err)
+        res.status(400).json({ errors })
+    }
+}
 // exports.messagePost = async (req, res) => {
 //     let messages = []
 //     try {

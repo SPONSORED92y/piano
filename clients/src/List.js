@@ -1,13 +1,14 @@
 import { Link, useNavigate } from 'react-router-dom'
 import { useContext, useEffect, useState } from 'react'
 import CurrentUserContext from './CurrentUserContext'
+import LangContext from "./LangContext"
 import Variable from './Variable'
 const List = () => {
     const navigate = useNavigate()
     const { currentUser } = useContext(CurrentUserContext)
     const [books, setBooks] = useState(null)
     const [isPending, setIsPending] = useState(true)
-
+    const { language } = useContext(LangContext)
     useEffect(() => {
         if (!Variable.getCookie('currentUser')) {
             navigate('/logout')
@@ -35,10 +36,10 @@ const List = () => {
             })
             .catch(err => {
                 if (err.name === 'AbortError') {
-                    console.log('fetch aborted')
+                    //console.log('fetch aborted')
                 } else {
                     setIsPending(false)
-                    console.log(err)
+                    //console.log(err)
                 }
             })
 
@@ -47,22 +48,22 @@ const List = () => {
 
     return (
         <div className="list">
-            <h1>琴譜列表</h1>
+            <h1>{language === 'zh' ? "琴譜列表" : 'Scores List'}</h1>
             {isPending && <div>載入中...</div>}
             <div className='bigBox'>
                 <table>
                     <thead>
-                        <th>標題</th>
-                        <th>狀態</th>
-                        {currentUser === 'Admin' && <th >出借社員</th>}
-                        {currentUser === 'Admin' && <th >借出日期</th>}
+                        <th>{language === 'zh' ? "標題" : 'Title'}</th>
+                        <th>{language === 'zh' ? "狀態" : 'Status'}</th>
+                        {currentUser === 'Admin' && <th >{language === 'zh' ? "出借社員" : 'Borrower'}</th>}
+                        {currentUser === 'Admin' && <th >{language === 'zh' ? "借出日期" : 'Lent date'}</th>}
                     </thead>
                     <tbody>
                         {currentUser && books && books.map(book => (
                             // bookimage
                             <tr className="book" key={book._id}>
                                 <td className='title' >{book.title}</td>
-                                <td className='status'>{(book.status === 'Available') ? '可借閱' : '已外借'}</td>
+                                <td className='status'>{language === 'zh' ? (book.status === 'Available') ? '可借閱' : '已外借' : book.status}</td>
                                 {currentUser === 'Admin' && <td className='borrower'>{book.borrower}</td>}
                                 {currentUser === 'Admin' && <td className='date'>{book.date}</td>}
                                 {currentUser === 'Admin' &&
@@ -76,13 +77,13 @@ const List = () => {
                                                     borrower: book.borrower,
                                                 }
                                             })
-                                        }}>編輯</div>}
+                                        }}>{language === 'zh' ? "編輯" : 'Edit'}</div>}
                             </tr>
                         ))}
                     </tbody>
                 </table>
             </div>
-            {currentUser === 'Admin' && <div className='create'> <Link to={"/create"}>增加</Link></div>}
+            {currentUser === 'Admin' && <div className='create' onClick={() => { navigate('/create') }}> {language === 'zh' ? "增加" : 'Add'}</div>}
         </div>
     )
 }

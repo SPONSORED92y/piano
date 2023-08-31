@@ -28,16 +28,16 @@ const Create = () => {
         body: JSON.stringify({ title, status, borrower, date })
       })
       if (res.ok) {
-        console.log(`${title} created successfully`)
+        //console.log(`${title} created successfully`)
         navigate('/list')
       } else {
         const data = await res.json()
-        console.log(data)
+        //console.log(data)
         setTitleError(data.errors.title)
         setStatusError(data.errors.status)
       }
     } catch (err) {
-      console.log(err)
+      //console.log(err)
     }
   }
 
@@ -74,6 +74,7 @@ const Create = () => {
   return (
     <div className="create">
       <h1>新增琴譜</h1>
+      <div className="lastPage" onClick={() => navigate(-1)}>{'< 上一頁'}</div>
       <form onSubmit={handleSubmit}>
         <div>
           <label>樂譜名稱:</label>

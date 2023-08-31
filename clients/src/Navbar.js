@@ -13,14 +13,14 @@ const Navbar = () => {
         <div className="navbar">
             <div className="navbarBig">
                 <ul>
-                    {!currentUser && <li className="navButton" onClick={() => navigate('/login')}>登入</li>}
-                    {currentUser && <li className="navButton" onClick={() => navigate('/logout')}>登出</li>}
-                    {currentUser && <li className="navButton" onClick={() => navigate('/list')}>琴譜列表</li>}
-                    {currentUser && <li className="navButton" onClick={() => navigate('/reserve')}>預約琴房</li>}
-                    {currentUser && <li className="navButton" onClick={() => navigate('/profile')}>個人檔案</li>}
-                    {currentUser && currentUser === 'Admin' && <li className="navButton" onClick={() => navigate('/userList')}>使用者列表</li>}
-                    <li className="navButton" onClick={() => navigate('/news')}>最新消息</li>
-                    <li className="navButton" onClick={() => navigate('/')}>首頁</li>
+                    {!currentUser && <li className="navButton" onClick={() => navigate('/login')}>{language === 'zh' ? "登入" : 'Login'}</li>}
+                    {currentUser && <li className="navButton" onClick={() => navigate('/logout')}>{language === 'zh' ? "登出" : 'Logout'}</li>}
+                    {currentUser && <li className="navButton" onClick={() => navigate('/list')}>{language === 'zh' ? "琴譜列表" : 'Scores'}</li>}
+                    {currentUser && <li className="navButton" onClick={() => navigate('/reserve')}>{language === 'zh' ? "預約琴房" : 'Reserve'}</li>}
+                    {currentUser && <li className="navButton" onClick={() => navigate('/profile')}>{language === 'zh' ? "個人檔案" : 'Profile'}</li>}
+                    {currentUser && currentUser === 'Admin' && <li className="navButton" onClick={() => navigate('/userList')}>{language === 'zh' ? "使用者列表" : 'All User'}</li>}
+                    <li className="navButton" onClick={() => navigate('/news')}>{language === 'zh' ? "最新消息" : 'News'}</li>
+                    <li className="navButton" onClick={() => navigate('/')}>{language === 'zh' ? "首頁" : 'Home'}</li>
                     <li className="language" onClick={() => (optionVisible === 'visible') ? setOptionVisible('hidden') : setOptionVisible('visible')}>
                         <img src="globe.png" alt="globe" width="20" height="20"></img>
                         <div className="dropBox" style={{ visibility: optionVisible }}>
@@ -28,12 +28,12 @@ const Navbar = () => {
                             <div className="option" onClick={() => setLanguage('en')} style={{ backgroundColor: (language === 'en') ? 'gray' : 'black' }}>EN</div>
                         </div>
                     </li>
-                    <li className="title"><img src="title.jpg" alt="title" width="484" height="48"></img></li>
+                    <li className="title"><img src="title.png" alt="title" width="261" height="50"></img></li>
                 </ul>
             </div>
             <nav className="navbarSmall">
                 <div className="titleBox">
-                    <img className="title" src="title.jpg" alt="title" width="1221" height="121"></img>
+                    <img className="title" src="title.png" alt="title" width="261" height="50"></img>
                 </div>
                 <div className="bigBox">
                     <img className="navButton" id="tools" src="tools.png" alt="tools" width="20" height="20" onClick={() => (optionVisible === 'visible') ? setOptionVisible('hidden') : setOptionVisible('visible')}></img>
@@ -41,39 +41,39 @@ const Navbar = () => {
                         setOptionVisible('hidden')
                         navigate('/logout')
                     }
-                    }>登出</div>}
+                    }>{language === 'zh' ? "登出" : 'Logout'}</div>}
                     {currentUser && <div className="navButton" onClick={() => {
                         setOptionVisible('hidden')
                         navigate('/reserve')
                     }
-                    }>預約琴房</div>}
+                    }>{language === 'zh' ? "預約琴房" : 'Reserve'}</div>}
                     {!currentUser && <div className="navButton" onClick={() => {
                         setOptionVisible('hidden')
                         navigate('/login')
                     }
-                    }>登入</div>}
+                    }>{language === 'zh' ? "登入" : 'Login'}</div>}
                     <div className="navButton" onClick={() => {
                         setOptionVisible('hidden')
                         navigate('/')
                     }
-                    }>首頁</div>
+                    }>{language === 'zh' ? "首頁" : 'Home'}</div>
                     <div className="bigDropbox" style={{ visibility: optionVisible }}>
                         {currentUser && <div className="brick" onClick={() => {
                             setOptionVisible('hidden')
                             navigate('/profile')
-                        }}>個人檔案</div>}
+                        }}>{language === 'zh' ? "個人檔案" : 'Profile'}</div>}
                         {currentUser && <div className="brick" onClick={() => {
                             setOptionVisible('hidden')
                             navigate('/list')
-                        }}>琴譜列表</div>}
+                        }}>{language === 'zh' ? "琴譜列表" : 'Scores'}</div>}
                         {currentUser && currentUser === 'Admin' && <div className="brick" onClick={() => {
                             setOptionVisible('hidden')
                             navigate('/userList')
-                        }}>使用者列表</div>}
+                        }}>{language === 'zh' ? "使用者列表" : 'User list'}</div>}
                         <div className="brick" onClick={() => {
                             setOptionVisible('hidden')
                             navigate('/news')
-                        }}>最新消息</div>
+                        }}>{language === 'zh' ? "最新消息" : 'News'}</div>
                         <div className="brick" style={{ visibility: optionVisible }}>
                             <img className="globe" src="globe.png" alt="globe" width="20" height="20"></img>
                             <div className="line"></div>

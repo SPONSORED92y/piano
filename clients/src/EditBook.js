@@ -26,14 +26,14 @@ const EditBook = () => {
         body: JSON.stringify({ id })
       })
       if (res.ok) {
-        console.log(`${title} deleted successfully`)
+        //console.log(`${title} deleted successfully`)
         navigate('/list')
       } else {
         const data = await res.json()
-        console.log(data)
+        //console.log(data)
       }
     } catch (err) {
-      console.log(err)
+      //console.log(err)
     }
   }
 
@@ -51,14 +51,14 @@ const EditBook = () => {
         body: JSON.stringify({ id, title, status, borrower, date })
       })
       if (res.ok) {
-        console.log(`${title} edited successfully`)
+        //console.log(`${title} edited successfully`)
         navigate('/list')
       } else {
         const data = await res.json()
-        console.log(data)
+        //console.log(data)
       }
     } catch (err) {
-      console.log(err)
+      //console.log(err)
     }
   }
 
@@ -95,6 +95,7 @@ const EditBook = () => {
   return (
     <div className="EditBook">
       <h1>編輯琴譜</h1>
+      <div className="lastPage" onClick={() => navigate(-1)}>{'< 上一頁'}</div>
       <form onSubmit={handleSubmit}>
         <div>
           <label>樂譜名稱:</label>
