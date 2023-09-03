@@ -14,6 +14,7 @@ import './style/createPost.css'
 import './style/post.css'
 import './style/editBook.css'
 import './style/create.css'
+import './style/home.css'
 import App from './App'
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
