@@ -116,20 +116,20 @@ const Reserve = () => {
             var offsets = document.getElementById(`box_${period}`).getBoundingClientRect();
             if (currentUser === 'Admin') {
                 setFocusBox(period)
-                setPositionTop(offsets.top)
-                setPositionLeft(offsets.left)
+                setPositionTop(offsets.top + window.scrollY)
+                setPositionLeft(offsets.left + window.scrollX)
                 setStatus(boxes[period - 1].status)
                 setBoxUser(boxes[period - 1].user)
             } else {
                 if (user) {
                     if (user.username === boxes[period - 1].user) {
                         setFocusBox(period)
-                        setPositionTop(offsets.top)
-                        setPositionLeft(offsets.left)
+                        setPositionTop(offsets.top + window.scrollY)
+                        setPositionLeft(offsets.left + window.scrollX)
                     } else if (boxes[period - 1].user === '' && user.times > 0 && boxes[period - 1].status === 'Available' && boxes[period - 1].week === 2) {
                         setFocusBox(period)
-                        setPositionTop(offsets.top)
-                        setPositionLeft(offsets.left)
+                        setPositionTop(offsets.top + window.scrollY)
+                        setPositionLeft(offsets.left + window.scrollX)
                     }
                 }
             }

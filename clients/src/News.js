@@ -19,28 +19,26 @@ const News = () => {
 
   return (
     <div className="news">
-      <div>
-        <h1>{language === 'zh' ? "最新消息" : 'News'}</h1>
-        {error && <div>{error}</div>}
-        {isPending && <div>Loading...</div>}
-        <table>
-          <thead>
-            <tr>
-              <th>{language === 'zh' ? "標題" : 'Title'}</th>
-              <th>{language === 'zh' ? "日期" : 'Date'}</th>
+      <h1>{language === 'zh' ? "最新消息" : 'News'}</h1>
+      {error && <div>{error}</div>}
+      {isPending && <div>Loading...</div>}
+      <table>
+        <thead>
+          <tr>
+            <th>{language === 'zh' ? "標題" : 'Title'}</th>
+            <th>{language === 'zh' ? "日期" : 'Date'}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {posts && posts.map(post => (
+            <tr key={post._id}>
+              <td className='title' onClick={() => { navigate(`/post/:${post._id}`) }}>{post.title}</td>
+              <td>{`${new Date(post.date).getFullYear()}-${new Date(post.date).getMonth() + 1}-${new Date(post.date).getDate()}`}</td>
             </tr>
-          </thead>
-          <tbody>
-            {posts && posts.map(post => (
-              <tr className="post" key={post._id}>
-                <td className='title' onClick={() => { navigate(`/post/:${post._id}`) }}>{post.title}</td>
-                <td>{`${new Date(post.date).getFullYear()}-${new Date(post.date).getMonth() + 1}-${new Date(post.date).getDate()}`}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-      {currentUser && currentUser === 'Admin' && <div className='createPost' onClick={() => { navigate('/createPost') }}> {language === 'zh' ? "增加" : 'Add'}</div>}
+          ))}
+        </tbody>
+      </table>
+      {currentUser && currentUser === 'Admin' && <div className='create' onClick={() => { navigate('/createPost') }}> {language === 'zh' ? "增加" : 'Add'}</div>}
     </div >
   )
 }

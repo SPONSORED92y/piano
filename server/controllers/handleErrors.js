@@ -192,6 +192,7 @@ exports.changePasswordErrors = (err) => {
 }
 
 exports.createPostErrors = (err) => {
+
     console.log(err.message, err.code)
     const message = err.message
     let list = []
@@ -201,14 +202,45 @@ exports.createPostErrors = (err) => {
         errors.title = '已存在該消息'
         return errors
     }
-    let start = 'Book validation failed: '.length
-    let end = 'Book validation failed: '.length
+    let start = 'Post validation failed: '.length
+    let end = 'Post validation failed: '.length
     for (; end < message.length; end++) {
         if (message[end] === ',') {
             list.push(message.substring(start, end))
             start = end + 2
         }
-    } if (end !== 'Book validation failed: '.length) {
+    } if (end !== 'Post validation failed: '.length) {
+        list.push(message.substring(start, end))
+    }
+    list.map((mes) => {
+        //Post validation failed: title: title is empty
+        if (mes === 'title: title is empty') {
+            errors.title = '標題不得為空白'
+        }
+    })
+    return errors
+}
+
+exports.editPostErrors = (err) => {
+    console.log('aaa')
+    console.log(err.message, err.code)
+    console.log('bbb')
+    const message = err.message
+    let list = []
+    let errors = { title: '', content: '' }
+    // duplicate title error
+    if (err.code === 11000) {
+        errors.title = '已存在該消息'
+        return errors
+    }
+    let start = 'Post validation failed: '.length
+    let end = 'Post validation failed: '.length
+    for (; end < message.length; end++) {
+        if (message[end] === ',') {
+            list.push(message.substring(start, end))
+            start = end + 2
+        }
+    } if (end !== 'Post validation failed: '.length) {
         list.push(message.substring(start, end))
     }
     list.map((mes) => {

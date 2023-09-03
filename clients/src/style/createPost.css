@@ -1,0 +1,75 @@
+.createPost {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.createPost form {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    justify-content: start;
+}
+
+.createPost .lastPage {
+    margin-right: 4px;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+.createPost label {
+    margin: 8px 0px;
+    font-weight: 600;
+    font-size: 18px;
+    text-align: center;
+}
+
+.createPost form .inputContainer {
+    width: 350px;
+}
+
+
+.createPost form textarea,
+.createPost form input {
+    box-sizing: border-box;
+    width: 350px;
+    outline-style: none;
+    border: solid 2px var(--GRAY);
+    font-size: 16px;
+    background-color: var(--LIGHT_PINK);
+    border-radius: 6px;
+    padding: 0px 8px;
+}
+
+.createPost form textarea {
+    height: 300px;
+    resize: none;
+}
+
+.createPost .title {
+    height: 30px;
+    text-align: center;
+}
+
+.createPost .content {
+    padding: 8px;
+}
+
+.createPost button {
+    height: 32px;
+    line-height: 35px;
+    text-align: center;
+    width: 120px;
+    font-size: 18px;
+    font-weight: 500;
+    border-radius: 4px;
+    margin: 14px 0px 10px 115px;
+    border: none;
+    background-color: var(--LIGHT_PINK);
+    box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+}
+
+.createPost button:hover {
+    box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.6);
+}

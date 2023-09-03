@@ -83,7 +83,7 @@ const List = () => {
                     </tbody>
                 </table>
             </div>
-            {currentUser === 'Admin' && <div className='create' onClick={() => { navigate('/create') }}> {language === 'zh' ? "增加" : 'Add'}</div>}
+            {currentUser === 'Admin' && <div className='createButton' onClick={() => { navigate('/create') }}> {language === 'zh' ? "增加" : 'Add'}</div>}
         </div>
     )
 }

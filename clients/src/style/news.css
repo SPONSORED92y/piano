@@ -1,5 +1,5 @@
-/* List */
-.list {
+/* News */
+.news {
     display: flex;
     flex-direction: column;
     justify-content: start;
@@ -8,7 +8,7 @@
     background-color: var(--PINK);
 }
 
-.list .bigBox {
+.news .bigBox {
     width: 800px;
     display: flex;
     flex-direction: column;
@@ -16,11 +16,11 @@
     align-items: center;
 }
 
-.list h1 {
+.news h1 {
     text-align: center;
 }
 
-.list table {
+.news table {
     border-collapse: collapse;
     background-color: var(--LIGHT_PINK);
     border: 2px solid;
@@ -28,36 +28,32 @@
     font-size: 20px;
 }
 
-.list thead {
+.news thead {
     border-bottom: 2px solid gray;
     padding: 8px 30px;
 }
 
-.list tr {
+.news tr {
     height: 45px;
     border-bottom: 1px solid gray;
 }
 
-.list td {
+.news td {
     height: 45px;
     width: auto;
     padding: 8px 30px;
 }
 
-.list .edit {
-    position: relative;
-    top: 15px;
-    box-sizing: border-box;
-    background-color: var(--GRAY);
-    color: var(--LIGHT_PINK);
-    border: solid 2px var(--PINK);
-    margin: 0px 10px;
-    padding: 1px 6px;
-    border-radius: 8px;
+.news .title {
     cursor: pointer;
 }
 
-.list .createButton {
+.news .title:hover {
+    /* border-bottom: solid 2px var(--LIGHT_PINK); */
+    text-decoration: underline;
+}
+
+.news .create {
     text-align: center;
     margin: 6px;
     display: inline-block;

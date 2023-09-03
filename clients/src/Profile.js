@@ -32,6 +32,7 @@ const Profile = () => {
     const [passwordError, setPasswordError] = useState('')
     const [passwordAgainError, setPasswordAgainError] = useState('')
     const [enabled, setEnabled] = useState(false)
+    //tooltip
 
     useEffect(() => {
         const abortCont = new AbortController()
@@ -67,8 +68,7 @@ const Profile = () => {
         }
     }, [user])
 
-    const handleSubmitProfile = async (e) => {
-        e.preventDefault()
+    const handleSubmitProfile = async () => {
         setUsernameError('')
         setEmailError('')
         setDepartmentError('')
@@ -105,7 +105,9 @@ const Profile = () => {
     }
 
     const handleSubmitPassword = async (e) => {
-        e.preventDefault()
+        if (!enabled) {
+            return
+        }
         setPasswordAgainError('')
         setPasswordError('')
         setPasswordCurrentError('')
@@ -146,105 +148,119 @@ const Profile = () => {
     return (
         <div className="profile">
             <h1>{language === 'zh' ? '個人檔案' : 'Profile'}</h1>
-            {user && <div>{language === 'zh' ? '本週剩餘次數: ' : 'Reserve Points: '}{user.times}</div>}
-            <form onSubmit={handleSubmitProfile}>
-                <div>
-                    <label>{language === 'zh' ? '姓名: (請使用本名)' : 'Real Name:'}</label>
-                    <input
-                        type="text"
-                        required
-                        value={username}
-                        onChange={(e) => setUsername(e.target.value)}
-                    />
-                    <div>{usernameError}</div>
-                </div>
-                <div>
-                    <label>Email:</label>
-                    <input
-                        type="text"
-                        required
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                    />
-                    <div>{emailError}</div>
-                </div>
-                <div>
-                    <label>{language === 'zh' ? '系級: (校外人士請填"校外")' : 'Department: ( "guest" if you\'re not inside NCKU )'}</label>
-                    <input
-                        type="text"
-                        required
-                        value={department}
-                        onChange={(e) => setDepartment(e.target.value)}
-                    />
-                    <div>{departmentError}</div>
-                </div>
-                <div>
-                    <label>{language === 'zh' ? '學號: (校外人士請填"0")' : 'Sutdent ID: ("0" if you\'re not inside NCKU )'}</label>
-                    <input
-                        type="text"
-                        required
-                        value={studentID}
-                        onChange={(e) => setStudentID(e.target.value)}
-                    />
-                    <div>{studentIDError}</div>
-                </div>
-                <div>
-                    <label>{language === 'zh' ? '身分: ' : 'Role'}</label>
-                    <select value={role}
-                        onChange={(e) => setRole(e.target.value)}>
-                        <option value='Member'>{language === 'zh' ? '一般社員' : 'Club Member'}</option>
-                        <option value='Admin'>{language === 'zh' ? '幹部' : 'Club Officer'}</option>
-                    </select>
-                    <div>{roleError}</div>
-                </div>
-                {(role === 'Admin') &&
-                    <div>
-                        <label>{language === 'zh' ? '金鑰: ' : 'Secret:'}</label>
+            {user && <div className="pointText">{language === 'zh' ? '本週預約點數次數: ' : 'Reserve Points: '}{user.times}</div>}
+
+
+            <div className="bigBox">
+                <form>
+                    <label>{language === 'zh' ? '姓名 (請使用本名)' : 'Real Name'}</label>
+                    <div className="inputContainer">
                         <input
                             type="text"
-                            value={adminKey}
-                            onChange={(e) => setAdminKey(e.target.value)}
+                            required
+                            value={username}
+                            onChange={(e) => setUsername(e.target.value)}
                         />
-                        <div>{adminKeyError}</div>
+                        <div className="error">{usernameError}</div>
                     </div>
-                }
-                <button >{language === 'zh' ? '更新資料' : 'Save Edit'}</button>
-            </form>
-            <form onSubmit={handleSubmitPassword}>
-                <h2>{language === 'zh' ? '更改密碼: ' : 'Change Password'}</h2>
-                <div>
-                    <label>{language === 'zh' ? '現在密碼: ' : 'Current Password: '}</label>
-                    <input
-                        type="password"
-                        required
-                        value={passwordCurrent}
-                        onChange={(e) => setPasswordCurrent(e.target.value)}
-                    />
-                    <div>{passwordCurrentError}</div>
-                </div>
-                <div>
-                    <label>{language === 'zh' ? '新密碼: ' : 'New Password: '}</label>
-                    <input
-                        type="password"
-                        required
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                    />
-                    <div>{passwordError}</div>
-                </div>
-                <div>
-                    <label>{language === 'zh' ? '請再次輸入新密碼:' : 'New Password Again: '}</label>
-                    <input
-                        type="password"
-                        required
-                        value={passwordAgain}
-                        onChange={(e) => setPasswordAgain(e.target.value)}
-                    />
-                    <div>{passwordAgainError}</div>
-                </div>
-                <button disabled={!enabled}>{language === 'zh' ? '更改密碼' : 'Change Password'}</button>
-            </form>
 
+                    <label>Email</label>
+                    <div className="inputContainer">
+
+                        <input
+                            type="text"
+                            required
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                        />
+                        <div className="error">{emailError}</div>
+                    </div>
+                    <label>{language === 'zh' ? '系級' : 'Department'}<span className="tooltip1">?</span><span className="tooltiptext1" >{language === 'zh' ? '校外人士請填 "校外"' : '"guest" if you\'re not inside NCKU'}</span></label>
+                    <div className="inputContainer">
+                        <input
+                            type="text"
+                            required
+                            value={department}
+                            onChange={(e) => setDepartment(e.target.value)}
+                        />
+                        <div className="error">{departmentError}</div>
+                    </div>
+                    <label >{language === 'zh' ? '學號' : 'Sutdent ID'}<span className="tooltip2">?</span><span className="tooltiptext2" >{language === 'zh' ? '校外人士請填 "0"' : '"0" if you\'re not inside NCKU'}</span></label>
+                    <div className="inputContainer">
+                        <input
+                            type="text"
+                            required
+                            value={studentID}
+                            onChange={(e) => setStudentID(e.target.value)}
+                        />
+                        <div className="error">{studentIDError}</div>
+                    </div>
+                    <label>{language === 'zh' ? '身分' : 'Role'}</label>
+                    <div className="inputContainer">
+                        <select value={role}
+                            onChange={(e) => setRole(e.target.value)}>
+                            <option value='Member'>{language === 'zh' ? '一般社員' : 'Club Member'}</option>
+                            <option value='Admin'>{language === 'zh' ? '幹部' : 'Club Officer'}</option>
+                        </select>
+                        <div className="error">{roleError}</div>
+                    </div>
+                    {(role === 'Admin') &&
+                        <div>
+                            <label>{language === 'zh' ? '金鑰' : 'Secret'}</label>
+                            <div className="inputContainer">
+                                <input
+                                    type="text"
+                                    value={adminKey}
+                                    onChange={(e) => setAdminKey(e.target.value)}
+                                />
+                                <div className="error">{adminKeyError}</div>
+                            </div>
+                        </div>
+                    }
+                    <div className="profileButton" onClick={() => { handleSubmitProfile() }}>{language === 'zh' ? '更新資料' : 'Save edit'}</div>
+                </form>
+            </div>
+
+            <form>
+                <h2>{language === 'zh' ? '更改密碼' : 'Change Password'}</h2>
+                <div>
+                    <label>{language === 'zh' ? '現在密碼' : 'Current Password'}</label>
+                    <div className="inputContainer">
+                        <input
+                            type="password"
+                            required
+                            value={passwordCurrent}
+                            onChange={(e) => setPasswordCurrent(e.target.value)}
+                        />
+                        <div className="error">{passwordCurrentError}</div>
+                    </div>
+                </div>
+                <div>
+                    <label>{language === 'zh' ? '新密碼' : 'New Password'}</label>
+                    <div className="inputContainer">
+                        <input
+                            type="password"
+                            required
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                        />
+                        <div className="error">{passwordError}</div>
+                    </div>
+                </div>
+                <div>
+                    <label>{language === 'zh' ? '請再次輸入新密碼' : 'New Password Again'}</label>
+                    <div className="inputContainer">
+                        <input
+                            type="password"
+                            required
+                            value={passwordAgain}
+                            onChange={(e) => setPasswordAgain(e.target.value)}
+                        />
+                        <div className="error">{passwordAgainError}</div>
+                    </div>
+                </div>
+                <button className="profileButton" disabled={!enabled} onClick={() => { handleSubmitPassword() }}>{language === 'zh' ? '更改密碼' : 'Change Password'}</button>
+            </form>
         </div>
     )
 }

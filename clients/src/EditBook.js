@@ -93,48 +93,48 @@ const EditBook = () => {
   }, [status, borrower, date])
 
   return (
-    <div className="EditBook">
+    <div className="editBook">
       <h1>編輯琴譜</h1>
       <div className="lastPage" onClick={() => navigate(-1)}>{'< 上一頁'}</div>
       <form onSubmit={handleSubmit}>
-        <div>
-          <label>樂譜名稱:</label>
+        <label>樂譜名稱</label>
+        <div className="inputContainer">
           <input
             type="text"
             required
             value={title}
             onChange={(e) => setTitle(e.target.value)}
           />
-          <div>{titleError}</div>
+          <div className="error">{titleError}</div>
         </div>
-        <div>
-          <label>狀態:</label>
+        <label>狀態</label>
+        <div className="inputContainer">
           <select value={status}
             onChange={(e) => setStatus(e.target.value)}>
             <option value='Available'>可借閱</option>
             <option value='Not Available'>已外借</option>
           </select>
-          <div>{statusError}</div>
+          <div className="error">{statusError}</div>
         </div>
-        <div>
-          <label>出借社員:</label>
+        <label>出借社員</label>
+        <div className="inputContainer">
           <input
             type="text"
             value={borrower}
             onChange={(e) => setBorrower(e.target.value)}
           />
         </div>
-        <div>
-          <label>借出日期: </label>
+        <label>借出日期 </label>
+        <div className="inputContainer">
           <input
             type="text"
             value={date}
             onChange={(e) => setDate(e.target.value)}
           />
+          <div>{errorMessage}</div>
         </div>
-        <div>{errorMessage}</div>
         <button disabled={errorMessage !== ''}>更新</button>
-        <div onClick={handleClickDelete}>刪除琴譜</div>
+        <div className="delButton" onClick={handleClickDelete}>刪除琴譜</div>
       </form>
     </div>
   )

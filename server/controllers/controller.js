@@ -6,7 +6,7 @@ const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
 // const nodemailer = require('nodemailer')
 
-const { signupErrors, loginErrors, createErrors, profileErrors, changePasswordErrors, createPostErrors } = require('./handleErrors')
+const { signupErrors, loginErrors, createErrors, profileErrors, changePasswordErrors, createPostErrors, editPostErrors } = require('./handleErrors')
 const createToken = (id) => {
     return jwt.sign({ id }, 'rrharil', {
         expiresIn: 5 * 60 * 1000
@@ -64,8 +64,8 @@ exports.loginPost = async (req, res) => {
     try {
         const user = await User.login(email, password)
         const token = createToken(user._id)
-        res.cookie('jwt', token, { httpOnly: true, maxAge: 15 * 60 * 1000 })
-        res.cookie('currentUser', user.role, { maxAge: 15 * 60 * 1000 })
+        res.cookie('jwt', token, { httpOnly: true, maxAge: 20 * 60 * 1000 })
+        res.cookie('currentUser', user.role, { maxAge: 20 * 60 * 1000 })
         res.status(200).json({ user: user })
     } catch (err) {
         const errors = loginErrors(err)
@@ -313,10 +313,10 @@ exports.createPostsPost = async (req, res) => {
 exports.editPostPost = async (req, res) => {
     const { id, title, content } = req.body
     try {
-        const result = await Post.updateOne({ _id: id.substring(3, 27) }, { title, content })
-        res.status(200).json({ 'post': post._id })
+        const result = await Post.updateOne({ _id: id.substring(1, 27) }, { title, content })
+        res.status(200).json({ result })
     } catch (err) {
-        const errors = createPostErrors(err)
+        const errors = editPostErrors(err)
         res.status(400).json({ errors })
     }
 }

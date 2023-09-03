@@ -7,14 +7,10 @@ const CreatePost = () => {
   const navigate = useNavigate()
   const [title, setTitle] = useState('')
   const [content, setContent] = useState('')
-  const [titleError, setTitleError] = useState('')
-  const [contentError, setContentError] = useState('')
   const { currentUser } = useContext(CurrentUserContext)
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    setTitleError('')
-    setContentError('')
     try {
       const res = await fetch(`${Variable.serverURL}/createPost`, {
         mode: 'cors',
@@ -29,8 +25,6 @@ const CreatePost = () => {
       } else {
         const data = await res.json()
         //console.log(data)
-        setTitleError(data.errors.title)
-        setContentError(data.errors.content)
       }
     } catch (err) {
       //console.log(err)
@@ -44,28 +38,29 @@ const CreatePost = () => {
   }, [])
 
   return (
-    <div className="create">
+    <div className="createPost">
       <h1>新增消息</h1>
       <div className="lastPage" onClick={() => navigate(-1)}>{'< 上一頁'}</div>
       <form onSubmit={handleSubmit}>
-        <div>
-          <label>消息標題:</label>
+        <label>消息標題</label>
+        <div className="inputContainer">
           <input
+            className="title"
             type="text"
             required
             value={title}
             onChange={(e) => setTitle(e.target.value)}
           />
-          <div>{titleError}</div>
         </div>
-        <div>
-          <label>內容:</label>
-          <input
-            type="text"
+        <label>內容</label>
+        <div className="inputContainer">
+          <textarea
+            className="content"
             value={content}
             onChange={(e) => setContent(e.target.value)}
+            rows={20}
+            cols={50}
           />
-          <div>{contentError}</div>
         </div>
         <button >新增</button>
       </form>

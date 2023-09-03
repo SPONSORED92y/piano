@@ -65,28 +65,35 @@ const Post = () => {
             <form onSubmit={handleSubmit}>
                 {currentUser && currentUser === 'Admin' ?
                     <div>
-                        <label>{language === 'zh' ? '標題' : 'Title'}</label>
-                        <input className="title"
-                            type="text"
-                            required
-                            value={title}
-                            onChange={(e) => setTitle(e.target.value)}
-                        />
-                        <div>{titleError}</div>
-                        <div>{`${new Date(date).getFullYear()}-${new Date(date).getMonth() + 1}-${new Date(date).getDate()}`}</div>
-                        <label>{language === 'zh' ? '內文' : 'Content'}</label>
-                        <input className="content"
-                            type="text"
-                            value={content}
-                            onChange={(e) => setTitle(e.target.value)}
-                        />
-                        <div>{contentError}</div>
+                        <label>{`${new Date(date).getFullYear()}-${new Date(date).getMonth() + 1}-${new Date(date).getDate()}`}</label>
+                        <label>消息標題</label>
+                        <div className="inputContainer">
+                            <input
+                                className="title"
+                                type="text"
+                                required
+                                value={title}
+                                onChange={(e) => setTitle(e.target.value)}
+
+                            />
+                        </div>
+                        <label>內容</label>
+                        <div className="inputContainer">
+                            <textarea
+                                className="content"
+                                value={content}
+                                onChange={(e) => setContent(e.target.value)}
+                                rows={20}
+                                cols={50}
+                            />
+                        </div>
+                        <button >儲存變更</button>
                     </div>
                     :
-                    <div>
-                        <div className="title">{title}</div>
+                    <div className="guest">
                         <div>{`${new Date(date).getFullYear()}-${new Date(date).getMonth() + 1}-${new Date(date).getDate()}`}</div>
-                        <div>{content}</div>
+                        <div className="title">{title}</div>
+                        <div className="content"><p>{content}</p></div>
                     </div>
                 }
             </form>

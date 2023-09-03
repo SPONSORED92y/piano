@@ -1,0 +1,86 @@
+.post {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.post form {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    justify-content: start;
+}
+
+.post .lastPage {
+    margin-top: 10px;
+    margin-right: 4px;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+.post .guest,
+.post label {
+    display: block;
+    margin: 8px 0px;
+    font-weight: 600;
+    font-size: 18px;
+    text-align: center;
+    width: 350px;
+}
+
+.post form .inputContainer {
+    width: 350px;
+}
+
+.post form input {
+    box-sizing: border-box;
+    width: 350px;
+    outline-style: none;
+    border: solid 2px var(--GRAY);
+    font-size: 16px;
+    background-color: var(--LIGHT_PINK);
+    border-radius: 6px;
+    padding: 0px 8px;
+}
+
+
+.post .title {
+    height: 30px;
+    text-align: center;
+}
+
+.post .content {
+    height: 300px;
+    resize: none;
+    box-sizing: border-box;
+    width: 350px;
+    outline-style: none;
+    border: solid 2px var(--GRAY);
+    font-size: 16px;
+    background-color: var(--LIGHT_PINK);
+    border-radius: 6px;
+    padding: 0px 8px;
+    padding: 8px;
+    white-space: normal;
+    word-wrap: normal;
+}
+
+
+.post button {
+    height: 32px;
+    line-height: 35px;
+    text-align: center;
+    width: 120px;
+    font-size: 18px;
+    font-weight: 500;
+    border-radius: 4px;
+    margin: 14px 0px 10px 115px;
+    border: none;
+    background-color: var(--LIGHT_PINK);
+    box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+}
+
+.post button:hover {
+    box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.6);
+}

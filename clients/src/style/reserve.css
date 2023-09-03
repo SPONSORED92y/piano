@@ -4,7 +4,6 @@
     flex-direction: column;
     justify-content: start;
     align-items: center;
-    height: 900px;
     width: 1000px;
 }
 
@@ -16,6 +15,9 @@
 .reserve .notReserveTime {
     color: red;
     font-size: 20px;
+    border-top: solid var(--LIGHT_PINK);
+    border-bottom: solid var(--LIGHT_PINK);
+    padding: 4px 30px;
 }
 
 .reserve .bigBox {
@@ -129,10 +131,9 @@
 
 /* table */
 .reserve .tableContainer {
-    display: flex;
     margin: 0px 20px;
     width: 1000px;
-    height: 700px;
+    height: 870px;
     margin-top: 10px;
     font: 18px;
 }
@@ -181,13 +182,11 @@
 }
 
 .backCover {
-    position: fixed;
+    position: absolute;
     width: 100%;
     height: 100%;
     top: 0;
     right: 0;
-    bottom: 0;
-    left: 0;
     background-color: var(--LIGHT_PINK);
     opacity: .75;
     z-index: 1;
