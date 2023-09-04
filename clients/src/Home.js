@@ -15,10 +15,16 @@ const Home = () => {
                     <div className="text1">成功大學 鋼琴社</div>
                     <div className="text2">NCKU PIANO</div>
                 </div>
+                <div className="textm">
+                    <div className="text1">成功 </div>
+                    <div className="text2">大學</div>
+                    <div className="text3">鋼琴社</div>
+                </div>
                 <div className="logoContainer">
                     <img className="logo" src="logo.png" ></img>
                 </div>
             </div>
+            <div className="text4">NCKU PIANO</div>
             <div className="intro"><div className="dash"></div><div className="text1">以琴會友 在黑白的琴鍵中譜寫未來</div></div>
 
             <div className="rooms">
