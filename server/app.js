@@ -25,7 +25,7 @@ app.use(limiter);
 
 // const cors = require('cors')
 // var corsOptions = {
-//     origin: 'http://localhost:3000',
+//     origin: 'http://localhost:11587',
 //     // credentials: true
 //     credentials: true
 // }
@@ -62,10 +62,12 @@ router.patch('/server/changePassword', requireAuth, checkUser, controller.change
 router.get('/server/Userlist', requireAuth, checkUser, controller.userListGet)
 router.patch('/server/profileEditUser', requireAuth, checkUser, controller.profileEditUserPatch)
 router.patch('/server/changePasswordEditUser', requireAuth, checkUser, controller.changePasswordEditUserPatch)
+router.delete('/server/editUser', requireAuth, checkUser, controller.editUserDelete)
 router.get('/server/posts', controller.postsGet)
 router.post('/server/createPost', requireAuth, checkUser, controller.createPostsPost)
 router.get('/server/post/:id', controller.postGet)
 router.post('/server/editPost', requireAuth, checkUser, controller.editPostPost)
+router.delete('/server/deletePost', requireAuth, checkUser, controller.deletePostDelete)
 // router.get('/server/message', requireAuth, checkUser, controller.messageGet)
 // router.post('/server/messageSend', requireAuth, checkUser, controller.messageSendPost)
 // router.delete('/server/message', requireAuth, checkUser, controller.messageDelete)

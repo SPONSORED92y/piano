@@ -131,7 +131,7 @@
     flex: 1;
     display: flex;
     justify-content: center;
-    max-width: 440px;
+    max-width: 500px;
 }
 
 .home .learn .text {
@@ -165,9 +165,10 @@
 
 .home .learn .images img {
     height: 180px;
-    width: 180px;
+    width: 237px;
     background-color: var(--LIGHT_PINK);
-    margin-left: 20px;
+    margin-left: 10px;
+    margin-right: 10px;
 }
 
 /* concert */
@@ -189,8 +190,8 @@
 }
 
 .home .concert .text {
-    flex: 3;
-    max-width: 440px;
+    flex: 1;
+    max-width: 450px;
 }
 
 .home .concert .text .text1 {
@@ -206,13 +207,13 @@
 }
 
 .home .concert .images {
-    flex: 4;
-    max-width: 440px;
+    flex: 2;
+    max-width: 600px;
 }
 
 .home .concert .images img {
     height: 180px;
-    width: 180px;
+    width: 270px;
     background-color: var(--LIGHT_PINK);
     margin-left: 20px;
 }
@@ -244,16 +245,21 @@
 }
 
 .home .activity .images {
-    flex: 1;
-    max-width: 500px;
+    flex: 2;
+    max-width: 600px;
 }
 
 .home .activity .images img {
     height: 180px;
-    width: 180px;
+    width: 240px;
     background-color: var(--LIGHT_PINK);
     margin-left: 20px;
     margin-bottom: 20px;
+}
+
+.home .activity .images .img2 {
+    height: 180px;
+    width: 180px;
 }
 
 /* info */
@@ -277,7 +283,8 @@
 
 .home .info .text {
     flex: 1;
-    max-width: 300px;
+    max-width: 500px;
+    margin-left: 20px;
 }
 
 .home .info .text .text1,
@@ -286,15 +293,14 @@
 }
 
 .home .info .images {
-    flex: 2;
-    max-width: 450px;
+    flex: 3;
+    max-width: 600px;
 }
 
 .home .info .images img {
-    height: 180px;
-    width: 400px;
+    height: 156px;
+    width: 600px;
     background-color: var(--LIGHT_PINK);
-    margin-left: 20px;
 }
 
 /* people */

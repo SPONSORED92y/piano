@@ -59,6 +59,27 @@ const Post = () => {
         }
     }
 
+    const handleClickDelete = async () => {
+        try {
+            const res = await fetch(`${Variable.serverURL}/deletePost`, {
+                mode: 'cors',
+                method: "DELETE",
+                credentials: "include",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ id })
+            })
+            if (res.ok) {
+                //console.log(`${title} deleted successfully`)
+                navigate('/news')
+            } else {
+                const data = await res.json()
+                //console.log(data)
+            }
+        } catch (err) {
+            //console.log(err)
+        }
+    }
+
     return (
         <div className="post">
             <div className="lastPage" onClick={() => navigate(-1)}>{language === 'zh' ? '< 上一頁' : '< Previous Page'}</div>
@@ -88,6 +109,7 @@ const Post = () => {
                             />
                         </div>
                         <button >儲存變更</button>
+                        <div className="delButton" onClick={handleClickDelete}>刪除琴譜</div>
                     </div>
                     :
                     <div className="guest">

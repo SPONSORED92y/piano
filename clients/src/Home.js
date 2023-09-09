@@ -30,7 +30,7 @@ const Home = () => {
             <div className="rooms">
                 <div className="text">
                     <div className="text1">琴房介紹</div>
-                    <div className="text2">我們有三間琴房+一間社辦，只要是鋼琴社社員都可以在學生活動中心開放時間（08:00-24:00）預約使用琴房！</div>
+                    <div className="text2">有三間琴房供社員預約使用，繳交社費入社後便可獲得琴房磁卡，在學生活動中心開放時間可以使用琴房！可以先上網預約時段喔</div>
                 </div>
                 <div className="images">
                     <img ></img>
@@ -44,20 +44,20 @@ const Home = () => {
                         <div className="text">
                             <div className="text1">社課</div>
                             <div className="text2">邀請講師講解古典或流行的各種知識，也有融通講座喔！</div>
-                            <div className="text3">{'了解更多 >'}</div>
+                            {/* <div className="text3">{'了解更多 >'}</div> */}
                         </div>
                         <div className="images">
-                            <img></img>
+                            <img src='learn_1.jpg'></img>
                         </div>
                     </div>
                     <div className="colRight">
                         <div className="text">
                             <div className="text1">師徒制</div>
                             <div className="text2">想找一對一鋼琴教學嗎？師徒制正是你需要的</div>
-                            <div className="text3">{'了解更多 >'}</div>
+                            {/* <div className="text3">{'了解更多 >'}</div> */}
                         </div>
                         <div className="images">
-                            <img></img>
+                            <img src='learn_2.jpg'></img>
                         </div>
 
                     </div>
@@ -70,11 +70,11 @@ const Home = () => {
                     <div className="text">
                         <div className="text1">想找個舞台一展琴技嗎？每個學期舉辦各一次音樂會和下午茶，歡迎所有社員報名表演者，如果只是想當觀眾享受音樂也是沒問題的喔！</div>
                         <div className="text2">在音樂廳廳舉行的正式音樂會，觀賞表演者在舞台上大放異彩</div>
-                        <div className="text3">下午茶是較輕鬆的音樂會，聽著音樂享用餐點，度過優閒的午後</div>
+                        <div className="text3">下午茶是較輕鬆的音樂會，聽著音樂享用餐點，度過悠閒的午後</div>
                     </div>
                     <div className="images">
-                        <img ></img>
-                        <img></img>
+                        <img src='concert_1.jpg'></img>
+                        <img src='concert_2.jpg'></img>
                     </div>
                 </div>
             </div>
@@ -83,10 +83,10 @@ const Home = () => {
                 <div className="activityHeader">活動</div>
                 <div className="box">
                     <div className="images">
-                        <img></img>
-                        <img></img>
-                        <img></img>
-                        <img></img>
+                        <img className="img1" src='activity_1.jpg'></img>
+                        <img className="img2" src='activity_2.jpg'></img>
+                        <img className="img3" src='activity_3.png'></img>
+                        <img className="img4" src='activity_4.jpg'></img>
                     </div>
                     <div className="text">
                         <div className="text1">鋼琴社會舉辦好玩的活動！例如：野餐、沙遊等</div>
@@ -98,11 +98,11 @@ const Home = () => {
                 <div className="infoHeader">社辦位置&值班時間&入社</div>
                 <div className="box">
                     <div className="images">
-                        <img></img>
+                        <img src='position.png' alt="這是一張位置圖"></img>
                     </div>
                     <div className="text">
-                        <div className="text1">鋼琴社位於光復校區學生活動中心(一活)B1，值班時間為星期一~星期四18:30-20:30，</div>
-                        <div className="text2">入社費用600元(´･ω･`)</div>
+                        <div className="text1">鋼琴社位於光復校區學生活動中心(一活)B1，值班時間為星期一~星期五18:00-20:00</div>
+                        <div className="text2">社費每學期600元+100元琴房磁卡押金(於學期結束後歸還將退回100元)</div>
                     </div>
                 </div>
             </div>
@@ -110,7 +110,8 @@ const Home = () => {
 
             <div className="people">
                 <div className="peopleHeader">幹部介紹</div>
-                <div className="row">
+                <div className="row">暫時沒有┐⁠(⁠´⁠ー⁠｀⁠)⁠┌</div>
+                {/* <div className="row">
                     <div className="colLeft">
                         <div className="images">
                             <img></img>
@@ -145,7 +146,7 @@ const Home = () => {
                             <div className="text1">黃羚羊</div>
                         </div>
                     </div>
-                </div>
+                </div> */}
 
             </div>
 

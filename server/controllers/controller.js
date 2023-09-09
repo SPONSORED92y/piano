@@ -320,6 +320,18 @@ exports.editPostPost = async (req, res) => {
         res.status(400).json({ errors })
     }
 }
+exports.deletePostDelete = async (req, res) => {
+    try {
+        if (res.locals.user.role !== 'Admin') {
+            throw Error('Only Admin can do this action')
+        }
+        const deleteResult = await Post.deleteOne({ _id: req.body.id.substring(1, 27) })
+        res.status(200).json(deleteResult)
+    } catch (err) {
+        res.status(400).json(err)
+    }
+}
+
 // exports.messagePost = async (req, res) => {
 //     let messages = []
 //     try {

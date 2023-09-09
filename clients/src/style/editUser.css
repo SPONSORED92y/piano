@@ -1,0 +1,175 @@
+/* editUser*/
+.editUser {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: start;
+    width: 100%;
+}
+
+
+.editUser h1 {
+    font-size: 40px;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.editUser .lastPage {
+    margin-right: 4px;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+.editUser .pointText {
+    margin: 4px 0px;
+    font-weight: 600;
+    font-size: 16px;
+    padding: 2px 10px;
+    border-bottom: solid 2px var(--LIGHT_PINK);
+}
+
+.editUser .bigBox {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 500px;
+    /* margin-top: 25px; */
+}
+
+.editUser form {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    width: 520px;
+}
+
+.editUser .error {
+    height: 36px;
+    width: auto;
+    line-height: 36px;
+    font-size: 16px;
+    color: var(--GRAY);
+    font-weight: 600;
+    text-align: center;
+    z-index: 1;
+    margin-left: 10px;
+}
+
+.editUser form input,
+.editUser form select {
+    box-sizing: border-box;
+    height: 34px;
+    width: 350px;
+    outline-style: none;
+    border: solid 2px var(--GRAY);
+    font-size: 16px;
+    background-color: var(--LIGHT_PINK);
+    border-radius: 6px;
+    padding: 0px 8px;
+}
+
+.editUser form .inputContainer {
+    width: 520px;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    margin-left: 85px;
+}
+
+
+
+@media screen and (max-width: 1000px) {
+    .editUser form .inputContainer {
+        display: flex;
+        flex-direction: column;
+        align-items: start;
+    }
+
+    .editUser .error {
+        position: static;
+        height: auto;
+        width: 350px;
+        line-height: 36px;
+        font-size: 16px;
+        color: var(--GRAY);
+        text-align: center;
+        margin-left: 0px;
+    }
+}
+
+.editUser label {
+    margin: 4px 0px 4px 85px;
+    font-weight: 600;
+    font-size: 16px;
+}
+
+.editUser .tooltip1,
+.editUser .tooltip2 {
+    display: inline-block;
+    border: solid 1px var(--LIGHT_PINK);
+    background-color: var(--GRAY);
+    height: 22px;
+    width: 22px;
+    line-height: 22px;
+    border-radius: 11px;
+    font-size: 15px;
+    color: var(--LIGHT_PINK);
+    text-align: center;
+    margin-left: 6px;
+}
+
+.editUser .tooltiptext1,
+.editUser .tooltiptext2 {
+    visibility: hidden;
+    width: 160px;
+    background-color: var(--GRAY);
+    color: var(--LIGHT_PINK);
+    text-align: center;
+    border-radius: 6px;
+    padding: 2px 8px;
+    margin-left: 5px;
+}
+
+.editUser .tooltip1:hover+.tooltiptext1,
+.editUser .tooltip2:hover+.tooltiptext2 {
+    visibility: visible;
+}
+
+.editUser .editUserButton {
+    height: 32px;
+    line-height: 35px;
+    text-align: center;
+    width: 120px;
+    font-size: 18px;
+    font-weight: 500;
+    border-radius: 4px;
+    margin: 14px 0px 10px 190px;
+    border: none;
+    background-color: var(--LIGHT_PINK);
+    box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+}
+
+.editUser .editUserButton:hover {
+    box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.6);
+}
+
+.editUser h2 {
+    margin: 0px 0px 10px 85px;
+}
+
+.editUser .delButton {
+    height: 28px;
+    line-height: 28px;
+    text-align: center;
+    width: 120px;
+    font-size: 16px;
+    font-weight: 500;
+    border-radius: 4px;
+    margin: 5px 0px 10px 189px;
+    border: solid 2px var(--LIGHT_PINK);
+    background-color: var(--GRAY);
+    color: var(--LIGHT_PINK);
+    box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+}
