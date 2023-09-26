@@ -85,7 +85,7 @@ const Home = () => {
                     <div className="images">
                         <img className="img1" src='activity_1.jpg'></img>
                         <img className="img2" src='activity_2.jpg'></img>
-                        <img className="img3" src='activity_3.png'></img>
+                        <img className="img3" src='activity_3.jpg'></img>
                         <img className="img4" src='activity_4.jpg'></img>
                     </div>
                     <div className="text">
